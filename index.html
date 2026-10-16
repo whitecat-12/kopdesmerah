@@ -60,10 +60,26 @@ body::after{content:'';position:fixed;bottom:-200px;left:-200px;width:500px;heig
 .auth-msg.ok{color:var(--success);}
 .hint{font-size:11px;color:var(--text-mute);text-align:center;margin-top:12px;line-height:1.5;}
 
-/* ================= APP SHELL (HP) ================= */
-.app-container{width:100%;max-width:440px;background:var(--bg);height:100vh;max-height:900px;position:relative;overflow-y:auto;overflow-x:hidden;box-shadow:0 30px 80px rgba(220,38,38,.15);border-radius:32px;scrollbar-width:none;}
-.app-container::-webkit-scrollbar{display:none;}
-header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,transparent 100%);position:sticky;top:0;z-index:5;}
+/* ================= APP SHELL (HP) =================
+   PERUBAHAN UTAMA: container jadi flex column, nav tidak ikut scroll */
+.app-container{
+  width:100%;max-width:440px;background:var(--bg);
+  height:100vh;max-height:900px;position:relative;
+  overflow:hidden;   /* container tidak scroll */
+  box-shadow:0 30px 80px rgba(220,38,38,.15);
+  border-radius:32px;
+  display:flex;flex-direction:column;
+}
+/* Area scroll khusus untuk konten, header sticky di dalam sini */
+.app-scroll{
+  flex:1;min-height:0;
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.app-scroll::-webkit-scrollbar{display:none;}
+
+header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,#FFF8F7 60%,transparent 100%);position:sticky;top:0;z-index:5;}
 .user-info{display:flex;align-items:center;gap:12px;}
 .user-avatar{width:48px;height:48px;border-radius:16px;background:var(--gradient);display:flex;justify-content:center;align-items:center;color:#fff;font-weight:800;font-size:16px;box-shadow:0 8px 16px rgba(220,38,38,.25);}
 .user-text p{font-size:11.5px;color:var(--text-soft);font-weight:500;}
@@ -97,7 +113,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .section-title h3{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.2px;position:relative;padding-left:14px;}
 .section-title h3::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:20px;background:var(--gradient);border-radius:3px;}
 .section-title span{font-size:12px;color:var(--text-mute);font-weight:600;}
-.product-grid{padding:0 22px 150px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.product-grid{padding:0 22px 120px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .product-card{background:#fff;border-radius:22px;padding:10px;box-shadow:var(--shadow-sm);position:relative;transition:all .3s cubic-bezier(.2,.9,.3,1.2);cursor:pointer;border:1.5px solid var(--border);overflow:hidden;}
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(220,38,38,.2);}
 .product-card:active{transform:scale(.97);}
@@ -119,18 +135,36 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .stock-tag.habis{background:#FEF2F2;color:var(--red);}
 .empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-soft);font-size:13px;font-weight:500;}
 .empty-state i{font-size:44px;display:block;margin-bottom:16px;color:var(--red);opacity:.25;}
-.bottom-nav{position:absolute;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:14px 18px 20px;border-radius:32px 32px 0 0;box-shadow:0 -10px 30px rgba(220,38,38,.08);z-index:10;border-top:1px solid var(--border);}
+
+/* === BOTTOM NAV — sekarang jadi flex child, tidak absolute === */
+.bottom-nav{
+  background:#fff;display:flex;justify-content:space-around;
+  padding:14px 18px 20px;border-radius:32px 32px 0 0;
+  box-shadow:0 -10px 30px rgba(220,38,38,.08);
+  z-index:10;border-top:1px solid var(--border);
+  flex-shrink:0;
+}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--text-mute);text-decoration:none;font-size:10.5px;cursor:pointer;transition:.3s;background:none;border:none;font-family:inherit;position:relative;padding:6px 12px;border-radius:14px;font-weight:600;}
 .nav-item i{font-size:19px;transition:.3s;}
 .nav-item.active{color:var(--red);}
 .nav-item.active i{transform:scale(1.15);}
 .nav-item.active::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--gradient);border-radius:3px;}
 .nav-badge{position:absolute;top:2px;right:6px;background:var(--red);color:#fff;font-size:9px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:700;border:2px solid #fff;}
-.cart-bar{position:absolute;bottom:88px;left:22px;right:22px;background:var(--gradient);border-radius:18px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;color:#fff;box-shadow:0 15px 30px rgba(220,38,38,.35);z-index:9;cursor:pointer;transition:.35s cubic-bezier(.2,.9,.3,1.2);border:none;font-family:inherit;transform:translateY(130px);opacity:0;pointer-events:none;}
+
+/* Cart bar tetap absolute terhadap container (yang sekarang tidak scroll) */
+.cart-bar{
+  position:absolute;bottom:88px;left:22px;right:22px;
+  background:var(--gradient);border-radius:18px;padding:16px 22px;
+  display:flex;justify-content:space-between;align-items:center;color:#fff;
+  box-shadow:0 15px 30px rgba(220,38,38,.35);z-index:9;cursor:pointer;
+  transition:.35s cubic-bezier(.2,.9,.3,1.2);border:none;font-family:inherit;
+  transform:translateY(130px);opacity:0;pointer-events:none;
+}
 .cart-bar.show{transform:translateY(0);opacity:1;pointer-events:auto;}
 .cart-bar:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(220,38,38,.45);}
 .cart-bar-text{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
 .cart-bar-total{font-size:16px;font-weight:800;letter-spacing:-.3px;}
+
 .view{display:none;}
 .view.active{display:block;animation:fadeIn .3s;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -190,7 +224,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .profile-card .avatar{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;border:2px solid rgba(255,255,255,.3);position:relative;z-index:2;flex-shrink:0;}
 .profile-card h3{font-size:17px;font-weight:800;position:relative;z-index:2;letter-spacing:-.3px;}
 .profile-card p{font-size:12.5px;opacity:.9;position:relative;z-index:2;font-weight:500;}
-.menu-list{margin:0 22px 150px;background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);}
+.menu-list{margin:0 22px 30px;background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);}
 .menu-item{display:flex;align-items:center;gap:14px;padding:17px;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text);cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;width:100%;text-align:left;font-family:inherit;font-weight:600;transition:.2s;}
 .menu-item:last-child{border-bottom:none;}
 .menu-item:hover{background:var(--red-soft);}
@@ -271,7 +305,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 /* ================= ADMIN (VERSI HP) ================= */
 #adminScreen.active{display:flex;align-items:center;justify-content:center;width:100%;height:100vh;}
 .admin-container{width:100%;max-width:440px;height:100vh;max-height:900px;background:var(--bg);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(220,38,38,.18);position:relative;}
-.admin-header{padding:24px 20px 14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,transparent 100%);flex-shrink:0;position:relative;}
+.admin-header{padding:24px 20px 14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,#FFF8F7 60%,transparent 100%);flex-shrink:0;position:relative;}
 .admin-header::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#DC2626 0%,#DC2626 50%,#fff 50%,#fff 100%);}
 .admin-brand{display:flex;align-items:center;gap:12px;min-width:0;}
 .admin-brand i{width:44px;height:44px;border-radius:14px;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 8px 16px rgba(220,38,38,.3);flex-shrink:0;}
@@ -279,7 +313,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .admin-brand span{font-size:10.5px;color:var(--text-soft);font-weight:600;letter-spacing:.2px;}
 .admin-logout-btn{width:44px;height:44px;border-radius:14px;background:#fff;border:1.5px solid var(--border);color:var(--red);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.25s;flex-shrink:0;}
 .admin-logout-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
-.admin-main{flex:1;overflow-y:auto;overflow-x:hidden;padding:6px 18px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.admin-main{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:6px 18px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .admin-main::-webkit-scrollbar{display:none;}
 .admin-nav{display:flex;justify-content:space-around;background:#fff;padding:12px 8px 18px;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(220,38,38,.08);border-top:1px solid var(--border);flex-shrink:0;z-index:10;}
 .admin-nav button{display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;color:var(--text-mute);font-size:10px;font-weight:600;font-family:inherit;cursor:pointer;padding:6px 10px;border-radius:14px;transition:.3s;position:relative;flex:1;}
@@ -385,7 +419,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
   #authScreen.active{padding:16px;}
   .bottom-nav{border-radius:24px 24px 0 0;padding-bottom:max(20px,env(safe-area-inset-bottom));}
   .admin-nav{padding-bottom:max(18px,env(safe-area-inset-bottom));}
-  .product-grid{padding-bottom:170px;}
+  .product-grid{padding-bottom:140px;}
   .sheet{border-radius:26px 26px 0 0;}
 }
 </style>
@@ -438,51 +472,56 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 
 <!-- ================= CUSTOMER ================= -->
 <div id="customerScreen" class="app-container screen">
-  <header>
-    <div class="user-info">
-      <div class="user-avatar" id="userAvatar">BS</div>
-      <div class="user-text"><p>Selamat datang,</p><h3 id="userName">Pelanggan</h3></div>
-    </div>
-    <button class="notification-btn" id="btnNotif"><i class="fas fa-bell"></i></button>
-  </header>
-  <div id="viewHome" class="view active">
-    <div class="search-section">
-      <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Cari kebutuhan pokok..."></div>
-      <button class="filter-btn" id="sortBtn" title="Urutkan"><i class="fas fa-sliders-h"></i></button>
-    </div>
-    <div class="categories" id="categories"></div>
-    <div class="banner">
-      <div class="banner-text">
-        <span class="promo-tag"><i class="fas fa-fire"></i> PROMO SPESIAL</span>
-        <h2>Diskon Spesial Untuk Sembako!</h2>
-        <p>Waktu terbatas. Belanja sekarang sebelum kehabisan!</p>
-        <button class="shop-now-btn" id="bannerBtn"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+  <!-- AREA SCROLL: header + semua view -->
+  <div class="app-scroll">
+    <header>
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">BS</div>
+        <div class="user-text"><p>Selamat datang,</p><h3 id="userName">Pelanggan</h3></div>
       </div>
-      <div class="banner-img"></div>
+      <button class="notification-btn" id="btnNotif"><i class="fas fa-bell"></i></button>
+    </header>
+    <div id="viewHome" class="view active">
+      <div class="search-section">
+        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Cari kebutuhan pokok..."></div>
+        <button class="filter-btn" id="sortBtn" title="Urutkan"><i class="fas fa-sliders-h"></i></button>
+      </div>
+      <div class="categories" id="categories"></div>
+      <div class="banner">
+        <div class="banner-text">
+          <span class="promo-tag"><i class="fas fa-fire"></i> PROMO SPESIAL</span>
+          <h2>Diskon Spesial Untuk Sembako!</h2>
+          <p>Waktu terbatas. Belanja sekarang sebelum kehabisan!</p>
+          <button class="shop-now-btn" id="bannerBtn"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+        </div>
+        <div class="banner-img"></div>
+      </div>
+      <div class="section-title"><h3>Produk Unggulan</h3><span id="productCount"></span></div>
+      <div class="product-grid" id="productGrid"></div>
     </div>
-    <div class="section-title"><h3>Produk Unggulan</h3><span id="productCount"></span></div>
-    <div class="product-grid" id="productGrid"></div>
-  </div>
-  <div id="viewOrders" class="view">
-    <div class="section-title" style="padding-top:8px"><h3>Pesanan Saya</h3></div>
-    <div id="ordersList"></div>
-  </div>
-  <div id="viewWishlist" class="view">
-    <div class="section-title" style="padding-top:8px"><h3>Favorit Saya</h3></div>
-    <div class="product-grid" id="wishlistGrid"></div>
-  </div>
-  <div id="viewProfile" class="view">
-    <div class="section-title" style="padding-top:8px"><h3>Profil</h3></div>
-    <div class="profile-card">
-      <div class="avatar" id="profileAvatar">BS</div>
-      <div><h3 id="profileNama">Pelanggan</h3><p id="profileEmail">email@contoh.com</p></div>
+    <div id="viewOrders" class="view">
+      <div class="section-title" style="padding-top:8px"><h3>Pesanan Saya</h3></div>
+      <div id="ordersList"></div>
     </div>
-    <div class="menu-list">
-      <button class="menu-item" id="btnEditProfil"><i class="fas fa-user-pen"></i> Edit Profil <i class="fas fa-chevron-right arrow"></i></button>
-      <button class="menu-item" id="btnRiwayat"><i class="fas fa-receipt"></i> Riwayat Pesanan <i class="fas fa-chevron-right arrow"></i></button>
-      <button class="menu-item" id="btnLogout"><i class="fas fa-right-from-bracket" style="background:#FEE2E2;color:#DC2626"></i> Keluar Akun <i class="fas fa-chevron-right arrow"></i></button>
+    <div id="viewWishlist" class="view">
+      <div class="section-title" style="padding-top:8px"><h3>Favorit Saya</h3></div>
+      <div class="product-grid" id="wishlistGrid"></div>
+    </div>
+    <div id="viewProfile" class="view">
+      <div class="section-title" style="padding-top:8px"><h3>Profil</h3></div>
+      <div class="profile-card">
+        <div class="avatar" id="profileAvatar">BS</div>
+        <div><h3 id="profileNama">Pelanggan</h3><p id="profileEmail">email@contoh.com</p></div>
+      </div>
+      <div class="menu-list">
+        <button class="menu-item" id="btnEditProfil"><i class="fas fa-user-pen"></i> Edit Profil <i class="fas fa-chevron-right arrow"></i></button>
+        <button class="menu-item" id="btnRiwayat"><i class="fas fa-receipt"></i> Riwayat Pesanan <i class="fas fa-chevron-right arrow"></i></button>
+        <button class="menu-item" id="btnLogout"><i class="fas fa-right-from-bracket" style="background:#FEE2E2;color:#DC2626"></i> Keluar Akun <i class="fas fa-chevron-right arrow"></i></button>
+      </div>
     </div>
   </div>
+  <!-- END AREA SCROLL -->
+
   <button class="cart-bar" id="cartBar">
     <div class="cart-bar-text"><i class="fas fa-shopping-basket"></i> <span id="cartCount">0</span> item</div>
     <div class="cart-bar-total" id="cartTotal">Rp 0</div>
@@ -1207,7 +1246,8 @@ function switchView(view) {
   $$(".view").forEach(v => v.classList.remove("active"));
   $("#view" + view.charAt(0).toUpperCase() + view.slice(1))?.classList.add("active");
   $$(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === view));
-  $("#customerScreen").scrollTop = 0;
+  // Scroll area baru (bukan container)
+  const sc = $(".app-scroll"); if (sc) sc.scrollTop = 0;
   if (view === "wishlist") renderWishlist();
 }
 
@@ -1232,7 +1272,8 @@ function attachCustomerEvents() {
   });
   $("#bannerBtn").addEventListener("click", () => {
     activeCategory = "Sembako"; searchTerm = ""; $("#searchInput").value = "";
-    renderCategories(); renderProducts(); $("#customerScreen").scrollTop = 340;
+    renderCategories(); renderProducts();
+    const sc = $(".app-scroll"); if (sc) sc.scrollTop = 340;
   });
   $("#btnNotif").addEventListener("click", () => {
     const aktif = allOrders.filter(o => o.status === "pending" || o.status === "diproses" || o.status === "dikirim").length;
@@ -1471,7 +1512,7 @@ function switchAdminView(v) {
   $$(".admin-view").forEach(s => s.classList.remove("active"));
   $("#aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
   $$(".admin-nav button[data-aview]").forEach(b => b.classList.toggle("active", b.dataset.aview === v));
-  $(".admin-main").scrollTop = 0;
+  const am = $(".admin-main"); if (am) am.scrollTop = 0;
 }
 
 function listenAdminProducts() {

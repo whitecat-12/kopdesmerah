@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#DC2626">
-<title>Koperasi Desa Merah Putih</title>
+<title>Koperasi Merah Putih</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
@@ -92,6 +92,12 @@ button{background:none;border:none;cursor:pointer;color:inherit;}
 .auth-card h1{font-size:clamp(17px,5vw,21px);line-height:1.3;color:var(--text);font-weight:800;letter-spacing:-.4px;}
 .auth-card h1 span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .auth-sub{font-size:clamp(11px,3.1vw,12.5px);color:var(--text-soft);margin:7px 0 16px;line-height:1.55;}
+
+/* ALAMAT KOPERASI (baru) */
+.auth-address{margin:6px 0 16px;font-size:clamp(10.5px,2.9vw,12px);color:var(--text-soft);font-weight:600;letter-spacing:.2px;line-height:1.6;display:flex;align-items:flex-start;gap:6px;}
+.auth-address i{color:var(--red);font-size:clamp(11px,3vw,12.5px);margin-top:3px;flex-shrink:0;}
+.auth-address span{display:block;}
+
 .role-switch{display:flex;gap:5px;background:var(--red-soft);padding:5px;border-radius:var(--r-md);margin-bottom:14px;border:1px solid rgba(220,38,38,.07);}
 .role-btn{flex:1;border:none;background:transparent;padding:clamp(9px,2.6vw,11px) 8px;border-radius:10px;font-size:clamp(11px,3.1vw,12.5px);font-weight:700;color:var(--text-soft);cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:6px;}
 .role-btn i{font-size:.92em;}
@@ -525,6 +531,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   .auth-logo{width:54px;height:54px;margin-bottom:11px;border-radius:15px;padding:7px;}
   .auth-card h1{font-size:16px;}
   .auth-sub{margin:6px 0 12px;font-size:11px;}
+  .auth-address{margin:5px 0 12px;font-size:10.5px;}
   .role-btn{padding:8px 6px;font-size:11px;}
   .auth-tabs{gap:18px;margin-bottom:12px;}
   .auth-tab{padding:3px 2px 9px;font-size:12px;}
@@ -545,6 +552,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   .auth-logo{width:54px;height:54px;margin-bottom:11px;border-radius:15px;padding:7px;}
   .auth-card h1{font-size:16.5px;}
   .auth-sub{margin:6px 0 12px;font-size:11px;}
+  .auth-address{margin:5px 0 11px;font-size:10.5px;}
   .role-switch{margin-bottom:11px;padding:4px;}
   .role-btn{padding:8px;font-size:11.5px;}
   .auth-tabs{margin-bottom:11px;}
@@ -566,10 +574,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 <div id="splashScreen">
   <div class="splash-content">
     <div class="splash-logo">
-      <img id="splashLogoImg" alt="Logo Koperasi Desa Merah Putih">
+      <img id="splashLogoImg" alt="Logo Koperasi Merah Putih">
       <div class="splash-flag"><span></span><span></span></div>
     </div>
-    <h1>Koperasi Desa<em>Merah Putih</em></h1>
+    <h1>Koperasi Merah Putih<em>Desa Kemiri</em></h1>
     <p>Belanja kebutuhan pokok jadi lebih mudah, hemat & terpercaya.</p>
     <div class="splash-loader"><span></span><span></span><span></span></div>
   </div>
@@ -591,10 +599,13 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 <div id="authScreen" class="screen">
   <div class="auth-card">
     <div class="auth-logo">
-      <img id="authLogoImg" alt="Logo Koperasi Desa Merah Putih">
+      <img id="authLogoImg" alt="Logo Koperasi Merah Putih">
     </div>
-    <h1>Koperasi Desa<br><span>Merah Putih</span></h1>
-    <p class="auth-sub">Belanja kebutuhan pokok jadi lebih mudah & hemat 🇮🇩</p>
+    <h1>Koperasi <span>Merah Putih</span></h1>
+    <p class="auth-address">
+      <i class="fas fa-location-dot"></i>
+      <span>Desa Kemiri<br>Kunduran, Blora</span>
+    </p>
     <div class="role-switch">
       <button class="role-btn active" data-role="customer"><i class="fas fa-user"></i> Pelanggan</button>
       <button class="role-btn" data-role="admin"><i class="fas fa-user-shield"></i> Admin</button>
@@ -666,7 +677,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <div class="product-grid" id="wishlistGrid"></div>
       </div>
 
-      <!-- UMKM VIEW (BARU) -->
+      <!-- UMKM VIEW -->
       <div id="viewUmkm" class="view">
         <div class="umkm-hero">
           <div class="umkm-hero-icon"><i class="fas fa-store"></i></div>
@@ -832,7 +843,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <h6><i class="fas fa-qrcode"></i> Pembayaran QRIS</h6>
         <p>Scan QR code di bawah ini menggunakan aplikasi <b>mobile banking</b>, <b>DANA</b>, <b>GoPay</b>, atau <b>OVO</b>:</p>
         <img class="qris-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=KOPERASI-DESA-MERAH-PUTIH-QRIS" alt="QRIS">
-        <p style="text-align:center;font-size:10px;color:var(--text-mute)">Koperasi Desa Merah Putih · NMID: ID1024XXXXXX</p>
+        <p style="text-align:center;font-size:10px;color:var(--text-mute)">Koperasi Merah Putih · NMID: ID1024XXXXXX</p>
       </div>
 
       <div class="pay-instruction" id="payInst_dana">
@@ -841,7 +852,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <div style="text-align:center"><span class="nomor-rek" id="noDana">0812-3456-7890</span>
           <button type="button" class="copy-btn" data-copy="081234567890"><i class="fas fa-copy"></i> Salin</button>
         </div>
-        <p style="margin-top:8px"><b>a.n.</b> Koperasi Desa Merah Putih</p>
+        <p style="margin-top:8px"><b>a.n.</b> Koperasi Merah Putih</p>
         <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Kirim bukti transfer via WhatsApp setelah bayar.</p>
       </div>
 
@@ -851,7 +862,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <div style="text-align:center"><span class="nomor-rek" id="noGopay">0812-3456-7890</span>
           <button type="button" class="copy-btn" data-copy="081234567890"><i class="fas fa-copy"></i> Salin</button>
         </div>
-        <p style="margin-top:8px"><b>a.n.</b> Koperasi Desa Merah Putih</p>
+        <p style="margin-top:8px"><b>a.n.</b> Koperasi Merah Putih</p>
         <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Kirim bukti transfer via WhatsApp setelah bayar.</p>
       </div>
     </div>
@@ -911,7 +922,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <p class="hint-small">Pilih <b>UMKM</b> agar produk muncul di katalog khusus UMKM.</p>
     </div>
 
-    <!-- FIELD KHUSUS UMKM (otomatis muncul saat kategori=UMKM) -->
+    <!-- FIELD KHUSUS UMKM -->
     <div class="form-row umkm-row" id="wrapUmkm" style="display:none">
       <label><i class="fas fa-store" style="color:var(--umkm);margin-right:5px"></i>Nama UMKM / Pemilik Usaha</label>
       <div class="input-group"><i class="fas fa-store"></i>
@@ -1437,7 +1448,7 @@ function shippingAlertHTML(status) {
         <i class="fas fa-circle-check"></i>
       </div>
       <div class="text"><strong style="color:#047857">✅ Pesanan Selesai</strong>
-      <span>Terima kasih telah berbelanja di Koperasi Desa Merah Putih!</span></div>
+      <span>Terima kasih telah berbelanja di Koperasi Merah Putih!</span></div>
     </div>`;
   }
   return "";

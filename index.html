@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#DC2626">
 <title>Koperasi Desa Merah Putih</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,26 +18,28 @@
   --success:#059669;--warn:#D97706;--danger:#DC2626;
   --gradient:linear-gradient(135deg,#DC2626 0%,#991B1B 100%);
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
 body{background:linear-gradient(135deg,#FFF1F0 0%,#FFFFFF 50%,#FFF1F0 100%);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:0;position:relative;overflow:hidden;}
 body::before{content:'';position:fixed;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(220,38,38,.08),transparent 70%);border-radius:50%;pointer-events:none;}
 body::after{content:'';position:fixed;bottom:-200px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(220,38,38,.06),transparent 70%);border-radius:50%;pointer-events:none;}
 .screen{display:none;}
 .screen.active{display:block;}
 
+/* ================= AUTH ================= */
 #authScreen.active{display:flex;align-items:center;justify-content:center;width:100%;padding:20px;}
-.auth-card{width:100%;max-width:440px;background:#fff;border-radius:32px;padding:38px 30px;box-shadow:0 30px 80px rgba(220,38,38,.12),0 4px 12px rgba(0,0,0,.04);border:1px solid rgba(220,38,38,.06);position:relative;overflow:hidden;animation:popIn .5s cubic-bezier(.2,.9,.3,1.2);}
+.auth-card{width:100%;max-width:420px;background:#fff;border-radius:32px;padding:34px 26px;box-shadow:0 30px 80px rgba(220,38,38,.12),0 4px 12px rgba(0,0,0,.04);border:1px solid rgba(220,38,38,.06);position:relative;overflow:hidden;animation:popIn .5s cubic-bezier(.2,.9,.3,1.2);}
 @keyframes popIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
 .auth-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#DC2626 0%,#DC2626 50%,#fff 50%,#fff 100%);}
-.auth-logo{width:68px;height:68px;border-radius:22px;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;box-shadow:0 12px 24px rgba(220,38,38,.28);position:relative;}
+.auth-logo{width:64px;height:64px;border-radius:22px;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px;box-shadow:0 12px 24px rgba(220,38,38,.28);position:relative;}
 .auth-logo::after{content:'';position:absolute;inset:-6px;border-radius:26px;border:2px solid rgba(220,38,38,.15);}
-.auth-card h1{font-size:23px;line-height:1.3;color:var(--text);font-weight:800;letter-spacing:-.3px;}
+.auth-card h1{font-size:22px;line-height:1.3;color:var(--text);font-weight:800;letter-spacing:-.3px;}
 .auth-card h1 span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.auth-sub{font-size:13px;color:var(--text-soft);margin:10px 0 24px;line-height:1.5;}
-.role-switch{display:flex;gap:6px;background:var(--red-soft);padding:6px;border-radius:18px;margin-bottom:20px;border:1px solid rgba(220,38,38,.08);}
+.auth-sub{font-size:12.5px;color:var(--text-soft);margin:10px 0 22px;line-height:1.5;}
+.role-switch{display:flex;gap:6px;background:var(--red-soft);padding:6px;border-radius:18px;margin-bottom:18px;border:1px solid rgba(220,38,38,.08);}
 .role-btn{flex:1;border:none;background:transparent;padding:12px;border-radius:13px;font-size:12.5px;font-weight:700;color:var(--text-soft);cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;}
 .role-btn.active{background:var(--gradient);color:#fff;box-shadow:0 8px 16px rgba(220,38,38,.3);}
-.auth-tabs{display:flex;gap:26px;border-bottom:1.5px solid var(--border);margin-bottom:22px;}
+.auth-tabs{display:flex;gap:26px;border-bottom:1.5px solid var(--border);margin-bottom:20px;}
 .auth-tab{border:none;background:none;padding:6px 2px 14px;font-size:14px;font-weight:700;color:var(--text-mute);cursor:pointer;position:relative;font-family:inherit;transition:.2s;}
 .auth-tab.active{color:var(--red);}
 .auth-tab.active::after{content:'';position:absolute;bottom:-1.5px;left:0;right:0;height:3px;background:var(--gradient);border-radius:3px;}
@@ -57,6 +60,7 @@ body::after{content:'';position:fixed;bottom:-200px;left:-200px;width:500px;heig
 .auth-msg.ok{color:var(--success);}
 .hint{font-size:11px;color:var(--text-mute);text-align:center;margin-top:12px;line-height:1.5;}
 
+/* ================= APP SHELL (HP) ================= */
 .app-container{width:100%;max-width:440px;background:var(--bg);height:100vh;max-height:900px;position:relative;overflow-y:auto;overflow-x:hidden;box-shadow:0 30px 80px rgba(220,38,38,.15);border-radius:32px;scrollbar-width:none;}
 .app-container::-webkit-scrollbar{display:none;}
 header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,transparent 100%);position:sticky;top:0;z-index:5;}
@@ -113,7 +117,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .product-rating i{color:#F59E0B;font-size:11px;}
 .stock-tag{font-size:9.5px;margin-top:8px;display:inline-block;padding:4px 10px;border-radius:8px;background:#ECFDF5;color:var(--success);font-weight:700;letter-spacing:.2px;}
 .stock-tag.habis{background:#FEF2F2;color:var(--red);}
-.empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-soft);font-size:13px;font-weight:500;}
+.empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-soft);font-size:13px;font-weight:500;}
 .empty-state i{font-size:44px;display:block;margin-bottom:16px;color:var(--red);opacity:.25;}
 .bottom-nav{position:absolute;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:14px 18px 20px;border-radius:32px 32px 0 0;box-shadow:0 -10px 30px rgba(220,38,38,.08);z-index:10;border-top:1px solid var(--border);}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--text-mute);text-decoration:none;font-size:10.5px;cursor:pointer;transition:.3s;background:none;border:none;font-family:inherit;position:relative;padding:6px 12px;border-radius:14px;font-weight:600;}
@@ -136,19 +140,17 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .order-card:hover{box-shadow:var(--shadow);border-color:rgba(220,38,38,.15);}
 .order-card.is-dikirim{border-color:#DC2626;box-shadow:0 12px 30px rgba(220,38,38,.15);position:relative;overflow:hidden;}
 .order-card.is-dikirim::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient);}
-.order-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.order-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;}
 .order-id{font-size:11px;color:var(--text-mute);font-weight:700;letter-spacing:.3px;}
-.badge{font-size:10px;font-weight:800;padding:5px 12px;border-radius:20px;text-transform:capitalize;letter-spacing:.3px;}
+.badge{font-size:10px;font-weight:800;padding:5px 12px;border-radius:20px;text-transform:capitalize;letter-spacing:.3px;white-space:nowrap;}
 .badge.pending{background:#FEF3C7;color:#B45309;}
 .badge.diproses{background:#DBEAFE;color:#1D4ED8;}
 .badge.dikirim{background:#DC2626;color:#fff;animation:pulseBadge 1.5s infinite;}
 .badge.selesai{background:#D1FAE5;color:#047857;}
 .badge.dibatalkan{background:#FEE2E2;color:#B91C1C;}
 @keyframes pulseBadge{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}50%{box-shadow:0 0 0 6px rgba(220,38,38,0)}}
-.order-item{font-size:12.5px;color:var(--text);display:flex;justify-content:space-between;padding:4px 0;font-weight:500;}
+.order-item{font-size:12.5px;color:var(--text);display:flex;justify-content:space-between;padding:4px 0;font-weight:500;gap:10px;}
 .order-total{display:flex;justify-content:space-between;border-top:1.5px dashed var(--border);margin-top:12px;padding-top:12px;font-size:14px;font-weight:800;color:var(--red);}
-
-/* Payment info di order card */
 .payment-info{margin-top:12px;background:var(--red-soft);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:11px;border:1px solid #FED7D7;}
 .payment-info .pay-icon{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;}
 .payment-info .pay-icon.cod{background:linear-gradient(135deg,#059669,#047857);}
@@ -158,8 +160,6 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .payment-info .pay-text{flex:1;min-width:0;}
 .payment-info .pay-text strong{display:block;font-size:12px;font-weight:800;color:var(--text);margin-bottom:1px;}
 .payment-info .pay-text span{font-size:10.5px;color:var(--text-soft);font-weight:500;display:block;line-height:1.3;}
-
-/* Timeline */
 .track-wrap{margin-top:16px;padding-top:14px;border-top:1.5px dashed var(--border);}
 .track-wrap h5{font-size:11.5px;font-weight:800;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px;letter-spacing:.2px;}
 .track-wrap h5 i{color:var(--red);}
@@ -174,7 +174,6 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .tl-label{font-size:9.5px;font-weight:700;color:var(--text-mute);text-align:center;line-height:1.3;}
 .tl-step.done .tl-label{color:var(--red);}
 .tl-step.current .tl-label{color:var(--red);}
-
 .shipping-alert{margin-top:14px;background:linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%);border:1.5px solid #FCA5A5;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:11px;position:relative;overflow:hidden;}
 .shipping-alert::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--gradient);}
 .shipping-alert .icon-box{width:36px;height:36px;border-radius:11px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;box-shadow:0 6px 14px rgba(220,38,38,.3);animation:truckMove 1.8s ease-in-out infinite;}
@@ -186,10 +185,9 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .batal-alert .icon-box{width:36px;height:36px;border-radius:11px;background:#FEE2E2;color:var(--red);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .batal-alert .text strong{font-size:12.5px;font-weight:800;color:var(--red);}
 .batal-alert .text span{font-size:11px;color:var(--text-soft);display:block;margin-top:2px;}
-
 .profile-card{margin:0 22px 18px;background:var(--gradient);border-radius:24px;padding:24px;color:#fff;display:flex;align-items:center;gap:16px;box-shadow:0 20px 40px rgba(220,38,38,.25);position:relative;overflow:hidden;}
 .profile-card::before{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);border-radius:50%;}
-.profile-card .avatar{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;border:2px solid rgba(255,255,255,.3);position:relative;z-index:2;}
+.profile-card .avatar{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;border:2px solid rgba(255,255,255,.3);position:relative;z-index:2;flex-shrink:0;}
 .profile-card h3{font-size:17px;font-weight:800;position:relative;z-index:2;letter-spacing:-.3px;}
 .profile-card p{font-size:12.5px;opacity:.9;position:relative;z-index:2;font-weight:500;}
 .menu-list{margin:0 22px 150px;background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);}
@@ -200,23 +198,22 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .menu-item .arrow{margin-left:auto;color:var(--text-mute);font-size:12px;}
 .overlay{position:fixed;inset:0;background:rgba(26,26,26,.55);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:0;}
 .overlay.show{display:flex;}
-.sheet{background:#fff;width:100%;max-width:440px;border-radius:32px 32px 0 0;padding:26px 22px 30px;max-height:90vh;overflow-y:auto;animation:slideUp .35s cubic-bezier(.2,.9,.3,1.1);scrollbar-width:thin;}
-.sheet::-webkit-scrollbar{width:5px;}
-.sheet::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-.sheet.wide{max-width:640px;}
+.sheet{background:#fff;width:100%;max-width:440px;border-radius:32px 32px 0 0;padding:26px 22px 30px;max-height:92vh;overflow-y:auto;animation:slideUp .35s cubic-bezier(.2,.9,.3,1.1);scrollbar-width:none;}
+.sheet::-webkit-scrollbar{display:none;}
+.sheet.wide{max-width:440px;}
 @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
 .sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .sheet-head h3{font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;letter-spacing:-.2px;}
 .sheet-head h3 i{width:34px;height:34px;border-radius:11px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:14px;}
-.close-btn{background:var(--red-soft);border:none;width:38px;height:38px;border-radius:12px;cursor:pointer;color:var(--red);font-size:14px;transition:.2s;}
+.close-btn{background:var(--red-soft);border:none;width:38px;height:38px;border-radius:12px;cursor:pointer;color:var(--red);font-size:14px;transition:.2s;flex-shrink:0;}
 .close-btn:hover{background:var(--red);color:#fff;}
 .cart-item{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);}
 .cart-item:last-child{border-bottom:none;}
-.cart-item img{width:58px;height:58px;border-radius:14px;object-fit:cover;background:var(--red-soft);}
+.cart-item img{width:58px;height:58px;border-radius:14px;object-fit:cover;background:var(--red-soft);flex-shrink:0;}
 .cart-item-info{flex:1;min-width:0;}
 .cart-item-info h4{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);}
 .cart-item-info p{font-size:13px;color:var(--red);font-weight:800;margin-top:3px;}
-.qty-ctrl{display:flex;align-items:center;gap:8px;background:var(--red-soft);padding:4px;border-radius:12px;}
+.qty-ctrl{display:flex;align-items:center;gap:8px;background:var(--red-soft);padding:4px;border-radius:12px;flex-shrink:0;}
 .qty-btn{width:28px;height:28px;border-radius:9px;border:none;background:#fff;cursor:pointer;color:var(--red);font-size:11px;display:flex;align-items:center;justify-content:center;transition:.2s;font-weight:700;}
 .qty-btn:hover{background:var(--red);color:#fff;}
 .qty-num{font-size:13.5px;font-weight:800;min-width:22px;text-align:center;color:var(--text);}
@@ -228,51 +225,26 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 
 /* ===== PILIHAN PEMBAYARAN ===== */
 .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.pay-option{
-  position:relative;background:#fff;border:2px solid var(--border);border-radius:16px;
-  padding:14px 12px;cursor:pointer;transition:.25s;display:flex;flex-direction:column;
-  align-items:center;gap:8px;text-align:center;font-family:inherit;
-}
+.pay-option{position:relative;background:#fff;border:2px solid var(--border);border-radius:16px;padding:14px 12px;cursor:pointer;transition:.25s;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-family:inherit;}
 .pay-option:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 8px 18px rgba(220,38,38,.12);}
 .pay-option.selected{border-color:var(--red);background:var(--red-soft);box-shadow:0 8px 20px rgba(220,38,38,.18);}
-.pay-option.selected::after{
-  content:'\f058';font-family:'Font Awesome 6 Free';font-weight:900;
-  position:absolute;top:8px;right:8px;color:var(--red);font-size:14px;
-}
-.pay-logo{
-  width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:19px;font-weight:800;
-}
+.pay-option.selected::after{content:'\f058';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;top:8px;right:8px;color:var(--red);font-size:14px;}
+.pay-logo{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;font-weight:800;}
 .pay-logo.cod{background:linear-gradient(135deg,#059669,#047857);}
 .pay-logo.qris{background:linear-gradient(135deg,#7C3AED,#5B21B6);}
 .pay-logo.dana{background:linear-gradient(135deg,#0088CC,#005F8E);}
 .pay-logo.gopay{background:linear-gradient(135deg,#00AA13,#007A0C);}
 .pay-info{font-size:11px;font-weight:800;color:var(--text);letter-spacing:-.1px;}
 .pay-sub{font-size:9.5px;color:var(--text-mute);font-weight:600;line-height:1.2;}
-
-/* Detail instruksi pembayaran */
-.pay-instruction{
-  margin-top:12px;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;
-  padding:14px;display:none;animation:fadeIn .3s;
-}
+.pay-instruction{margin-top:12px;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:14px;display:none;animation:fadeIn .3s;}
 .pay-instruction.show{display:block;}
 .pay-instruction h6{font-size:12px;font-weight:800;color:#B45309;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .pay-instruction p{font-size:11.5px;color:var(--text);font-weight:500;line-height:1.5;margin-bottom:6px;}
 .pay-instruction p:last-child{margin-bottom:0;}
-.pay-instruction .nomor-rek{
-  display:inline-block;background:#fff;border:1.5px dashed #F59E0B;border-radius:10px;
-  padding:8px 14px;font-size:14px;font-weight:800;color:var(--red);letter-spacing:1px;
-  margin:4px 0;font-family:'Plus Jakarta Sans',sans-serif;
-}
-.pay-instruction .copy-btn{
-  background:var(--red);color:#fff;border:none;padding:6px 12px;border-radius:9px;
-  font-size:11px;font-weight:700;cursor:pointer;margin-left:6px;font-family:inherit;
-}
+.pay-instruction .nomor-rek{display:inline-block;background:#fff;border:1.5px dashed #F59E0B;border-radius:10px;padding:8px 14px;font-size:14px;font-weight:800;color:var(--red);letter-spacing:1px;margin:4px 0;font-family:'Plus Jakarta Sans',sans-serif;}
+.pay-instruction .copy-btn{background:var(--red);color:#fff;border:none;padding:6px 12px;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;margin-left:6px;font-family:inherit;}
 .pay-instruction .copy-btn:hover{background:var(--red-dark);}
-.pay-instruction .qris-img{
-  width:180px;height:180px;background:#fff;border:2px solid #F59E0B;border-radius:12px;
-  display:block;margin:8px auto;padding:8px;object-fit:contain;
-}
+.pay-instruction .qris-img{width:170px;height:170px;background:#fff;border:2px solid #F59E0B;border-radius:12px;display:block;margin:8px auto;padding:8px;object-fit:contain;}
 
 /* ===== UPLOAD FOTO ===== */
 .upload-zone{width:100%;height:170px;border-radius:16px;border:2px dashed var(--border);background:var(--red-soft);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:.25s;}
@@ -281,7 +253,7 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .upload-preview{width:100%;height:100%;object-fit:cover;display:none;}
 .upload-zone.has-image .upload-preview{display:block;}
 .upload-zone.has-image .upload-placeholder{display:none;}
-.upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--red);pointer-events:none;}
+.upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--red);pointer-events:none;text-align:center;padding:0 14px;}
 .upload-placeholder i{font-size:34px;opacity:.7;}
 .upload-placeholder p{font-size:13px;font-weight:700;color:var(--text);}
 .upload-placeholder span{font-size:10.5px;color:var(--text-mute);font-weight:500;}
@@ -294,78 +266,109 @@ header{padding:26px 22px 16px;display:flex;justify-content:space-between;align-i
 .upload-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(220,38,38,.35);}
 .upload-btn.ghost{background:#fff;color:var(--red);border:1.5px solid var(--red);box-shadow:none;}
 .upload-btn.ghost:hover{background:var(--red-soft);}
-
 .discount-ribbon{position:absolute;top:12px;left:-30px;background:var(--gradient);color:#fff;font-size:10px;font-weight:800;padding:5px 34px;transform:rotate(-38deg);box-shadow:0 3px 8px rgba(220,38,38,.35);letter-spacing:.5px;z-index:3;pointer-events:none;}
 
-/* ===== ADMIN ===== */
-.admin-container{width:100vw;max-width:1180px;height:100vh;max-height:900px;background:#fff;border-radius:32px;overflow:hidden;display:flex;box-shadow:0 30px 80px rgba(220,38,38,.18);}
-.admin-side{width:250px;background:linear-gradient(180deg,#1A1A1A 0%,#2A1414 100%);color:#fff;padding:28px 20px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;position:relative;overflow:hidden;}
-.admin-side::before{content:'';position:absolute;top:-100px;right:-100px;width:250px;height:250px;background:radial-gradient(circle,rgba(220,38,38,.25),transparent 70%);border-radius:50%;}
-.admin-side::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#DC2626 0%,#DC2626 50%,#fff 50%,#fff 100%);}
-.admin-brand{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding:0 6px;position:relative;z-index:2;}
-.admin-brand i{width:42px;height:42px;border-radius:13px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 8px 16px rgba(220,38,38,.4);}
-.admin-brand h2{font-size:13.5px;line-height:1.35;font-weight:800;letter-spacing:-.2px;}
-.admin-brand span{font-size:10px;opacity:.6;font-weight:500;letter-spacing:.3px;}
-.admin-nav{display:flex;flex-direction:column;gap:5px;flex:1;position:relative;z-index:2;}
-.admin-nav button{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:13px;background:transparent;border:none;color:#94A3B8;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;transition:.25s;}
-.admin-nav button:hover{background:rgba(255,255,255,.06);color:#fff;}
-.admin-nav button.active{background:var(--gradient);color:#fff;box-shadow:0 8px 16px rgba(220,38,38,.35);}
-.admin-main{flex:1;overflow-y:auto;padding:32px 34px 40px;background:var(--bg);}
-.admin-main::-webkit-scrollbar{width:6px;}
-.admin-main::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-.admin-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;flex-wrap:wrap;gap:14px;}
-.admin-head h1{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.4px;}
-.admin-head p{font-size:13px;color:var(--text-soft);margin-top:3px;font-weight:500;}
+/* ================= ADMIN (VERSI HP) ================= */
+#adminScreen.active{display:flex;align-items:center;justify-content:center;width:100%;height:100vh;}
+.admin-container{width:100%;max-width:440px;height:100vh;max-height:900px;background:var(--bg);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(220,38,38,.18);position:relative;}
+.admin-header{padding:24px 20px 14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#FFF8F7 0%,transparent 100%);flex-shrink:0;position:relative;}
+.admin-header::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#DC2626 0%,#DC2626 50%,#fff 50%,#fff 100%);}
+.admin-brand{display:flex;align-items:center;gap:12px;min-width:0;}
+.admin-brand i{width:44px;height:44px;border-radius:14px;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 8px 16px rgba(220,38,38,.3);flex-shrink:0;}
+.admin-brand h2{font-size:13.5px;font-weight:800;color:var(--text);letter-spacing:-.2px;line-height:1.25;}
+.admin-brand span{font-size:10.5px;color:var(--text-soft);font-weight:600;letter-spacing:.2px;}
+.admin-logout-btn{width:44px;height:44px;border-radius:14px;background:#fff;border:1.5px solid var(--border);color:var(--red);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.25s;flex-shrink:0;}
+.admin-logout-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.admin-main{flex:1;overflow-y:auto;overflow-x:hidden;padding:6px 18px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.admin-main::-webkit-scrollbar{display:none;}
+.admin-nav{display:flex;justify-content:space-around;background:#fff;padding:12px 8px 18px;border-radius:28px 28px 0 0;box-shadow:0 -10px 30px rgba(220,38,38,.08);border-top:1px solid var(--border);flex-shrink:0;z-index:10;}
+.admin-nav button{display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;color:var(--text-mute);font-size:10px;font-weight:600;font-family:inherit;cursor:pointer;padding:6px 10px;border-radius:14px;transition:.3s;position:relative;flex:1;}
+.admin-nav button i{font-size:18px;transition:.3s;}
+.admin-nav button.active{color:var(--red);}
+.admin-nav button.active i{transform:scale(1.12);}
+.admin-nav button.active::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:22px;height:3px;background:var(--gradient);border-radius:3px;}
+.admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+.admin-head h1{font-size:19px;font-weight:800;color:var(--text);letter-spacing:-.4px;}
+.admin-head p{font-size:11.5px;color:var(--text-soft);margin-top:3px;font-weight:500;line-height:1.4;}
+.head-actions{display:flex;gap:8px;width:100%;}
+.head-actions .btn-sm{flex:1;justify-content:center;}
 .admin-view{display:none;}
 .admin-view.active{display:block;animation:fadeIn .3s;}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:26px;}
-.stat-card{background:#fff;border-radius:20px;padding:20px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:15px;border:1.5px solid var(--border);transition:.25s;}
-.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(220,38,38,.15);}
-.stat-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:19px;}
-.stat-card h4{font-size:11.5px;color:var(--text-soft);font-weight:600;letter-spacing:.2px;}
-.stat-card p{font-size:21px;font-weight:800;color:var(--text);letter-spacing:-.4px;margin-top:2px;}
-.panel{background:#fff;border-radius:20px;padding:22px;box-shadow:var(--shadow-sm);border:1.5px solid var(--border);}
-.table-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:12.5px;}
-th{text-align:left;padding:12px 12px;color:var(--text-soft);font-weight:700;font-size:11.5px;border-bottom:1.5px solid var(--border);white-space:nowrap;letter-spacing:.3px;text-transform:uppercase;}
-td{padding:14px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;font-weight:500;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--red-soft);}
-.tbl-img{width:46px;height:46px;border-radius:12px;object-fit:cover;background:var(--red-soft);}
-.icon-btn{width:34px;height:34px;border-radius:10px;border:none;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;margin-right:6px;transition:.2s;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.stat-card{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px;border:1.5px solid var(--border);transition:.25s;}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:rgba(220,38,38,.15);}
+.stat-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.stat-card h4{font-size:10.5px;color:var(--text-soft);font-weight:600;letter-spacing:.2px;}
+.stat-card p{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px;margin-top:2px;word-break:break-word;}
+.panel{background:#fff;border-radius:20px;padding:16px;box-shadow:var(--shadow-sm);border:1.5px solid var(--border);}
+
+/* Kartu admin mobile */
+.adm-card{background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow-sm);transition:.25s;}
+.adm-card:hover{box-shadow:var(--shadow);border-color:rgba(220,38,38,.15);}
+.adm-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;}
+.adm-prod-top{display:flex;gap:12px;align-items:flex-start;}
+.adm-img{width:64px;height:64px;border-radius:14px;object-fit:cover;background:var(--red-soft);flex-shrink:0;}
+.adm-prod-info{flex:1;min-width:0;}
+.adm-prod-info h4{font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3;}
+.adm-sub{font-size:10.5px;color:var(--text-soft);font-weight:600;display:block;margin-bottom:6px;}
+.adm-price-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.adm-price{font-size:13.5px;font-weight:800;color:var(--red);letter-spacing:-.3px;}
+.adm-terjual{font-size:10px;color:var(--text-mute);font-weight:600;}
+.adm-prod-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.icon-btn{width:34px;height:34px;border-radius:10px;border:none;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;transition:.2s;}
 .icon-btn.edit{background:#E0E7FF;color:#4338CA;}
 .icon-btn.edit:hover{background:#4338CA;color:#fff;}
 .icon-btn.del{background:#FEE2E2;color:var(--red);}
 .icon-btn.del:hover{background:var(--red);color:#fff;}
-.btn-sm{background:var(--gradient);color:#fff;border:none;padding:11px 18px;border-radius:13px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:.25s;box-shadow:0 8px 16px rgba(220,38,38,.22);}
+.adm-line{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;color:var(--text-soft);font-weight:500;line-height:1.45;margin-bottom:6px;}
+.adm-line i{color:var(--red);font-size:11px;width:14px;margin-top:2px;flex-shrink:0;}
+.adm-line b{color:var(--text);font-weight:700;}
+.adm-items{background:var(--red-soft);border-radius:11px;padding:9px 11px;margin:8px 0;font-size:11.5px;font-weight:600;color:var(--text);line-height:1.7;}
+.adm-card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1.5px dashed var(--border);padding-top:11px;margin-top:11px;flex-wrap:wrap;}
+.adm-total{font-size:15px;font-weight:800;color:var(--red);letter-spacing:-.3px;}
+.adm-card-actions{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap;}
+.adm-card-actions .status-select{flex:1;min-width:120px;}
+.adm-card-actions .btn-kirim{flex:1;justify-content:center;min-width:130px;}
+.btn-sm{background:var(--gradient);color:#fff;border:none;padding:11px 16px;border-radius:13px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:.25s;box-shadow:0 8px 16px rgba(220,38,38,.22);}
 .btn-sm:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(220,38,38,.3);}
 .btn-sm.ghost{background:#fff;color:var(--text);border:1.5px solid var(--border);box-shadow:none;}
 .btn-sm.ghost:hover{background:var(--red-soft);color:var(--red);border-color:var(--red);}
-.status-select{padding:8px 12px;border-radius:11px;border:1.5px solid var(--border);font-size:12px;font-family:inherit;cursor:pointer;outline:none;background:#fff;font-weight:600;color:var(--text);transition:.2s;}
+.status-select{padding:10px 12px;border-radius:11px;border:1.5px solid var(--border);font-size:12px;font-family:inherit;cursor:pointer;outline:none;background:#fff;font-weight:600;color:var(--text);transition:.2s;}
 .status-select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.08);}
-.btn-kirim{background:linear-gradient(135deg,#DC2626 0%,#991B1B 100%);color:#fff;border:none;padding:9px 14px;border-radius:11px;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:.25s;box-shadow:0 6px 14px rgba(220,38,38,.28);letter-spacing:.2px;animation:sendPulse 2s infinite;}
+.btn-kirim{background:linear-gradient(135deg,#DC2626 0%,#991B1B 100%);color:#fff;border:none;padding:11px 14px;border-radius:11px;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:.25s;box-shadow:0 6px 14px rgba(220,38,38,.28);letter-spacing:.2px;animation:sendPulse 2s infinite;}
 @keyframes sendPulse{0%,100%{box-shadow:0 6px 14px rgba(220,38,38,.28)}50%{box-shadow:0 6px 20px rgba(220,38,38,.5)}}
 .btn-kirim:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(220,38,38,.4);}
 .btn-kirim.selesai{background:linear-gradient(135deg,#059669 0%,#047857 100%);animation:none;box-shadow:0 6px 14px rgba(5,150,105,.28);}
 .btn-kirim.selesai:hover{box-shadow:0 10px 22px rgba(5,150,105,.4);}
-.status-cell{display:flex;flex-direction:column;gap:8px;align-items:flex-start;}
-.status-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-
-/* Payment badge kecil di tabel admin */
-.pay-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.3px;color:#fff;}
+.pay-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.3px;color:#fff;}
 .pay-badge.cod{background:linear-gradient(135deg,#059669,#047857);}
 .pay-badge.qris{background:linear-gradient(135deg,#7C3AED,#5B21B6);}
 .pay-badge.dana{background:linear-gradient(135deg,#0088CC,#005F8E);}
 .pay-badge.gopay{background:linear-gradient(135deg,#00AA13,#007A0C);}
 
-.notif-popup{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-120px);background:#fff;border-radius:20px;padding:16px 20px;box-shadow:0 20px 50px rgba(220,38,38,.35);z-index:10000;max-width:400px;width:calc(100% - 40px);display:flex;align-items:center;gap:14px;opacity:0;transition:.5s cubic-bezier(.2,.9,.3,1.3);border:2px solid var(--red);pointer-events:none;}
+/* Daftar pesanan terbaru di dashboard */
+.dash-order{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border);}
+.dash-order:last-child{border-bottom:none;padding-bottom:0;}
+.dash-order-left{min-width:0;flex:1;}
+.dash-order-left strong{display:block;font-size:12.5px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dash-order-left span{font-size:10.5px;color:var(--text-mute);font-weight:500;}
+.dash-order-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.dash-total{font-size:12.5px;font-weight:800;color:var(--red);}
+
+/* Pelanggan */
+.cust-card{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow-sm);}
+.cust-avatar{width:44px;height:44px;border-radius:14px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+.cust-info{min-width:0;flex:1;}
+.cust-info h4{font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.cust-info p{font-size:10.5px;color:var(--text-soft);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5;}
+
+.notif-popup{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-120px);background:#fff;border-radius:20px;padding:16px 20px;box-shadow:0 20px 50px rgba(220,38,38,.35);z-index:10000;max-width:400px;width:calc(100% - 32px);display:flex;align-items:center;gap:14px;opacity:0;transition:.5s cubic-bezier(.2,.9,.3,1.3);border:2px solid var(--red);pointer-events:none;}
 .notif-popup.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
 .notif-popup .notif-icon{width:44px;height:44px;border-radius:14px;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 8px 18px rgba(220,38,38,.35);}
 .notif-popup .notif-body{flex:1;min-width:0;}
 .notif-popup .notif-body h5{font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px;letter-spacing:-.2px;}
 .notif-popup .notif-body p{font-size:11.5px;color:var(--text-soft);font-weight:500;line-height:1.4;}
 .notif-popup .notif-close{background:none;border:none;color:var(--text-mute);font-size:14px;cursor:pointer;padding:6px;}
-
 #toast{position:fixed;bottom:34px;left:50%;transform:translateX(-50%) translateY(100px);background:#1A1A1A;color:#fff;padding:14px 24px;border-radius:15px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:.4s cubic-bezier(.2,.9,.3,1.2);pointer-events:none;box-shadow:0 15px 40px rgba(0,0,0,.3);max-width:88vw;text-align:center;}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 #toast.err{background:var(--red);}
@@ -374,18 +377,16 @@ tr:hover td{background:var(--red-soft);}
 #loader.show{display:flex;}
 .spinner{width:48px;height:48px;border:4px solid var(--red-light);border-top-color:var(--red);border-radius:50%;animation:spin .9s linear infinite;}
 
-@media(max-width:860px){
-  body{align-items:stretch;padding:0;}
-  .admin-container{flex-direction:column;border-radius:0;max-width:none;height:100vh;max-height:none;}
-  .admin-side{width:100%;flex-direction:row;align-items:center;padding:14px 16px;overflow-x:auto;}
-  .admin-brand{margin-bottom:0;margin-right:14px;}
-  .admin-brand h2{display:none;}
-  .admin-nav{flex-direction:row;gap:6px;}
-  .admin-nav button{padding:10px 14px;font-size:12px;white-space:nowrap;}
-  .admin-nav button span{display:none;}
-  .admin-main{padding:20px 16px 30px;}
-  .app-container{border-radius:0;max-width:none;height:100vh;max-height:none;}
-  .auth-card{border-radius:24px;padding:30px 22px;}
+/* ====== FULLSCREEN DI HP ====== */
+@media (max-width:480px){
+  .app-container,.admin-container{border-radius:0;max-width:none;height:100vh;max-height:none;}
+  #adminScreen.active{height:100vh;}
+  .auth-card{border-radius:26px;padding:30px 22px;}
+  #authScreen.active{padding:16px;}
+  .bottom-nav{border-radius:24px 24px 0 0;padding-bottom:max(20px,env(safe-area-inset-bottom));}
+  .admin-nav{padding-bottom:max(18px,env(safe-area-inset-bottom));}
+  .product-grid{padding-bottom:170px;}
+  .sheet{border-radius:26px 26px 0 0;}
 }
 </style>
 </head>
@@ -402,7 +403,7 @@ tr:hover td{background:var(--red-soft);}
   <button class="notif-close" id="notifClose"><i class="fas fa-xmark"></i></button>
 </div>
 
-<!-- AUTH -->
+<!-- ================= AUTH ================= -->
 <div id="authScreen" class="screen active">
   <div class="auth-card">
     <div class="auth-logo"><i class="fas fa-store"></i></div>
@@ -435,7 +436,7 @@ tr:hover td{background:var(--red-soft);}
   </div>
 </div>
 
-<!-- CUSTOMER -->
+<!-- ================= CUSTOMER ================= -->
 <div id="customerScreen" class="app-container screen">
   <header>
     <div class="user-info">
@@ -494,75 +495,79 @@ tr:hover td{background:var(--red-soft);}
   </div>
 </div>
 
-<!-- ADMIN -->
+<!-- ================= ADMIN (MOBILE) ================= -->
 <div id="adminScreen" class="screen">
   <div class="admin-container">
-    <aside class="admin-side">
+    <div class="admin-header">
       <div class="admin-brand">
         <i class="fas fa-store"></i>
-        <h2>Koperasi Merah Putih<br><span>Panel Admin</span></h2>
+        <div>
+          <h2>Koperasi Merah Putih</h2>
+          <span>Panel Admin</span>
+        </div>
       </div>
-      <nav class="admin-nav">
-        <button class="active" data-aview="dashboard"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></button>
-        <button data-aview="produk"><i class="fas fa-boxes-stacked"></i> <span>Produk</span></button>
-        <button data-aview="pesanan"><i class="fas fa-clipboard-list"></i> <span>Pesanan</span></button>
-        <button data-aview="pelanggan"><i class="fas fa-users"></i> <span>Pelanggan</span></button>
-      </nav>
-      <button id="adminLogout" style="background:rgba(220,38,38,.15);color:#FCA5A5;border:none;padding:13px 15px;border-radius:13px;font-family:inherit;font-size:13px;cursor:pointer;text-align:left;font-weight:600;display:flex;align-items:center;gap:12px;position:relative;z-index:2;">
-        <i class="fas fa-right-from-bracket"></i> Keluar
-      </button>
-    </aside>
+      <button class="admin-logout-btn" id="adminLogout" title="Keluar"><i class="fas fa-right-from-bracket"></i></button>
+    </div>
+
     <main class="admin-main">
+      <!-- DASHBOARD -->
       <section id="aviewDashboard" class="admin-view active">
         <div class="admin-head"><div><h1>Dashboard</h1><p id="adminWelcome">Selamat datang kembali</p></div></div>
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-box"></i></div><div><h4>Total Produk</h4><p id="statProduk">0</p></div></div>
-          <div class="stat-card"><div class="stat-icon" style="background:#FEF3C7;color:#B45309"><i class="fas fa-clock"></i></div><div><h4>Pesanan Baru</h4><p id="statPending">0</p></div></div>
-          <div class="stat-card"><div class="stat-icon" style="background:#D1FAE5;color:#047857"><i class="fas fa-wallet"></i></div><div><h4>Pendapatan</h4><p id="statPendapatan" style="font-size:16px">Rp 0</p></div></div>
-          <div class="stat-card"><div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-triangle-exclamation"></i></div><div><h4>Stok Menipis</h4><p id="statStok">0</p></div></div>
-        </div>
-        <div class="panel">
-          <div class="section-title" style="padding:0 0 16px"><h3>Pesanan Terbaru</h3></div>
-          <div class="table-wrap"><table>
-            <thead><tr><th>Pembeli</th><th>Total</th><th>Status</th></tr></thead>
-            <tbody id="dashOrders"></tbody>
-          </table></div>
-        </div>
-      </section>
-      <section id="aviewProduk" class="admin-view">
-        <div class="admin-head">
-          <div><h1>Kelola Produk</h1><p>Tambahkan dan atur barang sembako koperasi</p></div>
-          <div>
-            <button class="btn-sm ghost" id="btnSeed"><i class="fas fa-wand-magic-sparkles"></i> Data Contoh</button>
-            <button class="btn-sm" id="btnAddProduct"><i class="fas fa-plus"></i> Tambah Produk</button>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-box"></i></div>
+            <div><h4>Total Produk</h4><p id="statProduk">0</p></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#FEF3C7;color:#B45309"><i class="fas fa-clock"></i></div>
+            <div><h4>Pesanan Baru</h4><p id="statPending">0</p></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#D1FAE5;color:#047857"><i class="fas fa-wallet"></i></div>
+            <div><h4>Pendapatan</h4><p id="statPendapatan" style="font-size:14px">Rp 0</p></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-triangle-exclamation"></i></div>
+            <div><h4>Stok Menipis</h4><p id="statStok">0</p></div>
           </div>
         </div>
-        <div class="panel table-wrap">
-          <table>
-            <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Diskon</th><th>Stok</th><th>Terjual</th><th>Aksi</th></tr></thead>
-            <tbody id="adminProductTable"></tbody>
-          </table>
+        <div class="panel">
+          <div class="section-title" style="padding:0 0 14px"><h3 style="font-size:15px">Pesanan Terbaru</h3></div>
+          <div id="dashOrders"></div>
         </div>
       </section>
+
+      <!-- PRODUK -->
+      <section id="aviewProduk" class="admin-view">
+        <div class="admin-head">
+          <div><h1>Kelola Produk</h1><p>Atur barang sembako koperasi</p></div>
+          <div class="head-actions">
+            <button class="btn-sm ghost" id="btnSeed"><i class="fas fa-wand-magic-sparkles"></i> Data Contoh</button>
+            <button class="btn-sm" id="btnAddProduct"><i class="fas fa-plus"></i> Tambah</button>
+          </div>
+        </div>
+        <div id="adminProductList"></div>
+      </section>
+
+      <!-- PESANAN -->
       <section id="aviewPesanan" class="admin-view">
-        <div class="admin-head"><div><h1>Kelola Pesanan</h1><p>Perbarui status pengiriman pesanan pelanggan</p></div></div>
-        <div class="panel table-wrap">
-          <table>
-            <thead><tr><th>ID</th><th>Pembeli</th><th>Item</th><th>Total</th><th>Bayar</th><th>Alamat</th><th>Status & Aksi</th></tr></thead>
-            <tbody id="adminOrderTable"></tbody>
-          </table>
-        </div>
+        <div class="admin-head"><div><h1>Kelola Pesanan</h1><p>Perbarui status pengiriman pesanan</p></div></div>
+        <div id="adminOrderList"></div>
       </section>
+
+      <!-- PELANGGAN -->
       <section id="aviewPelanggan" class="admin-view">
-        <div class="admin-head"><div><h1>Daftar Pelanggan</h1><p>Semua pengguna terdaftar di koperasi</p></div></div>
-        <div class="panel table-wrap">
-          <table>
-            <thead><tr><th>Nama</th><th>Email</th><th>Telepon</th><th>Alamat</th></tr></thead>
-            <tbody id="adminCustomerTable"></tbody>
-          </table>
-        </div>
+        <div class="admin-head"><div><h1>Daftar Pelanggan</h1><p>Semua pengguna terdaftar</p></div></div>
+        <div id="adminCustomerList"></div>
       </section>
     </main>
+
+    <nav class="admin-nav">
+      <button class="active" data-aview="dashboard"><i class="fas fa-chart-pie"></i><span>Dashboard</span></button>
+      <button data-aview="produk"><i class="fas fa-boxes-stacked"></i><span>Produk</span></button>
+      <button data-aview="pesanan"><i class="fas fa-clipboard-list"></i><span>Pesanan</span></button>
+      <button data-aview="pelanggan"><i class="fas fa-users"></i><span>Pelanggan</span></button>
+    </nav>
   </div>
 </div>
 
@@ -579,7 +584,6 @@ tr:hover td{background:var(--red-soft);}
       <div class="form-row"><label>Alamat Pengiriman</label><div class="input-group"><i class="fas fa-location-dot"></i><input type="text" id="coAlamat"></div></div>
       <div class="form-row"><label>Catatan (opsional)</label><div class="input-group"><i class="fas fa-note-sticky"></i><input type="text" id="coCatatan" placeholder="Contoh: antar sore hari"></div></div>
 
-      <!-- METODE PEMBAYARAN -->
       <div class="form-row">
         <label><i class="fas fa-wallet" style="color:var(--red);margin-right:5px"></i>Metode Pembayaran</label>
         <div class="payment-grid">
@@ -606,7 +610,6 @@ tr:hover td{background:var(--red-soft);}
         </div>
       </div>
 
-      <!-- INSTRUKSI PEMBAYARAN -->
       <div class="pay-instruction" id="payInst_cod">
         <h6><i class="fas fa-circle-info"></i> Bayar di Tempat (COD)</h6>
         <p>Siapkan uang tunai sesuai total pesanan. Kurir akan menagih saat barang tiba di alamatmu.</p>
@@ -993,7 +996,7 @@ function detachListeners() {
   statusMapInitialized = false; lastStatusMap = {};
 }
 
-/* CUSTOMER */
+/* ================= CUSTOMER ================= */
 function initCustomer() {
   showScreen("customerScreen");
   loadCart(); loadWish();
@@ -1252,13 +1255,11 @@ function attachCustomerEvents() {
     changeQty(btn.dataset.qid, Number(btn.dataset.qty));
   });
 
-  /* Pilihan metode pembayaran */
   document.querySelectorAll(".pay-option").forEach(opt => {
     opt.addEventListener("click", () => {
       document.querySelectorAll(".pay-option").forEach(o => o.classList.remove("selected"));
       opt.classList.add("selected");
       selectedPayment = opt.dataset.pay;
-      /* Sembunyikan semua instruksi, tampilkan yang sesuai */
       ["cod","qris","dana","gopay"].forEach(p => {
         const inst = $("#payInst_" + p);
         if (inst) inst.classList.toggle("show", p === selectedPayment);
@@ -1266,7 +1267,6 @@ function attachCustomerEvents() {
     });
   });
 
-  /* Tombol salin nomor rekening */
   document.querySelectorAll(".copy-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const text = btn.dataset.copy;
@@ -1323,7 +1323,6 @@ function updateCartBar() {
 function openCart() {
   checkoutMode = false; $("#checkoutForm").style.display = "none";
   $("#btnCheckout").innerHTML = '<i class="fas fa-credit-card"></i> Lanjut Checkout';
-  /* Reset pilihan pembayaran ke COD */
   selectedPayment = "cod";
   document.querySelectorAll(".pay-option").forEach(o => o.classList.toggle("selected", o.dataset.pay === "cod"));
   ["cod","qris","dana","gopay"].forEach(p => {
@@ -1409,7 +1408,7 @@ async function saveProfile() {
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Perubahan'; }
 }
 
-/* ADMIN */
+/* ================= ADMIN ================= */
 function initAdmin() {
   showScreen("adminScreen");
   $("#adminWelcome").textContent = "Halo, " + (currentUser.nama || "Admin") + " 👋";
@@ -1441,16 +1440,16 @@ function attachAdminEvents() {
     if (url) { img.src = url; zone.classList.add("has-image"); }
     else { img.src = ""; zone.classList.remove("has-image"); }
   });
-  $("#adminProductTable").addEventListener("click", e => {
+  $("#adminProductList").addEventListener("click", e => {
     const edit = e.target.closest("[data-edit]"), del = e.target.closest("[data-del]");
     if (edit) openProductForm(edit.dataset.edit);
     if (del)  deleteProduct(del.dataset.del);
   });
-  $("#adminOrderTable").addEventListener("change", e => {
+  $("#adminOrderList").addEventListener("change", e => {
     const sel = e.target.closest("[data-order]");
     if (sel) updateOrderStatus(sel.dataset.order, sel.value);
   });
-  $("#adminOrderTable").addEventListener("click", async e => {
+  $("#adminOrderList").addEventListener("click", async e => {
     const kirim = e.target.closest("[data-kirim]");
     const selesai = e.target.closest("[data-selesai]");
     if (kirim) {
@@ -1472,6 +1471,7 @@ function switchAdminView(v) {
   $$(".admin-view").forEach(s => s.classList.remove("active"));
   $("#aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
   $$(".admin-nav button[data-aview]").forEach(b => b.classList.toggle("active", b.dataset.aview === v));
+  $(".admin-main").scrollTop = 0;
 }
 
 function listenAdminProducts() {
@@ -1482,34 +1482,33 @@ function listenAdminProducts() {
 }
 
 function renderAdminProducts() {
-  const tb = $("#adminProductTable");
+  const el = $("#adminProductList");
   if (!allProducts.length) {
-    tb.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#9A9A9A;padding:40px">Belum ada produk.</td></tr>`;
+    el.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i>Belum ada produk</div>`;
     return;
   }
-  tb.innerHTML = allProducts.map(p => {
+  el.innerHTML = allProducts.map(p => {
     const diskon = Number(p.diskon) || 0;
+    const stok = Number(p.stok) || 0;
     return `
-    <tr>
-      <td>
-        <div style="display:flex;align-items:center;gap:12px">
-          <img src="${esc(p.gambar || PLACEHOLDER)}" class="tbl-img" onerror="this.src='${PLACEHOLDER}'">
-          <div>
-            <div style="font-weight:700">${esc(p.nama)}</div>
-            <div style="font-size:11px;color:#9A9A9A;font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.deskripsi || "-")}</div>
+    <div class="adm-card">
+      <div class="adm-prod-top">
+        <img src="${esc(p.gambar || PLACEHOLDER)}" class="adm-img" onerror="this.src='${PLACEHOLDER}'">
+        <div class="adm-prod-info">
+          <h4>${esc(p.nama)}</h4>
+          <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b></span>
+          <div class="adm-price-row">
+            <span class="adm-price">${rupiah(p.harga)}</span>
+            ${diskon > 0 ? `<span class="discount-badge">-${diskon}%</span>` : ""}
+            <span class="adm-terjual">${p.terjual || 0} terjual</span>
           </div>
         </div>
-      </td>
-      <td>${esc(p.kategori || "-")}</td>
-      <td style="font-weight:700;color:#DC2626">${rupiah(p.harga)}</td>
-      <td>${diskon > 0 ? `<span style="background:#FEF3C7;color:#B45309;font-weight:800;padding:3px 9px;border-radius:6px;font-size:11px">-${diskon}%</span>` : `<span style="color:#9A9A9A;font-size:11.5px">—</span>`}</td>
-      <td><span style="font-weight:700;color:${Number(p.stok) > 0 ? "#047857" : "#DC2626"}">${Number(p.stok) || 0}</span></td>
-      <td>${p.terjual || 0}</td>
-      <td style="white-space:nowrap">
-        <button class="icon-btn edit" data-edit="${p.id}"><i class="fas fa-pen"></i></button>
-        <button class="icon-btn del"  data-del="${p.id}"><i class="fas fa-trash"></i></button>
-      </td>
-    </tr>`;
+        <div class="adm-prod-actions">
+          <button class="icon-btn edit" data-edit="${p.id}"><i class="fas fa-pen"></i></button>
+          <button class="icon-btn del"  data-del="${p.id}"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>`;
   }).join("");
 }
 
@@ -1588,13 +1587,13 @@ function listenAdminOrders() {
 }
 
 function renderAdminOrders() {
-  const tb = $("#adminOrderTable");
+  const el = $("#adminOrderList");
   if (!allOrders.length) {
-    tb.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#9A9A9A;padding:40px">Belum ada pesanan masuk</td></tr>`;
+    el.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i>Belum ada pesanan masuk</div>`;
     return;
   }
   const statuses = ["pending", "diproses", "dikirim", "selesai", "dibatalkan"];
-  tb.innerHTML = allOrders.map(o => {
+  el.innerHTML = allOrders.map(o => {
     let aksiCepat = "";
     if (o.status === "pending" || o.status === "diproses") {
       aksiCepat = `<button class="btn-kirim" data-kirim="${o.id}"><i class="fas fa-truck-fast"></i> Tandai Dikirim</button>`;
@@ -1604,31 +1603,28 @@ function renderAdminOrders() {
     const pay = o.payment || "cod";
     const payInfo = PAY_INFO[pay] || PAY_INFO.cod;
     return `
-    <tr>
-      <td style="font-size:11px;font-weight:700">#${o.id.slice(0, 8).toUpperCase()}<br>
-        <span style="color:#9A9A9A;font-weight:500">${timeAgo(o.createdAt)}</span></td>
-      <td>
-        <div style="font-weight:700">${esc(o.nama || o.namaPembeli)}</div>
-        <div style="font-size:11px;color:#9A9A9A">${esc(o.telepon || "-")}</div>
-      </td>
-      <td style="font-size:11.5px">${(o.items || []).map(i => `${esc(i.nama)} ×${i.qty}`).join("<br>")}</td>
-      <td style="font-weight:800;color:#DC2626">${rupiah(o.total)}</td>
-      <td>
+    <div class="adm-card">
+      <div class="adm-card-head">
+        <span class="order-id">#${o.id.slice(0, 8).toUpperCase()} · ${timeAgo(o.createdAt)}</span>
+        <span class="badge ${o.status}">${o.status}</span>
+      </div>
+      <div class="adm-line"><i class="fas fa-user"></i><span><b>${esc(o.nama || o.namaPembeli || "-")}</b> · ${esc(o.telepon || "-")}</span></div>
+      <div class="adm-line"><i class="fas fa-location-dot"></i><span>${esc(o.alamat || "-")}</span></div>
+      ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
+      <div class="adm-items">
+        ${(o.items || []).map(i => `${esc(i.nama)} × ${i.qty}`).join("<br>")}
+      </div>
+      <div class="adm-card-foot">
+        <span class="adm-total">${rupiah(o.total)}</span>
         <span class="pay-badge ${pay}"><i class="fas ${payInfo.icon}"></i> ${payInfo.label}</span>
-      </td>
-      <td style="font-size:11.5px;max-width:180px">${esc(o.alamat || "-")}</td>
-      <td>
-        <div class="status-cell">
-          <div class="status-row">
-            <span class="badge ${o.status}">${o.status}</span>
-          </div>
-          <select class="status-select" data-order="${o.id}">
-            ${statuses.map(s => `<option value="${s}" ${o.status === s ? "selected" : ""}>${s}</option>`).join("")}
-          </select>
-          ${aksiCepat}
-        </div>
-      </td>
-    </tr>`;
+      </div>
+      <div class="adm-card-actions">
+        <select class="status-select" data-order="${o.id}">
+          ${statuses.map(s => `<option value="${s}" ${o.status === s ? "selected" : ""}>${s}</option>`).join("")}
+        </select>
+        ${aksiCepat}
+      </div>
+    </div>`;
   }).join("");
 }
 
@@ -1642,15 +1638,18 @@ async function updateOrderStatus(id, status) {
 function listenCustomers() {
   unsubCustomers = onSnapshot(collection(db, "users"), snap => {
     allCustomers = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(u => u.role !== "admin");
-    const tb = $("#adminCustomerTable");
-    tb.innerHTML = allCustomers.length ? allCustomers.map(u => `
-      <tr>
-        <td style="font-weight:700">${esc(u.nama || "-")}</td>
-        <td>${esc(u.email || "-")}</td>
-        <td>${esc(u.telepon || "-")}</td>
-        <td style="font-size:11.5px">${esc(u.alamat || "-")}</td>
-      </tr>`).join("")
-      : `<tr><td colspan="4" style="text-align:center;color:#9A9A9A;padding:40px">Belum ada pelanggan</td></tr>`;
+    const el = $("#adminCustomerList");
+    el.innerHTML = allCustomers.length ? allCustomers.map(u => `
+      <div class="cust-card">
+        <div class="cust-avatar">${esc(initials(u.nama || u.email))}</div>
+        <div class="cust-info">
+          <h4>${esc(u.nama || "-")}</h4>
+          <p><i class="fas fa-envelope" style="color:var(--red);font-size:9px"></i> ${esc(u.email || "-")}</p>
+          <p><i class="fas fa-phone" style="color:var(--red);font-size:9px"></i> ${esc(u.telepon || "-")}</p>
+          <p><i class="fas fa-location-dot" style="color:var(--red);font-size:9px"></i> ${esc(u.alamat || "-")}</p>
+        </div>
+      </div>`).join("")
+      : `<div class="empty-state"><i class="fas fa-users"></i>Belum ada pelanggan</div>`;
   }, err => console.error(err));
 }
 
@@ -1664,12 +1663,17 @@ function renderStats() {
   $("#statStok").textContent       = lowStock;
   const recent = allOrders.slice(0, 5);
   $("#dashOrders").innerHTML = recent.length ? recent.map(o => `
-    <tr>
-      <td style="font-weight:700">${esc(o.nama || o.namaPembeli || "-")}</td>
-      <td>${rupiah(o.total)}</td>
-      <td><span class="badge ${o.status}">${o.status}</span></td>
-    </tr>`).join("")
-    : `<tr><td colspan="3" style="text-align:center;color:#9A9A9A;padding:30px">Belum ada pesanan</td></tr>`;
+    <div class="dash-order">
+      <div class="dash-order-left">
+        <strong>${esc(o.nama || o.namaPembeli || "-")}</strong>
+        <span>${timeAgo(o.createdAt)}</span>
+      </div>
+      <div class="dash-order-right">
+        <span class="dash-total">${rupiah(o.total)}</span>
+        <span class="badge ${o.status}">${o.status}</span>
+      </div>
+    </div>`).join("")
+    : `<div class="empty-state" style="padding:30px 10px"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`;
 }
 
 document.addEventListener("keydown", e => {

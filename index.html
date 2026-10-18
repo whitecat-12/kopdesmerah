@@ -336,6 +336,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .order-card.is-dikirim::before{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;background:var(--gradient);}
 .order-card.is-live{border-color:#10B981;box-shadow:0 10px 24px rgba(16,185,129,.18);}
 .order-card.is-live::before{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;background:linear-gradient(90deg,#10B981,#059669);}
+.order-card.is-cancelled{opacity:.78;border-color:#FCA5A5;background:#FFF9F9;}
 .order-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;flex-wrap:wrap;}
 .order-id{font-size:10.5px;color:var(--text-mute);font-weight:700;letter-spacing:.3px;}
 .badge{font-size:9.5px;font-weight:800;padding:4.5px 10px;border-radius:20px;text-transform:capitalize;letter-spacing:.3px;white-space:nowrap;}
@@ -399,6 +400,25 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .btn-courier:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(37,99,235,.38);}
 .btn-courier.active{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 5px 12px rgba(5,150,105,.26);animation:livePulse 1.8s infinite;}
 .btn-courier.active:hover{box-shadow:0 9px 20px rgba(5,150,105,.38);}
+
+/* ====== NEW: TOMBOL BATALKAN PESANAN ====== */
+.btn-cancel{
+  margin-top:8px;width:100%;
+  background:#fff;color:var(--red);
+  border:1.5px solid var(--red);
+  padding:11px 14px;border-radius:10px;
+  font-size:12px;font-weight:800;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:.25s;letter-spacing:.2px;
+}
+.btn-cancel:hover{
+  background:var(--red);color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(220,38,38,.28);
+}
+.btn-cancel:active{transform:translateY(0) scale(.99);}
+.btn-cancel:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+/* ========================================== */
 
 .tracking-map{width:100%;height:320px;border-radius:14px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:12px;background:#E5E7EB;z-index:1;position:relative;}
 .map-sheet{max-height:94vh;}
@@ -597,6 +617,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .adm-card.is-umkm{border-color:#FDE68A;}
 .adm-card.is-umkm:hover{border-color:var(--umkm);box-shadow:0 8px 22px rgba(180,83,9,.12);}
 .adm-card.is-courier-active{border-color:#10B981;box-shadow:0 8px 22px rgba(16,185,129,.18);}
+.adm-card.is-cancelled{opacity:.8;border-color:#FCA5A5;background:#FFF9F9;}
 .adm-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap;}
 .adm-prod-top{display:flex;gap:11px;align-items:flex-start;}
 .adm-img{width:58px;height:58px;border-radius:13px;object-fit:cover;background:var(--red-soft);flex-shrink:0;}
@@ -1587,7 +1608,7 @@ async function shareCurrentLocation() {
   }
 }
 
-/* ============ PRODUCT DETAIL POPUP (TANPA RATING) ============ */
+/* ============ PRODUCT DETAIL POPUP ============ */
 function openProductDetail(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
@@ -1605,28 +1626,22 @@ function openProductDetail(id) {
   const umkmStore = (p.umkm || "").trim();
   const habis = stok <= 0;
 
-  // Image
   $("#pdImg").src = p.gambar || PLACEHOLDER;
   $("#pdImg").onerror = function(){ this.src = PLACEHOLDER; };
   $("#pdImgWrap").classList.toggle("is-umkm", isUmkm);
 
-  // Ribbon
   const ribbon = $("#pdRibbon");
   if (adaDiskon) { ribbon.style.display = "block"; ribbon.textContent = `-${diskon}%`; }
   else ribbon.style.display = "none";
 
-  // UMKM Badge
   $("#pdUmkmBadge").style.display = isUmkm ? "inline-flex" : "none";
 
-  // Category
   const cat = $("#pdCategory");
   cat.textContent = p.kategori || "Lainnya";
   cat.classList.toggle("umkm", isUmkm);
 
-  // Title
   $("#pdTitle").textContent = p.nama || "Produk";
 
-  // Store
   if (isUmkm && umkmStore) {
     $("#pdStore").style.display = "inline-flex";
     $("#pdStoreName").textContent = umkmStore;
@@ -1634,7 +1649,6 @@ function openProductDetail(id) {
     $("#pdStore").style.display = "none";
   }
 
-  // Price
   $("#pdPrice").textContent = rupiah(hargaFinal);
   if (adaDiskon) {
     $("#pdPriceOriginal").style.display = "inline";
@@ -1646,21 +1660,17 @@ function openProductDetail(id) {
     $("#pdDiscountPill").style.display = "none";
   }
 
-  // Terjual (tanpa rating)
   $("#pdTerjual").textContent = `${p.terjual || 0} terjual`;
 
-  // Stock
   const stockBadge = $("#pdStockBadge");
   $("#pdStock").textContent = habis ? "Habis" : `Stok ${stok}`;
   stockBadge.classList.toggle("habis", habis);
 
-  // Description
   const desc = (p.deskripsi || "").trim();
   const descEl = $("#pdDesc");
   if (desc) { descEl.textContent = desc; descEl.classList.remove("empty"); }
   else { descEl.textContent = "Belum ada deskripsi untuk produk ini."; descEl.classList.add("empty"); }
 
-  // Info grid (tanpa rating)
   $("#pdInfoCategory").textContent = p.kategori || "-";
   const infoStock = $("#pdInfoStock");
   infoStock.textContent = habis ? "Habis" : `${stok} unit`;
@@ -1668,12 +1678,10 @@ function openProductDetail(id) {
   $("#pdInfoSold").textContent = `${p.terjual || 0} unit`;
   $("#pdInfoPrice").textContent = rupiah(hargaFinal);
 
-  // Wishlist button
   const wishBtn = $("#pdWishBtn");
   wishBtn.classList.toggle("active", liked);
   wishBtn.innerHTML = liked ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
 
-  // Qty & Add button
   updatePDQtyUI();
   const addBtn = $("#pdAddBtn");
   addBtn.classList.toggle("is-umkm", isUmkm);
@@ -1684,7 +1692,6 @@ function openProductDetail(id) {
 
   $("#pdQtyRow").style.display = habis ? "none" : "flex";
 
-  // Show overlay
   $("#pdOverlay").classList.add("show");
   document.body.style.overflow = "hidden";
 }
@@ -2473,6 +2480,67 @@ function trackButtonHTML(o) {
   </button>`;
 }
 
+/* ============================================================
+   NEW: TOMBOL BATALKAN PESANAN (CUSTOMER)
+   ============================================================ */
+function cancelButtonHTML(o) {
+  if (o.status !== "pending" && o.status !== "diproses") return "";
+  return `<button class="btn-cancel" data-cancel="${o.id}">
+    <i class="fas fa-circle-xmark"></i> Batalkan Pesanan
+  </button>`;
+}
+
+async function cancelOrder(orderId) {
+  const order = allOrders.find(o => o.id === orderId);
+  if (!order) return;
+
+  if (order.status !== "pending" && order.status !== "diproses") {
+    return toast("Pesanan ini tidak dapat dibatalkan", "err");
+  }
+
+  const ok = confirm(
+    "Yakin ingin membatalkan pesanan ini?\n\n" +
+    "• Pesanan tidak dapat dikembalikan setelah dibatalkan\n" +
+    "• Stok produk akan otomatis dikembalikan ke koperasi"
+  );
+  if (!ok) return;
+
+  const btn = document.querySelector(`[data-cancel="${orderId}"]`);
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membatalkan...';
+  }
+
+  try {
+    // 1) Kembalikan stok produk
+    for (const item of (order.items || [])) {
+      try {
+        await updateDoc(doc(db, "products", item.id), {
+          stok: increment(item.qty),
+          terjual: increment(-item.qty)
+        });
+      } catch (e) { console.warn("Restore stock err:", e); }
+    }
+
+    // 2) Update status pesanan → dibatalkan
+    await updateDoc(doc(db, "orders", orderId), {
+      status: "dibatalkan",
+      cancelledAt: serverTimestamp(),
+      cancelledBy: "customer",
+      updatedAt: serverTimestamp()
+    });
+
+    toast("Pesanan berhasil dibatalkan ✓", "ok");
+  } catch (err) {
+    toast("Gagal membatalkan: " + err.message, "err");
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-circle-xmark"></i> Batalkan Pesanan';
+    }
+  }
+}
+/* ============================================================ */
+
 function renderOrders() {
   const el = $("#ordersList");
   if (!allOrders.length) {
@@ -2481,7 +2549,8 @@ function renderOrders() {
   }
   el.innerHTML = allOrders.map(o => {
     const live = isCourierLive(o);
-    const cardCls = live ? "is-live" : (o.status === "dikirim" ? "is-dikirim" : "");
+    const isCancelled = o.status === "dibatalkan";
+    const cardCls = isCancelled ? "is-cancelled" : (live ? "is-live" : (o.status === "dikirim" ? "is-dikirim" : ""));
     return `
     <div class="order-card ${cardCls}">
       <div class="order-head">
@@ -2496,6 +2565,7 @@ function renderOrders() {
       ${paymentInfoHTML(o.payment || "cod")}
       ${shippingAlertHTML(o.status)}
       ${trackButtonHTML(o)}
+      ${cancelButtonHTML(o)}
       <div class="track-wrap">
         <h5><i class="fas fa-route"></i> Lacak Status Pesanan</h5>
         ${timelineHTML(o.status)}
@@ -2559,6 +2629,15 @@ function attachCustomerEvents() {
   document.addEventListener("click", e => {
     const wish = e.target.closest("[data-wish]");
     if (wish) { e.stopPropagation(); toggleWishlist(wish.dataset.wish); return; }
+
+    // NEW: tombol batalkan pesanan
+    const cancelBtn = e.target.closest("[data-cancel]");
+    if (cancelBtn) {
+      e.stopPropagation();
+      cancelOrder(cancelBtn.dataset.cancel);
+      return;
+    }
+
     const trackBtn = e.target.closest("[data-track]");
     if (trackBtn) {
       e.stopPropagation();
@@ -2974,9 +3053,13 @@ function renderAdminOrders() {
     const courierBtnClass = live ? "btn-courier active" : "btn-courier";
     const courierBtnText = live ? "🔴 Kurir LIVE" : "Mode Kurir";
     const courierBtnIcon = live ? "fa-satellite-dish" : "fa-motorcycle";
+    const isCancelled = o.status === "dibatalkan";
+    const cancelledNote = isCancelled && o.cancelledBy === "customer"
+      ? `<div class="adm-line" style="color:#B91C1C"><i class="fas fa-circle-xmark" style="color:#DC2626"></i><span><b>Dibatalkan oleh Pelanggan</b>${o.cancelledAt ? ` · ${timeAgo(o.cancelledAt)}` : ""}</span></div>`
+      : "";
 
     return `
-    <div class="adm-card ${live ? "is-courier-active" : ""}">
+    <div class="adm-card ${live ? "is-courier-active" : ""} ${isCancelled ? "is-cancelled" : ""}">
       <div class="adm-card-head">
         <span class="order-id">#${o.id.slice(0, 8).toUpperCase()} · ${timeAgo(o.createdAt)}</span>
         <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
@@ -2987,6 +3070,7 @@ function renderAdminOrders() {
       <div class="adm-line"><i class="fas fa-user"></i><span><b>${esc(o.nama || o.namaPembeli || "-")}</b> · ${esc(o.telepon || "-")}</span></div>
       <div class="adm-line"><i class="fas fa-location-dot"></i><span>${esc(o.alamat || "-")}</span></div>
       ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
+      ${cancelledNote}
       <div class="adm-items">${(o.items || []).map(i => `${esc(i.nama)} × ${i.qty}`).join("<br>")}</div>
       <div class="adm-card-foot">
         <span class="adm-total">${rupiah(o.total)}</span>
@@ -3011,9 +3095,31 @@ function renderAdminOrders() {
   }).join("");
 }
 
+/* NEW: updateOrderStatus juga restore stok kalau admin yang batalkan */
 async function updateOrderStatus(id, status) {
   try {
-    await updateDoc(doc(db, "orders", id), { status, updatedAt: serverTimestamp() });
+    const order = allOrders.find(o => o.id === id);
+
+    // Jika admin membatalkan pesanan (dan sebelumnya belum dibatalkan), restore stok
+    if (status === "dibatalkan" && order && order.status !== "dibatalkan") {
+      for (const item of (order.items || [])) {
+        try {
+          await updateDoc(doc(db, "products", item.id), {
+            stok: increment(item.qty),
+            terjual: increment(-item.qty)
+          });
+        } catch (e) { console.warn("Restore stock (admin) err:", e); }
+      }
+    }
+
+    await updateDoc(doc(db, "orders", id), {
+      status,
+      updatedAt: serverTimestamp(),
+      ...(status === "dibatalkan" ? {
+        cancelledAt: serverTimestamp(),
+        cancelledBy: order?.cancelledBy || "admin"
+      } : {})
+    });
     if (status !== "dikirim" && status !== "selesai") toast("Status pesanan → " + status, "ok");
   } catch (err) { toast("Gagal memperbarui: " + err.message, "err"); }
 }

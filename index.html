@@ -242,7 +242,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
-/* ============ PRODUCT DETAIL POPUP ============ */
 .pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
 .pd-card{background:#fff;width:100%;max-width:400px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 30px 70px rgba(24,24,27,.4);animation:pdPop .35s cubic-bezier(.2,.9,.3,1.15);position:relative;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;}
@@ -401,7 +400,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .btn-courier.active{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 5px 12px rgba(5,150,105,.26);animation:livePulse 1.8s infinite;}
 .btn-courier.active:hover{box-shadow:0 9px 20px rgba(5,150,105,.38);}
 
-/* ====== TOMBOL BATALKAN PESANAN ====== */
 .btn-cancel{
   margin-top:8px;width:100%;
   background:#fff;color:var(--red);
@@ -491,6 +489,30 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .menu-item:hover{background:var(--red-soft);}
 .menu-item i:first-child{width:34px;height:34px;border-radius:11px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .menu-item .arrow{margin-left:auto;color:var(--text-mute);font-size:11px;}
+
+/* ============ ALAMAT TERSIMPAN ============ */
+.addr-card{background:#fff;border:1.5px solid var(--border-soft);border-radius:var(--r-md);padding:11px 12px;margin-bottom:9px;transition:.2s;}
+.addr-card:hover{border-color:var(--red);box-shadow:0 4px 14px rgba(220,38,38,.08);}
+.addr-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:8px;}
+.addr-label{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--red);background:var(--red-soft);padding:4px 10px;border-radius:20px;letter-spacing:.2px;}
+.addr-label i{font-size:9.5px;}
+.addr-actions{display:flex;gap:4px;flex-shrink:0;}
+.addr-line{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--text-soft);font-weight:500;line-height:1.45;margin-bottom:3px;}
+.addr-line:last-of-type{margin-bottom:0;}
+.addr-line i{width:12px;margin-top:2px;flex-shrink:0;color:var(--red);font-size:10px;}
+.addr-line span{flex:1;min-width:0;word-break:break-word;}
+.addr-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.addr-chip{display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:var(--red-soft);border:1.5px solid rgba(220,38,38,.15);border-radius:10px;padding:7px 10px;font-size:10.5px;font-weight:700;color:var(--red);cursor:pointer;transition:.2s;text-align:left;max-width:100%;}
+.addr-chip i{font-size:9px;}
+.addr-chip small{font-weight:500;color:var(--text-soft);font-size:9px;line-height:1.3;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.addr-chip:hover{background:#fff;border-color:var(--red);}
+.addr-chip.selected{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:var(--sh-red);}
+.addr-chip.selected small{color:rgba(255,255,255,.9);}
+.addr-chip.add{background:#fff;border-style:dashed;color:var(--text-soft);justify-content:center;align-items:center;flex-direction:row;gap:5px;min-width:100px;}
+.addr-chip.add:hover{background:var(--red-soft);color:var(--red);border-color:var(--red);}
+.cat-chip{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:6px 11px;font-size:10.5px;font-weight:700;color:var(--text-soft);cursor:pointer;transition:.2s;}
+.cat-chip:hover{border-color:var(--red);color:var(--red);background:var(--red-soft);}
+.cat-chip.active{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:var(--sh-red);}
 
 .overlay{position:fixed;inset:0;background:rgba(24,24,27,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;z-index:100;}
 .overlay.show{display:flex;}
@@ -670,7 +692,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .dash-order-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
 .dash-total{font-size:var(--fs-md);font-weight:800;color:var(--red);}
 
-/* ============ DASHBOARD: PESANAN DIKELOMPOKKAN PER HARI ============ */
 .dash-day-group{margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed var(--border);}
 .dash-day-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
 .dash-day-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0 10px;border-bottom:1px solid var(--border-soft);margin-bottom:2px;flex-wrap:wrap;}
@@ -913,10 +934,14 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
           <div><h3 id="profileNama">Pelanggan</h3><p id="profileEmail">email@contoh.com</p></div>
         </div>
         <div class="menu-list">
+          <button class="menu-item" id="btnAlamatTersimpan"><i class="fas fa-address-book"></i> Alamat Tersimpan <i class="fas fa-chevron-right arrow"></i></button>
           <button class="menu-item" id="btnEditProfil"><i class="fas fa-user-pen"></i> Edit Profil <i class="fas fa-chevron-right arrow"></i></button>
           <button class="menu-item" id="btnRiwayat"><i class="fas fa-receipt"></i> Riwayat Pesanan <i class="fas fa-chevron-right arrow"></i></button>
           <button class="menu-item" id="btnUmkmMenu"><i class="fas fa-store" style="background:var(--umkm-soft);color:var(--umkm)"></i> Katalog UMKM <i class="fas fa-chevron-right arrow"></i></button>
           <button class="menu-item" id="btnWishlistMenu"><i class="fas fa-heart" style="background:#FEE2E2;color:var(--red)"></i> Produk Favorit <i class="fas fa-chevron-right arrow"></i></button>
+          <a class="menu-item" id="btnBantuanWA" href="https://wa.me/628214584600?text=Halo%20Admin%20Koperasi%20Merah%20Putih%2C%20saya%20butuh%20bantuan." target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:var(--text);">
+            <i class="fab fa-whatsapp" style="background:#DCFCE7;color:#16A34A"></i> Bantuan via WhatsApp <i class="fas fa-chevron-right arrow"></i>
+          </a>
           <button class="menu-item" id="btnLogout"><i class="fas fa-right-from-bracket" style="background:#FEE2E2;color:#DC2626"></i> Keluar Akun <i class="fas fa-chevron-right arrow"></i></button>
         </div>
       </div>
@@ -991,6 +1016,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     <div id="cartItems"></div>
     <div class="sheet-total"><span>Total</span><span id="cartSheetTotal">Rp 0</span></div>
     <div id="checkoutForm" style="display:none">
+      <div id="checkoutAddressWrap"></div>
       <div class="form-row"><label>Nama Penerima</label><div class="input-group"><i class="fas fa-user"></i><input type="text" id="coNama"></div></div>
       <div class="form-row"><label>Nomor WhatsApp</label><div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="coTelepon"></div></div>
 
@@ -1049,6 +1075,77 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       </div>
     </div>
     <button class="btn-primary" id="btnCheckout" style="width:100%"><i class="fas fa-credit-card"></i> Lanjut Checkout</button>
+  </div>
+</div>
+
+<!-- ALAMAT TERSIMPAN (LIST) -->
+<div class="overlay" id="addressListOverlay">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3><i class="fas fa-address-book"></i> Alamat Tersimpan</h3>
+      <button class="close-btn" id="addressListClose"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div id="addressListContainer"></div>
+    <button class="btn-primary" id="btnAddAddress" style="width:100%;margin-top:14px">
+      <i class="fas fa-plus"></i> Tambah Alamat Baru
+    </button>
+  </div>
+</div>
+
+<!-- ALAMAT TERSIMPAN (FORM) -->
+<div class="overlay" id="addressFormOverlay">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="addressFormTitle"><i class="fas fa-location-dot"></i> Tambah Alamat</h3>
+      <button class="close-btn" id="addressFormClose"><i class="fas fa-xmark"></i></button>
+    </div>
+    <input type="hidden" id="addrId">
+    <div class="form-row">
+      <label>Label Alamat</label>
+      <div class="input-group">
+        <i class="fas fa-tag"></i>
+        <input type="text" id="addrLabel" placeholder="Contoh: Rumah, Kantor, Rumah Ibu">
+      </div>
+      <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap" id="addrLabelChips">
+        <button type="button" class="cat-chip" data-label="Rumah">🏠 Rumah</button>
+        <button type="button" class="cat-chip" data-label="Kantor">🏢 Kantor</button>
+        <button type="button" class="cat-chip" data-label="Kos">🏠 Kos</button>
+        <button type="button" class="cat-chip" data-label="Rumah Orang Tua">👴 Rumah Ortu</button>
+        <button type="button" class="cat-chip" data-label="Lainnya">📍 Lainnya</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Nama Penerima</label>
+      <div class="input-group"><i class="fas fa-user"></i><input type="text" id="addrNama" placeholder="Nama orang yang akan menerima"></div>
+    </div>
+    <div class="form-row">
+      <label>Nomor WhatsApp</label>
+      <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="addrTelepon" placeholder="Nomor WA penerima"></div>
+    </div>
+    <div class="form-row">
+      <label>Alamat Lengkap</label>
+      <div class="input-group"><i class="fas fa-location-dot"></i><input type="text" id="addrAlamat" placeholder="RT/RW, Dusun, patokan..."></div>
+    </div>
+    <div class="form-row">
+      <label>Tentukan Lokasi di Peta</label>
+      <button type="button" class="btn-loc-share" id="addrGpsBtn" style="margin-top:0">
+        <i class="fas fa-location-crosshairs"></i> Gunakan Lokasi Saat Ini
+      </button>
+      <div id="addrMap" class="tracking-map" style="height:220px;margin-top:10px"></div>
+      <p class="hint-small" style="margin-top:6px">
+        <i class="fas fa-info-circle"></i> Ketuk/geser marker pada peta untuk menentukan lokasi manual.
+      </p>
+      <div class="loc-info" id="addrCoordInfo" style="display:none;margin-top:8px;border-radius:10px;padding:8px 10px;background:#ECFDF5;border:1.5px solid #6EE7B7;">
+        <i class="fas fa-circle-check"></i>
+        <div>
+          <strong>Lokasi terpilih</strong>
+          <div class="loc-coord" id="addrCoordText">-</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-primary" id="btnSaveAddress" style="width:100%">
+      <i class="fas fa-floppy-disk"></i> Simpan Alamat
+    </button>
   </div>
 </div>
 
@@ -1346,6 +1443,15 @@ let courierFirstFix = true;
 // PRODUCT DETAIL STATE
 let currentPDProductId = null;
 let currentPDQty = 1;
+
+// ============ SAVED ADDRESSES STATE ============
+let savedAddresses = [];
+let editingAddressId = null;
+let addressMapInstance = null;
+let addressMarker = null;
+let addressCoords = { lat: null, lng: null };
+let addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
+let addressReturnContext = "profile"; // "profile" | "checkout"
 
 const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
@@ -1767,6 +1873,355 @@ $("#pdWishBtn")?.addEventListener("click", () => {
   btn.innerHTML = liked ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
 });
 
+/* ============ ============================ ============ */
+/* ============ SAVED ADDRESSES (BUKU ALAMAT) ============ */
+/* ============ ============================ ============ */
+function genAddrId() {
+  return 'addr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+}
+
+function loadSavedAddresses() {
+  savedAddresses = Array.isArray(currentUser?.savedAddresses)
+    ? JSON.parse(JSON.stringify(currentUser.savedAddresses))
+    : [];
+  renderAddressList();
+  renderCheckoutAddressOptions();
+}
+
+function renderAddressList() {
+  const el = document.getElementById('addressListContainer');
+  if (!el) return;
+  if (!savedAddresses.length) {
+    el.innerHTML = `<div class="empty-state" style="padding:26px 10px">
+      <i class="fas fa-address-book"></i>
+      Belum ada alamat tersimpan.<br>
+      <span style="font-size:11px;color:var(--text-mute)">Tambahkan alamat untuk orang lain atau lokasi favoritmu.</span>
+    </div>`;
+    return;
+  }
+  el.innerHTML = savedAddresses.map(a => `
+    <div class="addr-card">
+      <div class="addr-card-head">
+        <div class="addr-label"><i class="fas fa-tag"></i> ${esc(a.label || 'Alamat')}</div>
+        <div class="addr-actions">
+          <button class="icon-btn edit" data-addr-edit="${esc(a.id)}" title="Edit"><i class="fas fa-pen"></i></button>
+          <button class="icon-btn del" data-addr-del="${esc(a.id)}" title="Hapus"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="addr-line"><i class="fas fa-user"></i><span><b>${esc(a.nama || '-')}</b></span></div>
+      <div class="addr-line"><i class="fas fa-phone"></i><span>${esc(a.telepon || '-')}</span></div>
+      <div class="addr-line"><i class="fas fa-location-dot"></i><span>${esc(a.alamat || '-')}</span></div>
+      ${a.lat != null && a.lng != null ? `<div class="addr-line" style="color:var(--text-mute);font-size:9.5px;font-family:'Courier New',monospace"><i class="fas fa-map-pin"></i><span>${Number(a.lat).toFixed(5)}, ${Number(a.lng).toFixed(5)}</span></div>` : ''}
+      <button class="btn-sm" style="width:100%;margin-top:8px;justify-content:center" data-addr-use="${esc(a.id)}">
+        <i class="fas fa-check"></i> Gunakan Alamat Ini Saat Checkout
+      </button>
+    </div>
+  `).join("");
+}
+
+function renderCheckoutAddressOptions() {
+  const wrap = document.getElementById('checkoutAddressWrap');
+  if (!wrap) return;
+  if (!savedAddresses.length) {
+    wrap.innerHTML = `<div class="form-row">
+      <label><i class="fas fa-address-book" style="color:var(--red);margin-right:5px"></i>Alamat Tersimpan</label>
+      <div class="addr-chips">
+        <button type="button" class="addr-chip add" id="addrChipAddEmpty">
+          <i class="fas fa-plus"></i> Tambah Alamat Baru
+        </button>
+      </div>
+    </div>`;
+    wrap.querySelector('#addrChipAddEmpty')?.addEventListener('click', () => {
+      addressReturnContext = 'checkout';
+      openAddressForm();
+    });
+    return;
+  }
+  wrap.innerHTML = `
+    <div class="form-row">
+      <label><i class="fas fa-address-book" style="color:var(--red);margin-right:5px"></i>Pilih dari Alamat Tersimpan</label>
+      <div class="addr-chips">
+        ${savedAddresses.map(a => `
+          <button type="button" class="addr-chip" data-addr-pick="${esc(a.id)}">
+            <span><i class="fas fa-tag"></i> ${esc(a.label || 'Alamat')}</span>
+            <small>${esc(a.nama || '')} · ${esc((a.alamat || '').slice(0, 24))}${(a.alamat || '').length > 24 ? '…' : ''}</small>
+          </button>
+        `).join('')}
+        <button type="button" class="addr-chip add" id="addrChipAdd">
+          <i class="fas fa-plus"></i> Tambah
+        </button>
+      </div>
+    </div>
+  `;
+  wrap.querySelector('#addrChipAdd')?.addEventListener('click', () => {
+    addressReturnContext = 'checkout';
+    openAddressForm();
+  });
+  wrap.querySelectorAll('[data-addr-pick]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = savedAddresses.find(x => x.id === btn.dataset.addrPick);
+      if (!a) return;
+      document.getElementById('coNama').value = a.nama || '';
+      document.getElementById('coTelepon').value = a.telepon || '';
+      document.getElementById('coAlamat').value = a.alamat || '';
+      if (a.lat != null && a.lng != null) {
+        checkoutCoords = { lat: Number(a.lat), lng: Number(a.lng) };
+        document.getElementById('locCoordText').textContent = `Lat: ${Number(a.lat).toFixed(6)} · Lng: ${Number(a.lng).toFixed(6)} · (dari alamat tersimpan)`;
+        document.getElementById('locPreview').style.display = 'block';
+        setTimeout(() => initLocMiniMap(Number(a.lat), Number(a.lng)), 120);
+      } else {
+        checkoutCoords = { lat: null, lng: null };
+        document.getElementById('locPreview').style.display = 'none';
+      }
+      wrap.querySelectorAll('.addr-chip').forEach(c => c.classList.toggle('selected', c === btn));
+      toast('Alamat dipilih ✓', 'ok');
+    });
+  });
+}
+
+function openAddressList() {
+  renderAddressList();
+  document.getElementById('addressListOverlay').classList.add('show');
+}
+
+function openAddressForm(addrId = null) {
+  editingAddressId = addrId;
+  const a = addrId ? savedAddresses.find(x => x.id === addrId) : null;
+  document.getElementById('addressFormTitle').innerHTML = a
+    ? '<i class="fas fa-pen"></i> Edit Alamat'
+    : '<i class="fas fa-location-dot"></i> Tambah Alamat';
+  document.getElementById('addrId').value = a?.id || '';
+  document.getElementById('addrLabel').value = a?.label || '';
+  document.getElementById('addrNama').value = a?.nama || '';
+  document.getElementById('addrTelepon').value = a?.telepon || '';
+  document.getElementById('addrAlamat').value = a?.alamat || '';
+  addressCoords = {
+    lat: a?.lat != null ? Number(a.lat) : null,
+    lng: a?.lng != null ? Number(a.lng) : null
+  };
+  document.querySelectorAll('#addrLabelChips .cat-chip').forEach(c => {
+    c.classList.toggle('active', (c.dataset.label || '') === (a?.label || ''));
+  });
+
+  const coordInfo = document.getElementById('addrCoordInfo');
+  if (addressCoords.lat != null && addressCoords.lng != null) {
+    coordInfo.style.display = 'flex';
+    document.getElementById('addrCoordText').textContent = `Lat: ${addressCoords.lat.toFixed(6)} · Lng: ${addressCoords.lng.toFixed(6)}`;
+    addressInitLocation = [addressCoords.lat, addressCoords.lng];
+  } else {
+    coordInfo.style.display = 'none';
+    addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
+  }
+
+  document.getElementById('addressFormOverlay').classList.add('show');
+  setTimeout(initAddressMap, 220);
+}
+
+function initAddressMap() {
+  const el = document.getElementById('addrMap');
+  if (!el) return;
+  if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
+  addressMapInstance = L.map(el, { zoomControl: true, attributionControl: false }).setView(addressInitLocation, 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(addressMapInstance);
+
+  addressMarker = L.marker(addressInitLocation, {
+    icon: L.divIcon({
+      html: '<div class="map-marker home"><i class="fas fa-home"></i></div>',
+      className: 'custom-map-marker',
+      iconSize: [36, 36],
+      iconAnchor: [18, 36]
+    }),
+    draggable: true
+  }).addTo(addressMapInstance);
+
+  addressMarker.on('dragend', async (e) => {
+    const pos = e.target.getLatLng();
+    addressCoords = { lat: pos.lat, lng: pos.lng };
+    updateAddressCoordInfo();
+    const addrEl = document.getElementById('addrAlamat');
+    if (!addrEl.value.trim()) {
+      const addr = await reverseGeocode(pos.lat, pos.lng);
+      if (addr) addrEl.value = addr;
+    }
+  });
+
+  addressMapInstance.on('click', (e) => {
+    addressMarker.setLatLng(e.latlng);
+    addressCoords = { lat: e.latlng.lat, lng: e.latlng.lng };
+    updateAddressCoordInfo();
+  });
+
+  setTimeout(() => addressMapInstance && addressMapInstance.invalidateSize(), 300);
+}
+
+function updateAddressCoordInfo() {
+  const info = document.getElementById('addrCoordInfo');
+  if (!info) return;
+  if (addressCoords.lat != null && addressCoords.lng != null) {
+    info.style.display = 'flex';
+    document.getElementById('addrCoordText').textContent = `Lat: ${addressCoords.lat.toFixed(6)} · Lng: ${addressCoords.lng.toFixed(6)}`;
+  } else {
+    info.style.display = 'none';
+  }
+}
+
+async function useGpsForAddress() {
+  const btn = document.getElementById('addrGpsBtn');
+  btn.disabled = true;
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendeteksi...';
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 12000 });
+    });
+    const lat = pos.coords.latitude, lng = pos.coords.longitude;
+    addressCoords = { lat, lng };
+    updateAddressCoordInfo();
+    if (addressMapInstance && addressMarker) {
+      addressMarker.setLatLng([lat, lng]);
+      addressMapInstance.setView([lat, lng], 16);
+    }
+    const addrEl = document.getElementById('addrAlamat');
+    if (!addrEl.value.trim()) {
+      const addr = await reverseGeocode(lat, lng);
+      if (addr) addrEl.value = addr;
+    }
+    toast('Lokasi GPS terdeteksi ✓', 'ok');
+  } catch (err) {
+    let msg = 'Gagal deteksi GPS';
+    if (err.code === 1) msg = 'Izin lokasi ditolak. Aktifkan GPS.';
+    else if (err.code === 2) msg = 'Lokasi tidak tersedia.';
+    else if (err.code === 3) msg = 'Waktu deteksi habis.';
+    toast(msg, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  }
+}
+
+async function saveAddress() {
+  const label = document.getElementById('addrLabel').value.trim();
+  const nama = document.getElementById('addrNama').value.trim();
+  const telepon = document.getElementById('addrTelepon').value.trim();
+  const alamat = document.getElementById('addrAlamat').value.trim();
+
+  if (!nama) return toast('Nama penerima wajib diisi', 'err');
+  if (!telepon) return toast('Nomor telepon wajib diisi', 'err');
+  if (!alamat) return toast('Alamat wajib diisi', 'err');
+  if (addressCoords.lat == null || addressCoords.lng == null) {
+    return toast('Tentukan lokasi di peta terlebih dahulu', 'err');
+  }
+
+  const btn = document.getElementById('btnSaveAddress');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+  try {
+    const newAddr = {
+      id: editingAddressId || genAddrId(),
+      label: label || 'Alamat',
+      nama, telepon, alamat,
+      lat: addressCoords.lat,
+      lng: addressCoords.lng,
+      updatedAt: new Date().toISOString()
+    };
+
+    let list = savedAddresses.slice();
+    if (editingAddressId) {
+      const idx = list.findIndex(x => x.id === editingAddressId);
+      if (idx > -1) list[idx] = newAddr;
+      else list.push(newAddr);
+    } else {
+      list.push(newAddr);
+    }
+
+    await updateDoc(doc(db, 'users', currentUser.uid), { savedAddresses: list });
+    currentUser.savedAddresses = list;
+    savedAddresses = list;
+
+    renderAddressList();
+    renderCheckoutAddressOptions();
+
+    toast(editingAddressId ? 'Alamat diperbarui ✓' : 'Alamat tersimpan ✓', 'ok');
+
+    document.getElementById('addressFormOverlay').classList.remove('show');
+    if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
+    addressMarker = null;
+
+    if (addressReturnContext === 'checkout') {
+      setTimeout(() => {
+        useAddressForCheckout(newAddr.id);
+      }, 250);
+    }
+  } catch (err) {
+    toast('Gagal menyimpan: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Alamat';
+    addressReturnContext = 'profile';
+  }
+}
+
+async function deleteAddress(id) {
+  const a = savedAddresses.find(x => x.id === id);
+  if (!confirm(`Hapus alamat "${a?.label || ''}"?`)) return;
+  try {
+    const list = savedAddresses.filter(x => x.id !== id);
+    await updateDoc(doc(db, 'users', currentUser.uid), { savedAddresses: list });
+    currentUser.savedAddresses = list;
+    savedAddresses = list;
+    renderAddressList();
+    renderCheckoutAddressOptions();
+    toast('Alamat dihapus', 'ok');
+  } catch (err) {
+    toast('Gagal menghapus: ' + err.message, 'err');
+  }
+}
+
+function useAddressForCheckout(id) {
+  const a = savedAddresses.find(x => x.id === id);
+  if (!a) return;
+  const { count } = cartTotals();
+  if (!count) {
+    toast('Keranjang kosong. Tambahkan produk dulu.', 'err');
+    return;
+  }
+
+  document.getElementById('addressListOverlay').classList.remove('show');
+
+  checkoutMode = true;
+  selectedPayment = 'cod';
+  document.querySelectorAll('.pay-option').forEach(o => o.classList.toggle('selected', o.dataset.pay === 'cod'));
+  ['cod','qris','dana','gopay'].forEach(p => {
+    const inst = document.getElementById('payInst_' + p);
+    if (inst) inst.classList.toggle('show', p === 'cod');
+  });
+  document.getElementById('checkoutForm').style.display = 'block';
+  document.getElementById('btnCheckout').innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
+
+  document.getElementById('coNama').value = a.nama || '';
+  document.getElementById('coTelepon').value = a.telepon || '';
+  document.getElementById('coAlamat').value = a.alamat || '';
+  if (a.lat != null && a.lng != null) {
+    checkoutCoords = { lat: Number(a.lat), lng: Number(a.lng) };
+    document.getElementById('locCoordText').textContent = `Lat: ${Number(a.lat).toFixed(6)} · Lng: ${Number(a.lng).toFixed(6)} · (dari alamat tersimpan)`;
+    document.getElementById('locPreview').style.display = 'block';
+    setTimeout(() => initLocMiniMap(Number(a.lat), Number(a.lng)), 150);
+  } else {
+    checkoutCoords = { lat: null, lng: null };
+    document.getElementById('locPreview').style.display = 'none';
+  }
+
+  renderCartSheet();
+  renderCheckoutAddressOptions();
+  document.getElementById('cartOverlay').classList.add('show');
+  setTimeout(() => {
+    const sheet = document.querySelector('#cartOverlay .sheet');
+    if (sheet) sheet.scrollTop = 9999;
+  }, 120);
+  toast('Alamat siap dipakai ✓', 'ok');
+}
+
 /* ============ CUSTOMER TRACKING MAP ============ */
 function updateTrackingLiveStatus(order) {
   if (!order) return;
@@ -2121,6 +2576,51 @@ $("#pickerOverlay")?.addEventListener("click", e => { if (e.target === $("#picke
 $("#btnSaveLokasi")?.addEventListener("click", savePickerLocation);
 $("#btnShareLoc")?.addEventListener("click", shareCurrentLocation);
 
+/* ============ ADDRESS LIST & FORM EVENTS ============ */
+$("#btnAlamatTersimpan")?.addEventListener("click", () => {
+  addressReturnContext = 'profile';
+  openAddressList();
+});
+$("#addressListClose")?.addEventListener("click", () => $("#addressListOverlay").classList.remove("show"));
+$("#addressListOverlay")?.addEventListener("click", e => {
+  if (e.target === $("#addressListOverlay")) $("#addressListOverlay").classList.remove("show");
+});
+$("#btnAddAddress")?.addEventListener("click", () => {
+  addressReturnContext = 'profile';
+  openAddressForm();
+});
+$("#addressListContainer")?.addEventListener("click", e => {
+  const edit = e.target.closest('[data-addr-edit]');
+  const del = e.target.closest('[data-addr-del]');
+  const use = e.target.closest('[data-addr-use]');
+  if (edit) openAddressForm(edit.dataset.addrEdit);
+  if (del) deleteAddress(del.dataset.addrDel);
+  if (use) useAddressForCheckout(use.dataset.addrUse);
+});
+$("#addressFormClose")?.addEventListener("click", () => {
+  $("#addressFormOverlay").classList.remove("show");
+  if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
+  addressMarker = null;
+  addressReturnContext = 'profile';
+});
+$("#addressFormOverlay")?.addEventListener("click", e => {
+  if (e.target === $("#addressFormOverlay")) {
+    $("#addressFormOverlay").classList.remove("show");
+    if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
+    addressMarker = null;
+    addressReturnContext = 'profile';
+  }
+});
+$("#addrGpsBtn")?.addEventListener("click", useGpsForAddress);
+$("#btnSaveAddress")?.addEventListener("click", saveAddress);
+$("#addrLabelChips")?.addEventListener("click", e => {
+  const chip = e.target.closest('.cat-chip');
+  if (!chip) return;
+  document.querySelectorAll('#addrLabelChips .cat-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  document.getElementById('addrLabel').value = chip.dataset.label || '';
+});
+
 /* ============ CLOUDINARY ============ */
 let cloudinaryWidget = null;
 function initCloudinaryWidget() {
@@ -2200,6 +2700,7 @@ $("#registerForm").addEventListener("submit", async e => {
       nama, email, role: authRole,
       telepon: authRole === "admin" ? "" : telp,
       alamat : authRole === "admin" ? "" : alamat,
+      savedAddresses: [],
       createdAt: serverTimestamp()
     });
     authMsg("Pendaftaran berhasil! Mengalihkan...", true);
@@ -2222,7 +2723,7 @@ function friendlyError(err) {
 
 async function doLogout() {
   if (courierWatchId != null) await stopCourierBroadcast(true);
-  detachListeners(); cart = {}; wishlist = [];
+  detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
   await signOut(auth);
   toast("Kamu telah keluar");
 }
@@ -2252,7 +2753,7 @@ function detachListeners() {
 /* ============ CUSTOMER ============ */
 function initCustomer() {
   showScreen("customerScreen");
-  loadCart(); loadWish();
+  loadCart(); loadWish(); loadSavedAddresses();
   $("#userName").textContent      = currentUser.nama || "Pelanggan";
   $("#userAvatar").textContent    = initials(currentUser.nama);
   $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
@@ -2775,6 +3276,7 @@ function handleCheckout() {
     $("#coTelepon").value = currentUser.telepon || "";
     $("#coAlamat").value  = currentUser.alamat || "";
     $("#btnCheckout").innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
+    renderCheckoutAddressOptions();
     $("#cartOverlay .sheet").scrollTop = 9999;
     return;
   }
@@ -3154,7 +3656,6 @@ function groupOrdersByDay(orders, maxDays = 5, maxPerDay = 5) {
     .sort((a, b) => b[0].localeCompare(a[0]))
     .slice(0, maxDays)
     .map(([key, g]) => {
-      // urutkan pesanan dalam grup dari yang paling baru
       const sorted = g.orders.slice().sort((a, b) => {
         const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
         const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();

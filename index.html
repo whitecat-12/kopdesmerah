@@ -401,7 +401,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .btn-courier.active{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 5px 12px rgba(5,150,105,.26);animation:livePulse 1.8s infinite;}
 .btn-courier.active:hover{box-shadow:0 9px 20px rgba(5,150,105,.38);}
 
-/* ====== NEW: TOMBOL BATALKAN PESANAN ====== */
+/* ====== TOMBOL BATALKAN PESANAN ====== */
 .btn-cancel{
   margin-top:8px;width:100%;
   background:#fff;color:var(--red);
@@ -418,7 +418,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 }
 .btn-cancel:active{transform:translateY(0) scale(.99);}
 .btn-cancel:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
-/* ========================================== */
 
 .tracking-map{width:100%;height:320px;border-radius:14px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:12px;background:#E5E7EB;z-index:1;position:relative;}
 .map-sheet{max-height:94vh;}
@@ -670,6 +669,15 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .dash-order-left span{font-size:10px;color:var(--text-mute);font-weight:500;}
 .dash-order-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
 .dash-total{font-size:var(--fs-md);font-weight:800;color:var(--red);}
+
+/* ============ DASHBOARD: PESANAN DIKELOMPOKKAN PER HARI ============ */
+.dash-day-group{margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed var(--border);}
+.dash-day-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.dash-day-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0 10px;border-bottom:1px solid var(--border-soft);margin-bottom:2px;flex-wrap:wrap;}
+.dash-day-head > span:first-child{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:var(--red);letter-spacing:-.1px;text-transform:capitalize;}
+.dash-day-head > span:first-child i{font-size:10.5px;opacity:.85;}
+.dash-day-meta{font-size:9.5px;font-weight:700;color:var(--text-soft);background:var(--red-soft);padding:3.5px 9px;border-radius:20px;letter-spacing:.2px;white-space:nowrap;}
+.dash-day-more{text-align:center;font-size:10px;font-weight:600;color:var(--text-mute);padding:7px 0 2px;font-style:italic;}
 
 .cust-card{display:flex;align-items:center;gap:11px;background:#fff;border:1.5px solid var(--border-soft);border-radius:var(--r-lg);padding:12px;margin-bottom:9px;box-shadow:var(--sh-sm);}
 .cust-avatar{width:40px;height:40px;border-radius:13px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
@@ -954,7 +962,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <div class="admin-head">
           <div><h1>Kelola Produk</h1><p>Atur barang sembako & produk UMKM</p></div>
           <div class="head-actions">
-            <button class="btn-sm ghost" id="btnSeed"><i class="fas fa-wand-magic-sparkles"></i> Data Contoh</button>
             <button class="btn-sm" id="btnAddProduct"><i class="fas fa-plus"></i> Tambah</button>
           </div>
         </div>
@@ -2480,9 +2487,6 @@ function trackButtonHTML(o) {
   </button>`;
 }
 
-/* ============================================================
-   NEW: TOMBOL BATALKAN PESANAN (CUSTOMER)
-   ============================================================ */
 function cancelButtonHTML(o) {
   if (o.status !== "pending" && o.status !== "diproses") return "";
   return `<button class="btn-cancel" data-cancel="${o.id}">
@@ -2512,7 +2516,6 @@ async function cancelOrder(orderId) {
   }
 
   try {
-    // 1) Kembalikan stok produk
     for (const item of (order.items || [])) {
       try {
         await updateDoc(doc(db, "products", item.id), {
@@ -2522,7 +2525,6 @@ async function cancelOrder(orderId) {
       } catch (e) { console.warn("Restore stock err:", e); }
     }
 
-    // 2) Update status pesanan → dibatalkan
     await updateDoc(doc(db, "orders", orderId), {
       status: "dibatalkan",
       cancelledAt: serverTimestamp(),
@@ -2539,7 +2541,6 @@ async function cancelOrder(orderId) {
     }
   }
 }
-/* ============================================================ */
 
 function renderOrders() {
   const el = $("#ordersList");
@@ -2630,7 +2631,6 @@ function attachCustomerEvents() {
     const wish = e.target.closest("[data-wish]");
     if (wish) { e.stopPropagation(); toggleWishlist(wish.dataset.wish); return; }
 
-    // NEW: tombol batalkan pesanan
     const cancelBtn = e.target.closest("[data-cancel]");
     if (cancelBtn) {
       e.stopPropagation();
@@ -2860,7 +2860,6 @@ function attachAdminEvents() {
   $("#productClose").addEventListener("click", () => $("#productOverlay").classList.remove("show"));
   $("#productOverlay").addEventListener("click", e => { if (e.target === $("#productOverlay")) $("#productOverlay").classList.remove("show"); });
   $("#btnSaveProduct").addEventListener("click", saveProduct);
-  $("#btnSeed").addEventListener("click", seedProducts);
   $("#btnUploadFoto").addEventListener("click", openCloudinaryWidget);
   $("#uploadZone").addEventListener("click", openCloudinaryWidget);
   $("#btnHapusFoto").addEventListener("click", () => { setUploadPreview(""); toast("Foto dihapus"); });
@@ -3008,26 +3007,6 @@ async function deleteProduct(id) {
   catch (err) { toast("Gagal menghapus: " + err.message, "err"); }
 }
 
-async function seedProducts() {
-  if (!confirm("Tambahkan produk sembako contoh ke database?")) return;
-  const seed = [
-    { nama:"Beras Pandan Wangi 5kg", kategori:"Sembako", harga:65000, diskon:10, stok:40, gambar:"https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", deskripsi:"Beras premium pulen asli Pandan Wangi kemasan 5kg" },
-    { nama:"Minyak Goreng 2L", kategori:"Sembako", harga:35000, diskon:15, stok:60, gambar:"https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=400&q=80", deskripsi:"Minyak kelapa sawit kemasan pouch 2 liter" },
-    { nama:"Gula Pasir 1kg", kategori:"Sembako", harga:15000, diskon:0, stok:80, gambar:"https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=400&q=80", deskripsi:"Gula pasir putih bersih kemasan 1kg" },
-    { nama:"Keripik Singkong Bu Sari", kategori:UMKM_CAT, umkm:"UMKM Bu Sari", harga:12000, diskon:10, stok:50, gambar:"https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=400&q=80", deskripsi:"Keripik singkong renyah gurih buatan tangan warga desa" },
-    { nama:"Kopi Bubuk Robusta Asli", kategori:UMKM_CAT, umkm:"UMKM Pak Budi", harga:25000, diskon:0, stok:35, gambar:"https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=400&q=80", deskripsi:"Kopi robusta lokal digiling segar per minggu" },
-    { nama:"Batik Tulis Motif Desa", kategori:UMKM_CAT, umkm:"UMKM Ibu Rina", harga:185000, diskon:20, stok:15, gambar:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80", deskripsi:"Batik tulis tangan dengan motif khas desa" },
-    { nama:"Madu Hutan Murni 500ml", kategori:UMKM_CAT, umkm:"UMKM Pak Tani", harga:85000, diskon:5, stok:20, gambar:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=400&q=80", deskripsi:"Madu hutan asli tanpa campuran bahan kimia" },
-    { nama:"Sambal Bawang Bu Lastri", kategori:UMKM_CAT, umkm:"UMKM Bu Lastri", harga:22000, diskon:0, stok:60, gambar:"https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?auto=format&fit=crop&w=400&q=80", deskripsi:"Sambal bawang pedas gurih, dibuat fresh setiap hari" },
-    { nama:"Tas Rajut Daun Pandan", kategori:UMKM_CAT, umkm:"UMKM Nenek Wati", harga:75000, diskon:15, stok:12, gambar:"https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=400&q=80", deskripsi:"Tas rajut handmade dari daun pandan kering" },
-    { nama:"Air Mineral 1 Dus", kategori:"Minuman", harga:45000, diskon:10, stok:30, gambar:"https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80", deskripsi:"Isi 24 botol 600ml" }
-  ];
-  try {
-    for (const s of seed) await addDoc(collection(db, "products"), { ...s, terjual: 0, createdAt: serverTimestamp() });
-    toast("Produk contoh berhasil ditambahkan (termasuk UMKM)", "ok");
-  } catch (err) { toast("Gagal menambah data: " + err.message, "err"); }
-}
-
 function listenAdminOrders() {
   unsubAdminOrders = onSnapshot(collection(db, "orders"), snap => {
     allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
@@ -3095,12 +3074,10 @@ function renderAdminOrders() {
   }).join("");
 }
 
-/* NEW: updateOrderStatus juga restore stok kalau admin yang batalkan */
 async function updateOrderStatus(id, status) {
   try {
     const order = allOrders.find(o => o.id === id);
 
-    // Jika admin membatalkan pesanan (dan sebelumnya belum dibatalkan), restore stok
     if (status === "dibatalkan" && order && order.status !== "dibatalkan") {
       for (const item of (order.items || [])) {
         try {
@@ -3142,6 +3119,58 @@ function listenCustomers() {
   }, err => console.error(err));
 }
 
+/* ============ DASHBOARD: HELPER PENGELOMPOKKAN PER HARI ============ */
+function getOrderDate(o) {
+  if (o && o.createdAt) {
+    if (typeof o.createdAt.toDate === "function") return o.createdAt.toDate();
+    return new Date(o.createdAt);
+  }
+  return new Date();
+}
+
+function dayKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function formatDayLabel(date) {
+  const now = new Date();
+  const d = new Date(date);
+  const startOf = x => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+  const diffDays = Math.round((startOf(now) - startOf(d)) / 86400000);
+  if (diffDays === 0) return "Hari Ini";
+  if (diffDays === 1) return "Kemarin";
+  return d.toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+}
+
+function groupOrdersByDay(orders, maxDays = 5, maxPerDay = 5) {
+  const map = new Map();
+  orders.forEach(o => {
+    const d = getOrderDate(o);
+    const key = dayKey(d);
+    if (!map.has(key)) map.set(key, { date: d, orders: [] });
+    map.get(key).orders.push(o);
+  });
+  return Array.from(map.entries())
+    .sort((a, b) => b[0].localeCompare(a[0]))
+    .slice(0, maxDays)
+    .map(([key, g]) => {
+      // urutkan pesanan dalam grup dari yang paling baru
+      const sorted = g.orders.slice().sort((a, b) => {
+        const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+        const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+        return tb - ta;
+      });
+      return {
+        key,
+        date: g.date,
+        totalCount: sorted.length,
+        totalSum: sorted.reduce((s, o) => s + Number(o.total || 0), 0),
+        orders: sorted.slice(0, maxPerDay),
+        remaining: Math.max(0, sorted.length - maxPerDay)
+      };
+    });
+}
+
 function renderStats() {
   const pending = allOrders.filter(o => o.status === "pending").length;
   const income  = allOrders.filter(o => o.status === "selesai").reduce((s, o) => s + Number(o.total || 0), 0);
@@ -3150,13 +3179,27 @@ function renderStats() {
   $("#statPending").textContent = pending;
   $("#statPendapatan").textContent = rupiah(income);
   $("#statStok").textContent = lowStock;
-  const recent = allOrders.slice(0, 5);
-  $("#dashOrders").innerHTML = recent.length ? recent.map(o => `
-    <div class="dash-order">
-      <div class="dash-order-left"><strong>${esc(o.nama || o.namaPembeli || "-")}</strong><span>${timeAgo(o.createdAt)}</span></div>
-      <div class="dash-order-right"><span class="dash-total">${rupiah(o.total)}</span><span class="badge ${o.status}">${o.status}</span></div>
-    </div>`).join("")
-    : `<div class="empty-state" style="padding:26px 10px"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`;
+
+  const groups = groupOrdersByDay(allOrders, 5, 5);
+  if (!groups.length) {
+    $("#dashOrders").innerHTML = `<div class="empty-state" style="padding:26px 10px"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`;
+    return;
+  }
+
+  $("#dashOrders").innerHTML = groups.map(g => `
+    <div class="dash-day-group">
+      <div class="dash-day-head">
+        <span><i class="fas fa-calendar-day"></i> ${esc(formatDayLabel(g.date))}</span>
+        <span class="dash-day-meta">${g.totalCount} pesanan · ${rupiah(g.totalSum)}</span>
+      </div>
+      ${g.orders.map(o => `
+        <div class="dash-order">
+          <div class="dash-order-left"><strong>${esc(o.nama || o.namaPembeli || "-")}</strong><span>${timeAgo(o.createdAt)}</span></div>
+          <div class="dash-order-right"><span class="dash-total">${rupiah(o.total)}</span><span class="badge ${o.status}">${o.status}</span></div>
+        </div>`).join("")}
+      ${g.remaining > 0 ? `<div class="dash-day-more">+${g.remaining} pesanan lainnya di hari ini</div>` : ""}
+    </div>
+  `).join("");
 }
 
 document.addEventListener("keydown", e => {

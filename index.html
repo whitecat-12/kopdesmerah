@@ -579,6 +579,22 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .nomor-rek{display:inline-block;background:#fff;border:1.5px dashed #F59E0B;border-radius:9px;padding:7px 13px;font-size:13.5px;font-weight:800;color:var(--red);letter-spacing:1px;margin:4px 0;}
 .copy-btn{background:var(--red);color:#fff;border:none;padding:5.5px 11px;border-radius:8px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px;}
 .copy-btn:hover{background:var(--red-dark);}
+
+/* ===== TOMBOL KIRIM BUKTI VIA WHATSAPP ===== */
+.btn-wa-proof{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;margin-top:10px;
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  color:#fff !important;text-decoration:none;
+  padding:11px 14px;border-radius:11px;
+  font-size:12px;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 6px 16px rgba(37,211,102,.32);
+  transition:.25s;border:none;cursor:pointer;text-align:center;
+}
+.btn-wa-proof:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(37,211,102,.45);color:#fff !important;}
+.btn-wa-proof:active{transform:translateY(0) scale(.99);}
+.btn-wa-proof i{font-size:16px;flex-shrink:0;}
+
 .qris-img{width:158px;height:158px;background:#fff;border:2px solid #F59E0B;border-radius:12px;display:block;margin:8px auto;padding:7px;object-fit:contain;}
 
 .upload-zone{width:100%;height:156px;border-radius:var(--r-md);border:2px dashed var(--border);background:var(--red-soft);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:.25s;}
@@ -1064,14 +1080,20 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <p>Kirim pembayaran ke nomor DANA berikut:</p>
         <div style="text-align:center"><span class="nomor-rek" id="noDana">0812-3456-7890</span><button type="button" class="copy-btn" data-copy="081234567890"><i class="fas fa-copy"></i> Salin</button></div>
         <p style="margin-top:8px"><b>a.n.</b> Koperasi Merah Putih</p>
-        <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Kirim bukti transfer via WhatsApp setelah bayar.</p>
+        <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Setelah transfer, kirim bukti pembayaran melalui WhatsApp:</p>
+        <a href="https://wa.me/628214584600?text=Halo%20Admin%20Koperasi%20Merah%20Putih%2C%20saya%20ingin%20mengirim%20bukti%20transfer%20pembayaran." target="_blank" rel="noopener noreferrer" class="btn-wa-proof">
+          <i class="fab fa-whatsapp"></i> Kirim Bukti Transfer via WhatsApp
+        </a>
       </div>
       <div class="pay-instruction" id="payInst_gopay">
         <h6><i class="fas fa-motorcycle"></i> Transfer GoPay</h6>
         <p>Kirim pembayaran ke nomor GoPay berikut:</p>
         <div style="text-align:center"><span class="nomor-rek" id="noGopay">0812-3456-7890</span><button type="button" class="copy-btn" data-copy="081234567890"><i class="fas fa-copy"></i> Salin</button></div>
         <p style="margin-top:8px"><b>a.n.</b> Koperasi Merah Putih</p>
-        <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Kirim bukti transfer via WhatsApp setelah bayar.</p>
+        <p style="color:#B45309"><i class="fas fa-triangle-exclamation"></i> Setelah transfer, kirim bukti pembayaran melalui WhatsApp:</p>
+        <a href="https://wa.me/628214584600?text=Halo%20Admin%20Koperasi%20Merah%20Putih%2C%20saya%20ingin%20mengirim%20bukti%20transfer%20pembayaran." target="_blank" rel="noopener noreferrer" class="btn-wa-proof">
+          <i class="fab fa-whatsapp"></i> Kirim Bukti Transfer via WhatsApp
+        </a>
       </div>
     </div>
     <button class="btn-primary" id="btnCheckout" style="width:100%"><i class="fas fa-credit-card"></i> Lanjut Checkout</button>
@@ -1392,6 +1414,7 @@ const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 const LIVE_THRESHOLD_MS = 30000;
 const COURIER_WRITE_INTERVAL_MS = 5000;
 const COURIER_WRITE_DISTANCE_M = 10;
+const ADMIN_WA_NUMBER = "628214584600"; // 0821-4584-600
 
 const fbApp = initializeApp(firebaseConfig);
 const auth  = getAuth(fbApp);
@@ -1451,7 +1474,7 @@ let addressMapInstance = null;
 let addressMarker = null;
 let addressCoords = { lat: null, lng: null };
 let addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
-let addressReturnContext = "profile"; // "profile" | "checkout"
+let addressReturnContext = "profile";
 
 const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
@@ -1565,6 +1588,16 @@ function saveCart() { localStorage.setItem(cartKey(), JSON.stringify(cart)); }
 function loadCart() { try { cart = JSON.parse(localStorage.getItem(cartKey()) || "{}"); } catch { cart = {}; } }
 function saveWish() { localStorage.setItem(wishKey(), JSON.stringify(wishlist)); }
 function loadWish() { try { wishlist = JSON.parse(localStorage.getItem(wishKey()) || "[]"); } catch { wishlist = []; } }
+
+/* ============ WHATSAPP BUKTI TRANSFER ============ */
+function updateWaProofLinks() {
+  const { total } = cartTotals();
+  const pay = selectedPayment;
+  const payLabel = PAY_INFO[pay]?.label || "Transfer";
+  const msg = `Halo Admin Koperasi Merah Putih, saya ingin mengirim bukti transfer pembayaran ${payLabel} sebesar ${rupiah(total)}. Mohon dibantu ya.`;
+  const url = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  document.querySelectorAll(".btn-wa-proof").forEach(a => { a.href = url; });
+}
 
 /* ============ MAP + ROUTING HELPERS ============ */
 function getDestination(order) {
@@ -2214,6 +2247,7 @@ function useAddressForCheckout(id) {
 
   renderCartSheet();
   renderCheckoutAddressOptions();
+  updateWaProofLinks();
   document.getElementById('cartOverlay').classList.add('show');
   setTimeout(() => {
     const sheet = document.querySelector('#cartOverlay .sheet');
@@ -3170,6 +3204,7 @@ function attachCustomerEvents() {
         const inst = $("#payInst_" + p);
         if (inst) inst.classList.toggle("show", p === selectedPayment);
       });
+      updateWaProofLinks();
     });
   });
 
@@ -3248,6 +3283,7 @@ function openCart() {
     const inst = $("#payInst_" + p);
     if (inst) inst.classList.toggle("show", p === "cod");
   });
+  updateWaProofLinks();
   renderCartSheet(); $("#cartOverlay").classList.add("show");
 }
 function closeCart() { $("#cartOverlay").classList.remove("show"); }
@@ -3277,6 +3313,7 @@ function handleCheckout() {
     $("#coAlamat").value  = currentUser.alamat || "";
     $("#btnCheckout").innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
     renderCheckoutAddressOptions();
+    updateWaProofLinks();
     $("#cartOverlay .sheet").scrollTop = 9999;
     return;
   }

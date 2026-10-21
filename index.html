@@ -162,15 +162,32 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .category-btn.umkm-cat:hover{border-color:var(--umkm);color:var(--umkm);}
 .category-btn.umkm-cat.active{background:var(--gradient-umkm);color:#fff;border-color:transparent;box-shadow:var(--sh-umkm);}
 
-.banner{margin:0 var(--pad) 16px;background:var(--gradient);border-radius:var(--r-xl);padding:clamp(16px,4.4vw,20px);display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;color:#fff;box-shadow:var(--sh-red-lg);cursor:pointer;}
-.banner::before{content:'';position:absolute;top:-50%;right:-20%;width:190px;height:190px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);border-radius:50%;}
+/* ============= PROMO SLIDER ============= */
+.promo-slider{margin:0 var(--pad) 16px;position:relative;overflow:hidden;border-radius:var(--r-xl);}
+.promo-slider-track{position:relative;min-height:180px;}
+.promo-slide{display:none;border-radius:var(--r-xl);padding:clamp(16px,4.4vw,20px);justify-content:space-between;align-items:center;position:relative;overflow:hidden;color:#fff;width:100%;}
+.promo-slide.active{display:flex;animation:slideIn .45s cubic-bezier(.2,.9,.3,1.05);}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.promo-slide::before{content:'';position:absolute;top:-50%;right:-20%;width:190px;height:190px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);border-radius:50%;}
+.promo-slide[data-slide="0"]{background:var(--gradient);box-shadow:var(--sh-red-lg);}
+.promo-slide[data-slide="1"]{background:var(--gradient-umkm);box-shadow:var(--sh-umkm-lg);}
+.promo-slide[data-slide="2"]{background:var(--gradient-green);box-shadow:0 12px 28px rgba(5,150,105,.32);}
+
 .banner-text{z-index:2;width:66%;position:relative;}
 .promo-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.20);backdrop-filter:blur(10px);padding:4px 10px;border-radius:20px;font-size:9.5px;font-weight:800;letter-spacing:.5px;margin-bottom:9px;border:1px solid rgba(255,255,255,.28);}
 .banner-text h2{font-size:clamp(14px,3.9vw,16px);font-weight:800;margin-bottom:6px;line-height:1.35;letter-spacing:-.3px;}
 .banner-text p{font-size:clamp(10.5px,2.9vw,11.5px);opacity:.92;margin-bottom:13px;line-height:1.45;}
 .shop-now-btn{background:#fff;color:var(--red);border:none;padding:9px 15px;border-radius:11px;font-size:clamp(11.5px,3.1vw,12.5px);font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.25s;box-shadow:0 5px 14px rgba(0,0,0,.18);}
 .shop-now-btn:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(0,0,0,.22);}
+.shop-now-btn[data-go="umkm"]{color:var(--umkm);}
+.shop-now-btn[data-go="home"]{color:#047857;}
 .banner-img{position:absolute;right:-28px;bottom:-28px;width:150px;height:150px;background:url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80') center/cover;border-radius:50%;opacity:.9;-webkit-mask-image:linear-gradient(to left,rgba(0,0,0,1),rgba(0,0,0,0));mask-image:linear-gradient(to left,rgba(0,0,0,1),rgba(0,0,0,0));}
+.banner-img.umkm-img{background-image:url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=400&q=80');}
+.banner-img.delivery-img{background-image:url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=400&q=80');}
+
+.promo-slider-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 2px;}
+.promo-dot{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:.25s;padding:0;}
+.promo-dot.active{background:var(--red);width:22px;border-radius:4px;}
 
 .umkm-cta{margin:0 var(--pad) 20px;background:var(--gradient-umkm);border-radius:var(--r-lg);padding:14px clamp(14px,3.8vw,18px);display:flex;align-items:center;gap:12px;color:#fff;cursor:pointer;box-shadow:var(--sh-umkm);transition:.28s;position:relative;overflow:hidden;border:none;width:calc(100% - var(--pad)*2);text-align:left;}
 .umkm-cta::before{content:'';position:absolute;top:-50%;right:-10%;width:150px;height:150px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);border-radius:50%;}
@@ -221,6 +238,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .product-card.is-promo .product-img-wrap{background:#FFEDD5;}
 .product-img{width:100%;height:100%;object-fit:cover;transition:.45s;display:block;}
 .product-card:hover .product-img{transform:scale(1.07);}
+.img-count-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:800;padding:2.5px 7px;border-radius:6px;display:inline-flex;align-items:center;gap:3px;backdrop-filter:blur(4px);z-index:2;letter-spacing:.2px;}
 .wishlist-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border:none;width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--text-mute);box-shadow:0 3px 9px rgba(0,0,0,.10);cursor:pointer;transition:.22s;z-index:2;font-size:11.5px;}
 .wishlist-btn:hover{color:var(--red);transform:scale(1.08);}
 .wishlist-btn.active{color:#fff;background:var(--red);}
@@ -242,6 +260,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
+/* ============= PRODUCT DETAIL ============= */
 .pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
 .pd-card{background:#fff;width:100%;max-width:400px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 30px 70px rgba(24,24,27,.4);animation:pdPop .35s cubic-bezier(.2,.9,.3,1.15);position:relative;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;}
@@ -249,9 +268,15 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);color:var(--text);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.18);z-index:10;transition:.2s;}
 .pd-close:hover{background:var(--red);color:#fff;transform:rotate(90deg);}
 .pd-img-wrap{position:relative;width:100%;height:clamp(220px,55vw,280px);background:linear-gradient(135deg,#FEF2F2,#FEE2E2);flex-shrink:0;overflow:hidden;}
-.pd-img{width:100%;height:100%;object-fit:cover;display:block;}
-.pd-img-wrap.is-umkm .pd-img-wrap-bg{background:linear-gradient(135deg,#FEF3C7,#FDE68A);}
-.pd-ribbon{position:absolute;top:14px;left:-38px;background:var(--gradient);color:#fff;font-size:11px;font-weight:800;padding:5px 44px;transform:rotate(-38deg);box-shadow:0 4px 12px rgba(220,38,38,.42);letter-spacing:.5px;z-index:5;pointer-events:none;}
+.pd-img-carousel{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.pd-img-carousel::-webkit-scrollbar{display:none;}
+.pd-img-slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;position:relative;}
+.pd-img-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+.pd-img-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:4;background:rgba(0,0,0,.35);padding:5px 9px;border-radius:20px;backdrop-filter:blur(4px);}
+.pd-img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:.25s;padding:0;border:none;cursor:pointer;}
+.pd-img-dot.active{background:#fff;width:16px;border-radius:3px;}
+.pd-img-counter{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:8px;z-index:4;backdrop-filter:blur(4px);letter-spacing:.3px;display:none;}
+.pd-ribbon{position:absolute;top:14px;right:-38px;background:var(--gradient);color:#fff;font-size:11px;font-weight:800;padding:5px 44px;transform:rotate(38deg);box-shadow:0 4px 12px rgba(220,38,38,.42);letter-spacing:.5px;z-index:5;pointer-events:none;}
 .pd-umkm-badge{position:absolute;top:14px;left:14px;background:var(--gradient-umkm);color:#fff;font-size:10px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.5px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(180,83,9,.45);z-index:3;text-transform:uppercase;}
 .pd-umkm-badge i{font-size:9px;}
 .pd-wish-btn{position:absolute;top:14px;right:60px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border:none;display:flex;align-items:center;justify-content:center;color:var(--text-mute);box-shadow:0 4px 12px rgba(0,0,0,.18);cursor:pointer;font-size:15px;z-index:10;transition:.22s;}
@@ -351,7 +376,12 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 @keyframes livePulse{0%,100%{box-shadow:0 2px 6px rgba(16,185,129,.4)}50%{box-shadow:0 2px 14px rgba(16,185,129,.7)}}
 @keyframes liveDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
-.order-item{font-size:var(--fs-sm);color:var(--text);display:flex;justify-content:space-between;padding:3px 0;font-weight:500;gap:10px;}
+.order-item{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:var(--fs-sm);color:var(--text);font-weight:500;}
+.order-item-img{width:38px;height:38px;border-radius:9px;object-fit:cover;background:var(--red-soft);flex-shrink:0;border:1px solid var(--border-soft);}
+.order-item-info{flex:1;min-width:0;display:flex;justify-content:space-between;gap:10px;align-items:center;}
+.order-item-info span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;}
+.order-item-info span:last-child{font-weight:700;color:var(--text);flex-shrink:0;}
+
 .order-total{display:flex;justify-content:space-between;border-top:1.5px dashed var(--border);margin-top:10px;padding-top:10px;font-size:var(--fs-lg);font-weight:800;color:var(--red);}
 .payment-info{margin-top:10px;background:var(--red-soft);border-radius:11px;padding:9px 11px;display:flex;align-items:center;gap:10px;border:1px solid #FED7D7;}
 .payment-info .pay-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;}
@@ -490,7 +520,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .menu-item i:first-child{width:34px;height:34px;border-radius:11px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .menu-item .arrow{margin-left:auto;color:var(--text-mute);font-size:11px;}
 
-/* ============ ALAMAT TERSIMPAN ============ */
 .addr-card{background:#fff;border:1.5px solid var(--border-soft);border-radius:var(--r-md);padding:11px 12px;margin-bottom:9px;transition:.2s;}
 .addr-card:hover{border-color:var(--red);box-shadow:0 4px 14px rgba(220,38,38,.08);}
 .addr-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:8px;}
@@ -580,7 +609,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .copy-btn{background:var(--red);color:#fff;border:none;padding:5.5px 11px;border-radius:8px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px;}
 .copy-btn:hover{background:var(--red-dark);}
 
-/* ===== TOMBOL KIRIM BUKTI VIA WHATSAPP ===== */
 .btn-wa-proof{
   display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;margin-top:10px;
@@ -597,25 +625,22 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 
 .qris-img{width:158px;height:158px;background:#fff;border:2px solid #F59E0B;border-radius:12px;display:block;margin:8px auto;padding:7px;object-fit:contain;}
 
-.upload-zone{width:100%;height:156px;border-radius:var(--r-md);border:2px dashed var(--border);background:var(--red-soft);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:.25s;}
-.upload-zone:hover{border-color:var(--red);background:#fff;}
-.upload-zone.has-image{border-style:solid;border-color:var(--red);}
-.upload-preview{width:100%;height:100%;object-fit:cover;display:none;}
-.upload-zone.has-image .upload-preview{display:block;}
-.upload-zone.has-image .upload-placeholder{display:none;}
-.upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--red);pointer-events:none;text-align:center;padding:0 14px;}
-.upload-placeholder i{font-size:30px;opacity:.65;}
-.upload-placeholder p{font-size:12.5px;font-weight:700;color:var(--text);}
-.upload-placeholder span{font-size:10px;color:var(--text-mute);font-weight:500;}
-.upload-overlay{position:absolute;inset:0;background:rgba(220,38,38,.78);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;backdrop-filter:blur(2px);}
-.upload-zone.uploading .upload-overlay{display:flex;}
-.spinner-upload{width:24px;height:24px;border:3px solid rgba(255,255,255,.32);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.upload-actions{display:flex;gap:7px;margin-top:7px;}
-.upload-btn{flex:1;background:var(--gradient);color:#fff;border:none;padding:10px 14px;border-radius:11px;font-size:var(--fs-sm);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.25s;box-shadow:var(--sh-red);}
-.upload-btn:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
-.upload-btn.ghost{background:#fff;color:var(--red);border:1.5px solid var(--red);box-shadow:none;}
-.upload-btn.ghost:hover{background:var(--red-soft);}
+.img-upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;}
+.img-thumb{position:relative;border-radius:11px;overflow:hidden;aspect-ratio:1;background:var(--red-soft);border:1.5px solid var(--border);transition:.2s;}
+.img-thumb:hover{border-color:var(--red);}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-thumb.main::after{content:'UTAMA';position:absolute;bottom:4px;left:4px;background:var(--gradient);color:#fff;font-size:7.5px;padding:2px 6px;border-radius:5px;font-weight:800;letter-spacing:.4px;}
+.img-thumb .img-del{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(220,38,38,.92);color:#fff;border:none;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:.18s;}
+.img-thumb .img-del:hover{background:var(--red-deep);transform:scale(1.1);}
+.img-add-btn{aspect-ratio:1;border:2px dashed var(--border);border-radius:11px;background:var(--red-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--red);font-size:9px;font-weight:800;transition:.22s;letter-spacing:.2px;}
+.img-add-btn:hover{border-color:var(--red);background:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(220,38,38,.15);}
+.img-add-btn i{font-size:22px;opacity:.75;}
+.img-upload-actions{display:flex;gap:6px;margin-top:8px;}
+.img-url-input{flex:1;display:flex;align-items:center;gap:8px;background:var(--cream);border:1.5px solid var(--border);border-radius:11px;padding:0 12px;height:42px;}
+.img-url-input i{color:var(--red);font-size:12px;opacity:.7;flex-shrink:0;}
+.img-url-input input{border:none;background:transparent;outline:none;width:100%;font-size:12px;font-weight:500;min-width:0;}
+.img-url-add-btn{background:var(--gradient);color:#fff;border:none;height:42px;padding:0 13px;border-radius:11px;font-size:11.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:5px;flex-shrink:0;box-shadow:var(--sh-red);transition:.22s;}
+.img-url-add-btn:hover{transform:translateY(-1px);}
 
 .admin-header{padding:clamp(14px,4vw,18px) var(--pad) clamp(10px,3vw,13px);display:flex;justify-content:space-between;align-items:center;background:var(--bg);flex-shrink:0;position:relative;}
 .admin-header::after{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;background:linear-gradient(90deg,#DC2626 0%,#DC2626 50%,#fff 50%,#fff 100%);}
@@ -673,7 +698,12 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .adm-line{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--text-soft);font-weight:500;line-height:1.5;margin-bottom:5px;}
 .adm-line i{color:var(--red);font-size:10.5px;width:13px;margin-top:2px;flex-shrink:0;}
 .adm-line b{color:var(--text);font-weight:700;}
-.adm-items{background:var(--red-soft);border-radius:10px;padding:8px 10px;margin:7px 0;font-size:11px;font-weight:600;color:var(--text);line-height:1.7;}
+.adm-items{background:var(--red-soft);border-radius:10px;padding:8px 10px;margin:7px 0;font-size:11px;font-weight:600;color:var(--text);line-height:1.3;}
+.adm-items .adm-item-row{display:flex;align-items:center;gap:8px;padding:4px 0;}
+.adm-items .adm-item-row:first-child{padding-top:0;}
+.adm-items .adm-item-row:last-child{padding-bottom:0;}
+.adm-items .adm-item-img{width:30px;height:30px;border-radius:7px;object-fit:cover;background:#fff;flex-shrink:0;border:1px solid var(--border);}
+.adm-items .adm-item-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .adm-card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1.5px dashed var(--border);padding-top:10px;margin-top:10px;flex-wrap:wrap;}
 .adm-total{font-size:var(--fs-lg);font-weight:800;color:var(--red);letter-spacing:-.3px;}
 .adm-card-actions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;}
@@ -738,6 +768,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 #loader{position:fixed;inset:0;background:#fff;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:500;}
 #loader.show{display:flex;}
 .spinner{width:44px;height:44px;border:4px solid var(--red-light);border-top-color:var(--red);border-radius:50%;animation:spin .9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 @media (max-width:480px){
   body{background:var(--bg);}
@@ -770,6 +801,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   .hint{font-size:10px;margin-top:7px;}
   .banner-text h2{font-size:13.5px;}
   .banner-img{width:130px;height:130px;right:-24px;bottom:-24px;}
+  .img-upload-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
 }
 @media (max-height:640px){
   .auth-card{padding:18px 16px 16px;}
@@ -793,6 +825,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 </style>
 </head>
 <body>
+
+<audio id="notifSound" src="song.mp3" preload="auto"></audio>
 
 <div id="splashScreen">
   <div class="splash-content">
@@ -876,14 +910,42 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
           <button class="filter-btn" id="sortBtn" title="Urutkan"><i class="fas fa-sliders-h"></i></button>
         </div>
         <div class="categories" id="categories"></div>
-        <div class="banner" id="homeBanner">
-          <div class="banner-text">
-            <span class="promo-tag"><i class="fas fa-fire"></i> PROMO SPESIAL</span>
-            <h2>Diskon Spesial Untuk Sembako!</h2>
-            <p>Waktu terbatas. Belanja sekarang sebelum kehabisan!</p>
-            <button class="shop-now-btn" id="bannerBtn"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+
+        <div class="promo-slider" id="promoSlider">
+          <div class="promo-slider-track">
+            <div class="promo-slide active" data-slide="0">
+              <div class="banner-text">
+                <span class="promo-tag"><i class="fas fa-fire"></i> PROMO SPESIAL</span>
+                <h2>Diskon Spesial Untuk Sembako!</h2>
+                <p>Waktu terbatas. Belanja sekarang sebelum kehabisan!</p>
+                <button class="shop-now-btn" data-go="promo"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+              </div>
+              <div class="banner-img"></div>
+            </div>
+            <div class="promo-slide" data-slide="1">
+              <div class="banner-text">
+                <span class="promo-tag"><i class="fas fa-store"></i> UMKM DESA</span>
+                <h2>Dukung Produk Lokal Warga Desa</h2>
+                <p>Produk UMKM berkualitas dengan harga terjangkau.</p>
+                <button class="shop-now-btn" data-go="umkm"><i class="fas fa-store"></i> Jelajahi UMKM</button>
+              </div>
+              <div class="banner-img umkm-img"></div>
+            </div>
+            <div class="promo-slide" data-slide="2">
+              <div class="banner-text">
+                <span class="promo-tag"><i class="fas fa-truck-fast"></i> ANTAR CEPAT</span>
+                <h2>Belanja Mudah, Kurir Antar ke Rumah</h2>
+                <p>Pesanan diantar cepat sampai ke depan pintu.</p>
+                <button class="shop-now-btn" data-go="home"><i class="fas fa-basket-shopping"></i> Mulai Belanja</button>
+              </div>
+              <div class="banner-img delivery-img"></div>
+            </div>
           </div>
-          <div class="banner-img"></div>
+          <div class="promo-slider-dots" id="promoDots">
+            <button class="promo-dot active" data-dot="0" aria-label="Slide 1"></button>
+            <button class="promo-dot" data-dot="1" aria-label="Slide 2"></button>
+            <button class="promo-dot" data-dot="2" aria-label="Slide 3"></button>
+          </div>
         </div>
 
         <button class="umkm-cta" id="umkmCta">
@@ -1100,7 +1162,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   </div>
 </div>
 
-<!-- ALAMAT TERSIMPAN (LIST) -->
 <div class="overlay" id="addressListOverlay">
   <div class="sheet">
     <div class="sheet-head">
@@ -1114,7 +1175,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   </div>
 </div>
 
-<!-- ALAMAT TERSIMPAN (FORM) -->
 <div class="overlay" id="addressFormOverlay">
   <div class="sheet">
     <div class="sheet-head">
@@ -1171,16 +1231,16 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   </div>
 </div>
 
-<!-- PRODUCT DETAIL POPUP -->
 <div class="pd-overlay" id="pdOverlay">
   <div class="pd-card" id="pdCard">
     <button class="pd-close" id="pdClose" title="Tutup"><i class="fas fa-xmark"></i></button>
     <button class="pd-wish-btn" id="pdWishBtn" title="Favorit"><i class="far fa-heart"></i></button>
     <div class="pd-img-wrap" id="pdImgWrap">
-      <div class="pd-img-wrap-bg"></div>
-      <img class="pd-img" id="pdImg" alt="Produk">
+      <div class="pd-img-carousel" id="pdImgCarousel"></div>
+      <div class="pd-img-counter" id="pdImgCounter">1/1</div>
       <div class="pd-ribbon" id="pdRibbon" style="display:none">-0%</div>
       <div class="pd-umkm-badge" id="pdUmkmBadge" style="display:none"><i class="fas fa-store"></i> UMKM</div>
+      <div class="pd-img-dots" id="pdImgDots" style="display:none"></div>
     </div>
     <div class="pd-body">
       <span class="pd-category" id="pdCategory">Sembako</span>
@@ -1330,19 +1390,16 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     <div class="sheet-head"><h3 id="productFormTitle"><i class="fas fa-box"></i> Tambah Produk</h3><button class="close-btn" id="productClose"><i class="fas fa-xmark"></i></button></div>
     <input type="hidden" id="pId">
     <div class="form-row">
-      <label>Foto Produk</label>
-      <input type="hidden" id="pGambar">
-      <div class="upload-zone" id="uploadZone">
-        <img id="uploadPreview" class="upload-preview" alt="Preview">
-        <div class="upload-placeholder" id="uploadPlaceholder"><i class="fas fa-cloud-arrow-up"></i><p>Belum ada foto</p><span>JPG, PNG, WEBP — maks 5MB</span></div>
-        <div class="upload-overlay"><div class="spinner-upload"></div><span>Mengupload...</span></div>
+      <label>Foto Produk <span style="font-size:10px;color:var(--text-mute);font-weight:500">(bisa lebih dari 1 — foto pertama = utama)</span></label>
+      <div class="img-upload-grid" id="imgUploadGrid"></div>
+      <div class="img-upload-actions">
+        <div class="img-url-input">
+          <i class="fas fa-link"></i>
+          <input type="url" id="pGambarUrl" placeholder="Atau tambah URL gambar manual...">
+        </div>
+        <button type="button" class="img-url-add-btn" id="btnAddUrl"><i class="fas fa-plus"></i></button>
       </div>
-      <div class="upload-actions">
-        <button type="button" class="upload-btn" id="btnUploadFoto"><i class="fas fa-camera"></i> Pilih Foto</button>
-        <button type="button" class="upload-btn ghost" id="btnHapusFoto"><i class="fas fa-trash"></i> Hapus</button>
-      </div>
-      <p class="hint-small" style="margin-top:7px">Foto otomatis diupload ke Cloudinary.</p>
-      <div class="input-group" style="margin-top:7px"><i class="fas fa-link"></i><input type="url" id="pGambarUrl" placeholder="Atau tempel URL gambar manual..."></div>
+      <p class="hint-small" style="margin-top:7px"><i class="fas fa-info-circle"></i> Klik kotak <b>Upload</b> untuk menambah foto (otomatis ke Cloudinary). Foto pertama ditampilkan sebagai gambar utama.</p>
     </div>
     <div class="form-row"><label>Nama Produk</label><div class="input-group"><i class="fas fa-box"></i><input type="text" id="pNama" placeholder="Contoh: Beras Pandan Wangi 5kg"></div></div>
     <div class="form-row"><label>Kategori</label>
@@ -1414,7 +1471,7 @@ const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 const LIVE_THRESHOLD_MS = 30000;
 const COURIER_WRITE_INTERVAL_MS = 5000;
 const COURIER_WRITE_DISTANCE_M = 10;
-const ADMIN_WA_NUMBER = "628214584600"; // 0821-4584-600
+const ADMIN_WA_NUMBER = "628214584600";
 
 const fbApp = initializeApp(firebaseConfig);
 const auth  = getAuth(fbApp);
@@ -1467,7 +1524,14 @@ let courierFirstFix = true;
 let currentPDProductId = null;
 let currentPDQty = 1;
 
-// ============ SAVED ADDRESSES STATE ============
+// MULTI IMAGE FORM STATE
+let formImages = [];
+
+// PROMO SLIDER STATE
+let promoSlideIdx = 0;
+let promoAutoTimer = null;
+
+// SAVED ADDRESSES
 let savedAddresses = [];
 let editingAddressId = null;
 let addressMapInstance = null;
@@ -1475,6 +1539,10 @@ let addressMarker = null;
 let addressCoords = { lat: null, lng: null };
 let addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
 let addressReturnContext = "profile";
+
+// ============ ADMIN NEW ORDER TRACKING (untuk sound) ============
+let adminOrderIds = new Set();
+let adminOrdersReady = false;
 
 const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
@@ -1492,6 +1560,54 @@ function hideSplash(){
 }
 setTimeout(hideSplash, 4200);
 
+/* ============ NOTIFICATION SOUND (song.mp3) ============ */
+let audioUnlocked = false;
+function unlockAudio() {
+  if (audioUnlocked) return;
+  const audio = document.getElementById('notifSound');
+  if (!audio) return;
+  try {
+    audio.volume = 0;
+    const p = audio.play();
+    if (p && p.then) {
+      p.then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 1;
+        audioUnlocked = true;
+      }).catch(() => {});
+    }
+  } catch(e){}
+}
+
+document.addEventListener('click', unlockAudio, { passive: true });
+document.addEventListener('touchstart', unlockAudio, { passive: true });
+document.addEventListener('keydown', unlockAudio, { passive: true });
+
+function playNotifSound() {
+  const audio = document.getElementById('notifSound');
+  if (!audio) return;
+  try {
+    audio.currentTime = 0;
+    audio.volume = 1;
+    const p = audio.play();
+    if (p && p.catch) {
+      p.catch(() => {
+        // Fallback beep jika MP3 tidak bisa diputar (misal autoplay diblokir)
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator(), gain = ctx.createGain();
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.frequency.value = 880;
+          gain.gain.setValueAtTime(.1, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .4);
+          osc.start(); osc.stop(ctx.currentTime + .4);
+        } catch(e){}
+      });
+    }
+  } catch(e) { console.warn('playNotifSound error', e); }
+}
+
 const PAY_INFO = {
   cod:   { label: "COD",    icon: "fa-hand-holding-dollar", desc: "Bayar di tempat" },
   qris:  { label: "QRIS",   icon: "fa-qrcode",              desc: "Scan QR Code" },
@@ -1503,6 +1619,19 @@ function hargaSetelahDiskon(harga, diskon){
   const h = Number(harga) || 0, d = Number(diskon) || 0;
   if (d <= 0) return h;
   return Math.round(h * (100 - d) / 100);
+}
+
+function getProductImages(p){
+  if (!p) return [PLACEHOLDER];
+  if (Array.isArray(p.gambarList) && p.gambarList.filter(Boolean).length) {
+    return p.gambarList.filter(Boolean);
+  }
+  if (p.gambar) return [p.gambar];
+  return [PLACEHOLDER];
+}
+function firstProductImage(p){
+  const arr = getProductImages(p);
+  return arr[0] || PLACEHOLDER;
 }
 
 function toast(msg, type = "") {
@@ -1566,18 +1695,13 @@ function showNotifPopup(status) {
   $("#notifPopup").classList.add("show");
   clearTimeout(notifTimer);
   notifTimer = setTimeout(() => $("#notifPopup").classList.remove("show"), 5000);
-  if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]);
-  if (status === "dikirim") {
-    try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator(), gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value = 660;
-      gain.gain.setValueAtTime(.08, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .3);
-      osc.start(); osc.stop(ctx.currentTime + .3);
-    } catch(e){}
+
+  // ==== PLAY song.mp3 UNTUK STATUS PENGIRIMAN / SELESAI ====
+  if (status === "dikirim" || status === "selesai") {
+    playNotifSound();
   }
+
+  if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]);
 }
 
 $("#notifClose")?.addEventListener("click", () => $("#notifPopup").classList.remove("show"));
@@ -1588,6 +1712,24 @@ function saveCart() { localStorage.setItem(cartKey(), JSON.stringify(cart)); }
 function loadCart() { try { cart = JSON.parse(localStorage.getItem(cartKey()) || "{}"); } catch { cart = {}; } }
 function saveWish() { localStorage.setItem(wishKey(), JSON.stringify(wishlist)); }
 function loadWish() { try { wishlist = JSON.parse(localStorage.getItem(wishKey()) || "[]"); } catch { wishlist = []; } }
+
+/* ============ PROMO SLIDER ============ */
+function goPromoSlide(idx){
+  const slides = document.querySelectorAll('.promo-slide');
+  const dots = document.querySelectorAll('.promo-dot');
+  if (!slides.length) return;
+  idx = ((idx % slides.length) + slides.length) % slides.length;
+  promoSlideIdx = idx;
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+function startPromoAuto(){
+  stopPromoAuto();
+  promoAutoTimer = setInterval(() => goPromoSlide(promoSlideIdx + 1), 5000);
+}
+function stopPromoAuto(){
+  if (promoAutoTimer) { clearInterval(promoAutoTimer); promoAutoTimer = null; }
+}
 
 /* ============ WHATSAPP BUKTI TRANSFER ============ */
 function updateWaProofLinks() {
@@ -1772,8 +1914,41 @@ function openProductDetail(id) {
   const umkmStore = (p.umkm || "").trim();
   const habis = stok <= 0;
 
-  $("#pdImg").src = p.gambar || PLACEHOLDER;
-  $("#pdImg").onerror = function(){ this.src = PLACEHOLDER; };
+  const images = getProductImages(p);
+  const carousel = $("#pdImgCarousel");
+  carousel.innerHTML = images.map(url =>
+    `<div class="pd-img-slide"><img src="${esc(url)}" alt="Produk" onerror="this.src='${PLACEHOLDER}'"></div>`
+  ).join("");
+  carousel.scrollLeft = 0;
+
+  const dotsEl = $("#pdImgDots");
+  const counter = $("#pdImgCounter");
+  if (images.length > 1) {
+    dotsEl.innerHTML = images.map((_, i) =>
+      `<button class="pd-img-dot ${i===0?'active':''}" data-pd-dot="${i}" aria-label="Foto ${i+1}"></button>`
+    ).join("");
+    dotsEl.style.display = "flex";
+    counter.style.display = "block";
+    counter.textContent = `1/${images.length}`;
+    carousel.onscroll = () => {
+      const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
+      dotsEl.querySelectorAll('.pd-img-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      counter.textContent = `${Math.min(idx + 1, images.length)}/${images.length}`;
+    };
+    dotsEl.querySelectorAll('[data-pd-dot]').forEach(d => {
+      d.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const i = Number(d.dataset.pdDot);
+        carousel.scrollTo({ left: i * carousel.clientWidth, behavior: 'smooth' });
+      });
+    });
+  } else {
+    dotsEl.innerHTML = "";
+    dotsEl.style.display = "none";
+    counter.style.display = "none";
+    carousel.onscroll = null;
+  }
+
   $("#pdImgWrap").classList.toggle("is-umkm", isUmkm);
 
   const ribbon = $("#pdRibbon");
@@ -1878,7 +2053,7 @@ function addPDProductToCart() {
   const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
   cart[p.id] = {
     id: p.id, nama: p.nama, harga: hargaFinal,
-    gambar: p.gambar || PLACEHOLDER, qty: existing + currentPDQty
+    gambar: firstProductImage(p), qty: existing + currentPDQty
   };
   saveCart(); updateCartBar();
   toast(`✅ ${p.nama} ×${currentPDQty} ditambahkan`, "ok");
@@ -1906,9 +2081,7 @@ $("#pdWishBtn")?.addEventListener("click", () => {
   btn.innerHTML = liked ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
 });
 
-/* ============ ============================ ============ */
-/* ============ SAVED ADDRESSES (BUKU ALAMAT) ============ */
-/* ============ ============================ ============ */
+/* ============ SAVED ADDRESSES ============ */
 function genAddrId() {
   return 'addr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
 }
@@ -2655,28 +2828,80 @@ $("#addrLabelChips")?.addEventListener("click", e => {
   document.getElementById('addrLabel').value = chip.dataset.label || '';
 });
 
-/* ============ CLOUDINARY ============ */
+/* ============ CLOUDINARY (MULTI UPLOAD) ============ */
 let cloudinaryWidget = null;
 function initCloudinaryWidget() {
   if (typeof cloudinary === "undefined") return;
   cloudinaryWidget = cloudinary.createUploadWidget({
-    cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET, folder: CLOUDINARY_FOLDER,
-    sources: ["local", "camera", "url"], multiple: false, maxFileSize: 5000000,
-    clientAllowedFormats: ["jpg","jpeg","png","webp","gif"], cropping: false, language: "id"
+    cloudName: CLOUDINARY_CLOUD_NAME,
+    uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+    folder: CLOUDINARY_FOLDER,
+    sources: ["local", "camera", "url"],
+    multiple: true,
+    maxFileSize: 5000000,
+    clientAllowedFormats: ["jpg","jpeg","png","webp","gif"],
+    cropping: false,
+    language: "id"
   }, (error, result) => {
-    if (error) { setUploadState("idle"); toast("Upload gagal: " + (error.message || "coba lagi"), "err"); return; }
-    if (result.event === "upload-added") setUploadState("uploading");
-    if (result.event === "success") { setUploadPreview(result.info.secure_url); setUploadState("done"); toast("Foto berhasil diupload ✓", "ok"); }
-    if (result.event === "abort" || result.event === "close") setUploadState("idle");
+    if (error) { toast("Upload gagal: " + (error.message || "coba lagi"), "err"); return; }
+    if (result.event === "success") {
+      addFormImage(result.info.secure_url);
+      toast("Foto berhasil diupload ✓", "ok");
+    }
   });
 }
-function setUploadState(state) { const zone = $("#uploadZone"); zone.classList.remove("uploading"); if (state === "uploading") zone.classList.add("uploading"); }
-function setUploadPreview(url) {
-  const zone = $("#uploadZone"), img = $("#uploadPreview");
-  $("#pGambar").value = url || ""; $("#pGambarUrl").value = url || "";
-  if (url) { img.src = url; zone.classList.add("has-image"); } else { img.src = ""; zone.classList.remove("has-image"); }
+function openCloudinaryWidget() {
+  if (!cloudinaryWidget) initCloudinaryWidget();
+  if (cloudinaryWidget) cloudinaryWidget.open();
+  else toast("Cloudinary belum siap.", "err");
 }
-function openCloudinaryWidget() { if (!cloudinaryWidget) initCloudinaryWidget(); if (cloudinaryWidget) cloudinaryWidget.open(); else toast("Cloudinary belum siap.", "err"); }
+
+/* ============ MULTI IMAGE FORM ============ */
+function renderFormImages() {
+  const grid = document.getElementById('imgUploadGrid');
+  if (!grid) return;
+  const thumbs = formImages.map((url, i) => `
+    <div class="img-thumb ${i === 0 ? 'main' : ''}">
+      <img src="${esc(url)}" onerror="this.src='${PLACEHOLDER}'">
+      <button type="button" class="img-del" data-img-del="${i}" aria-label="Hapus foto"><i class="fas fa-xmark"></i></button>
+    </div>
+  `).join("");
+  const addBtn = `
+    <button type="button" class="img-add-btn" id="imgAddBtn">
+      <i class="fas fa-cloud-arrow-up"></i>
+      <span>Upload</span>
+    </button>
+  `;
+  grid.innerHTML = thumbs + addBtn;
+
+  grid.querySelector('#imgAddBtn').addEventListener('click', openCloudinaryWidget);
+  grid.querySelectorAll('[data-img-del]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = Number(btn.dataset.imgDel);
+      formImages.splice(idx, 1);
+      renderFormImages();
+    });
+  });
+}
+
+function addFormImage(url) {
+  if (!url) return;
+  formImages.push(url);
+  renderFormImages();
+}
+
+$("#btnAddUrl")?.addEventListener('click', () => {
+  const input = document.getElementById('pGambarUrl');
+  const url = (input?.value || '').trim();
+  if (!url) return toast('Masukkan URL gambar', 'err');
+  addFormImage(url);
+  if (input) input.value = '';
+  toast('URL gambar ditambahkan ✓', 'ok');
+});
+$("#pGambarUrl")?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnAddUrl')?.click(); }
+});
 
 /* ============ AUTH ============ */
 $$(".role-btn").forEach(btn => {
@@ -2758,6 +2983,9 @@ function friendlyError(err) {
 async function doLogout() {
   if (courierWatchId != null) await stopCourierBroadcast(true);
   detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
+  adminOrderIds.clear();
+  adminOrdersReady = false;
+  stopPromoAuto();
   await signOut(auth);
   toast("Kamu telah keluar");
 }
@@ -2781,6 +3009,8 @@ function detachListeners() {
   [unsubProducts, unsubOrders, unsubAdminOrders, unsubCustomers].forEach(fn => fn && fn());
   unsubProducts = unsubOrders = unsubAdminOrders = unsubCustomers = null;
   statusMapInitialized = false; lastStatusMap = {};
+  adminOrderIds.clear();
+  adminOrdersReady = false;
   stopLiveTimer();
 }
 
@@ -2799,6 +3029,7 @@ function initCustomer() {
   updateCartBar();
   updateWishHeaderBadge();
   switchView("home");
+  startPromoAuto();
 }
 
 function updateWishHeaderBadge() {
@@ -2896,12 +3127,15 @@ function productCardHTML(p) {
   const adaDiskon = diskon > 0;
   const isUmkm = p.kategori === UMKM_CAT;
   const umkmStore = (p.umkm || "").trim();
+  const images = getProductImages(p);
+  const imgCount = images.length;
   return `
   <div class="product-card ${isUmkm ? "is-umkm" : ""} ${adaDiskon ? "is-promo" : ""}" data-id="${p.id}">
     ${adaDiskon ? `<div class="discount-ribbon">-${diskon}%</div>` : ""}
     ${isUmkm ? `<div class="umkm-badge"><i class="fas fa-store"></i> UMKM</div>` : ""}
     <div class="product-img-wrap">
-      <img src="${esc(p.gambar || PLACEHOLDER)}" class="product-img" alt="${esc(p.nama)}" onerror="this.src='${PLACEHOLDER}'">
+      <img src="${esc(images[0])}" class="product-img" alt="${esc(p.nama)}" onerror="this.src='${PLACEHOLDER}'">
+      ${imgCount > 1 ? `<span class="img-count-badge"><i class="fas fa-camera"></i> ${imgCount}</span>` : ""}
       <button class="wishlist-btn ${liked ? "active" : ""}" data-wish="${p.id}"><i class="${liked ? "fas" : "far"} fa-heart"></i></button>
     </div>
     <div class="product-info">
@@ -3077,6 +3311,17 @@ async function cancelOrder(orderId) {
   }
 }
 
+function orderItemHTML(i) {
+  const img = i.gambar || PLACEHOLDER;
+  return `<div class="order-item">
+    <img src="${esc(img)}" class="order-item-img" onerror="this.src='${PLACEHOLDER}'" alt="${esc(i.nama)}">
+    <div class="order-item-info">
+      <span>${esc(i.nama)} × ${i.qty}</span>
+      <span>${rupiah(i.harga * i.qty)}</span>
+    </div>
+  </div>`;
+}
+
 function renderOrders() {
   const el = $("#ordersList");
   if (!allOrders.length) {
@@ -3096,7 +3341,7 @@ function renderOrders() {
           <span class="badge ${o.status}">${o.status}</span>
         </div>
       </div>
-      ${(o.items || []).map(i => `<div class="order-item"><span>${esc(i.nama)} × ${i.qty}</span><span>${rupiah(i.harga * i.qty)}</span></div>`).join("")}
+      ${(o.items || []).map(orderItemHTML).join("")}
       <div class="order-total"><span>Total</span><span>${rupiah(o.total)}</span></div>
       ${paymentInfoHTML(o.payment || "cod")}
       ${shippingAlertHTML(o.status)}
@@ -3146,8 +3391,37 @@ function attachCustomerEvents() {
     $("#sortBtn").classList.toggle("active", sortMode !== 0);
     renderProducts();
   });
-  $("#bannerBtn").addEventListener("click", (e) => { e.stopPropagation(); switchView("promo"); });
-  $("#homeBanner").addEventListener("click", () => switchView("promo"));
+
+  const slider = document.getElementById('promoSlider');
+  if (slider) {
+    slider.querySelectorAll('.promo-dot').forEach((d, i) => {
+      d.addEventListener('click', () => { goPromoSlide(i); startPromoAuto(); });
+    });
+    slider.querySelectorAll('.shop-now-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const go = btn.dataset.go;
+        if (go === 'promo') switchView('promo');
+        else if (go === 'umkm') switchView('umkm');
+        else switchView('home');
+      });
+    });
+    let touchStartX = 0, touchStartY = 0;
+    slider.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      stopPromoAuto();
+    }, { passive: true });
+    slider.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx < 0) goPromoSlide(promoSlideIdx + 1);
+        else goPromoSlide(promoSlideIdx - 1);
+      }
+      startPromoAuto();
+    }, { passive: true });
+  }
 
   $("#umkmCta")?.addEventListener("click", () => switchView("umkm"));
   $("#btnUmkmMenu")?.addEventListener("click", () => switchView("umkm"));
@@ -3238,7 +3512,7 @@ function addToCart(id) {
   const current = cart[id]?.qty || 0;
   if (current + 1 > Number(p.stok)) return toast("Stok tidak mencukupi", "err");
   const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
-  cart[id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: p.gambar || PLACEHOLDER, qty: current + 1 };
+  cart[id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: current + 1 };
   saveCart(); updateCartBar(); toast(`${p.nama} ditambahkan`);
 }
 function changeQty(id, delta) {
@@ -3325,7 +3599,7 @@ async function submitOrder() {
   if (!nama || !telepon || !alamat) return toast("Lengkapi data pengiriman", "err");
   if (!selectedPayment) return toast("Pilih metode pembayaran", "err");
 
-  const items = Object.values(cart).map(i => ({ id: i.id, nama: i.nama, harga: i.harga, qty: i.qty }));
+  const items = Object.values(cart).map(i => ({ id: i.id, nama: i.nama, harga: i.harga, qty: i.qty, gambar: i.gambar || PLACEHOLDER }));
   const total = items.reduce((s, i) => s + i.harga * i.qty, 0);
   const btn = $("#btnCheckout");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
@@ -3399,14 +3673,6 @@ function attachAdminEvents() {
   $("#productClose").addEventListener("click", () => $("#productOverlay").classList.remove("show"));
   $("#productOverlay").addEventListener("click", e => { if (e.target === $("#productOverlay")) $("#productOverlay").classList.remove("show"); });
   $("#btnSaveProduct").addEventListener("click", saveProduct);
-  $("#btnUploadFoto").addEventListener("click", openCloudinaryWidget);
-  $("#uploadZone").addEventListener("click", openCloudinaryWidget);
-  $("#btnHapusFoto").addEventListener("click", () => { setUploadPreview(""); toast("Foto dihapus"); });
-  $("#pGambarUrl").addEventListener("input", e => {
-    const url = e.target.value.trim(); $("#pGambar").value = url;
-    const zone = $("#uploadZone"), img = $("#uploadPreview");
-    if (url) { img.src = url; zone.classList.add("has-image"); } else { img.src = ""; zone.classList.remove("has-image"); }
-  });
 
   $("#pKategori").addEventListener("change", e => {
     const isUmkm = e.target.value === UMKM_CAT;
@@ -3467,13 +3733,15 @@ function renderAdminProducts() {
     const stok = Number(p.stok) || 0;
     const isUmkm = p.kategori === UMKM_CAT;
     const umkmStore = (p.umkm || "").trim();
+    const images = getProductImages(p);
+    const imgCount = images.length;
     return `
     <div class="adm-card ${isUmkm ? "is-umkm" : ""}">
       <div class="adm-prod-top">
-        <img src="${esc(p.gambar || PLACEHOLDER)}" class="adm-img" onerror="this.src='${PLACEHOLDER}'">
+        <img src="${esc(images[0])}" class="adm-img" onerror="this.src='${PLACEHOLDER}'">
         <div class="adm-prod-info">
           <h4>${esc(p.nama)}${isUmkm ? `<span class="adm-umkm-tag"><i class="fas fa-store"></i>UMKM</span>` : ""}</h4>
-          <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b>${isUmkm && umkmStore ? ` · <i class="fas fa-user-tie" style="color:var(--umkm);font-size:9px"></i> ${esc(umkmStore)}` : ""}</span>
+          <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b>${isUmkm && umkmStore ? ` · <i class="fas fa-user-tie" style="color:var(--umkm);font-size:9px"></i> ${esc(umkmStore)}` : ""} · ${imgCount} foto</span>
           <div class="adm-price-row">
             <span class="adm-price">${rupiah(p.harga)}</span>
             ${diskon > 0 ? `<span class="discount-badge">-${diskon}%</span>` : ""}
@@ -3499,11 +3767,14 @@ function openProductForm(id = null) {
   $("#pDiskon").value = p?.diskon ?? 0;
   $("#pStok").value = p?.stok ?? "";
   $("#pDeskripsi").value = p?.deskripsi || "";
-  $("#pGambarUrl").value = p?.gambar || "";
   $("#pUmkm").value = p?.umkm || "";
+  $("#pGambarUrl").value = "";
   $("#wrapUmkm").style.display = ($("#pKategori").value === UMKM_CAT) ? "flex" : "none";
-  setUploadPreview(p?.gambar || "");
-  setUploadState("idle");
+
+  formImages = getProductImages(p).filter(u => u && u !== PLACEHOLDER);
+  if (p && !formImages.length && p.gambar) formImages = [p.gambar];
+  renderFormImages();
+
   $("#productOverlay").classList.add("show");
 }
 
@@ -3511,17 +3782,22 @@ async function saveProduct() {
   const id = $("#pId").value, nama = $("#pNama").value.trim();
   const kategori = $("#pKategori").value;
   const harga = Number($("#pHarga").value), diskon = Number($("#pDiskon").value) || 0;
-  const stok = Number($("#pStok").value), gambar = $("#pGambar").value.trim();
+  const stok = Number($("#pStok").value);
   const umkm = $("#pUmkm").value.trim();
   if (!nama) return toast("Nama produk wajib diisi", "err");
   if (isNaN(harga) || harga < 0) return toast("Harga tidak valid", "err");
   if (diskon < 0 || diskon > 100) return toast("Diskon harus 0-100%", "err");
   if (isNaN(stok) || stok < 0) return toast("Stok tidak valid", "err");
   if (kategori === UMKM_CAT && !umkm) return toast("Isi nama UMKM / pemilik usaha", "err");
+  if (!formImages.length) return toast("Tambahkan minimal 1 foto produk", "err");
+
+  const gambarList = formImages.filter(Boolean);
+  const gambar = gambarList[0] || PLACEHOLDER;
 
   const data = {
     nama, kategori, harga, diskon, stok,
-    gambar: gambar || PLACEHOLDER,
+    gambar,
+    gambarList,
     deskripsi: $("#pDeskripsi").value.trim(),
     umkm: kategori === UMKM_CAT ? umkm : "",
     updatedAt: serverTimestamp()
@@ -3535,6 +3811,7 @@ async function saveProduct() {
       toast(kategori === UMKM_CAT ? "Produk UMKM ditambahkan 🏪" : "Produk ditambahkan", "ok");
     }
     $("#productOverlay").classList.remove("show");
+    formImages = [];
   } catch (err) { toast("Gagal menyimpan: " + err.message, "err"); }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Produk'; }
 }
@@ -3550,6 +3827,27 @@ function listenAdminOrders() {
   unsubAdminOrders = onSnapshot(collection(db, "orders"), snap => {
     allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     renderAdminOrders(); renderStats();
+
+    // ============ PLAY song.mp3 UNTUK PESANAN BARU MASUK ============
+    if (!adminOrdersReady) {
+      snap.docs.forEach(d => adminOrderIds.add(d.id));
+      adminOrdersReady = true;
+      // Saat pertama kali buka dashboard: putar sound jika ada pesanan pending
+      const pendingCount = allOrders.filter(o => o.status === "pending").length;
+      if (pendingCount > 0) {
+        setTimeout(() => playNotifSound(), 600);
+      }
+    } else {
+      // Deteksi pesanan BARU yang masuk real-time
+      let hasNew = false;
+      snap.docs.forEach(d => {
+        if (!adminOrderIds.has(d.id)) {
+          adminOrderIds.add(d.id);
+          hasNew = true;
+        }
+      });
+      if (hasNew) playNotifSound();
+    }
   }, err => console.error(err));
 }
 
@@ -3589,7 +3887,12 @@ function renderAdminOrders() {
       <div class="adm-line"><i class="fas fa-location-dot"></i><span>${esc(o.alamat || "-")}</span></div>
       ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
       ${cancelledNote}
-      <div class="adm-items">${(o.items || []).map(i => `${esc(i.nama)} × ${i.qty}`).join("<br>")}</div>
+      <div class="adm-items">
+        ${(o.items || []).map(i => `<div class="adm-item-row">
+          <img src="${esc(i.gambar || PLACEHOLDER)}" class="adm-item-img" onerror="this.src='${PLACEHOLDER}'">
+          <span class="adm-item-name">${esc(i.nama)} × ${i.qty}</span>
+        </div>`).join("")}
+      </div>
       <div class="adm-card-foot">
         <span class="adm-total">${rupiah(o.total)}</span>
         <span class="pay-badge ${pay}"><i class="fas ${payInfo.icon}"></i> ${payInfo.label}</span>
@@ -3658,7 +3961,7 @@ function listenCustomers() {
   }, err => console.error(err));
 }
 
-/* ============ DASHBOARD: HELPER PENGELOMPOKKAN PER HARI ============ */
+/* ============ DASHBOARD ============ */
 function getOrderDate(o) {
   if (o && o.createdAt) {
     if (typeof o.createdAt.toDate === "function") return o.createdAt.toDate();

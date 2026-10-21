@@ -1608,6 +1608,19 @@ function playNotifSound() {
   } catch(e) { console.warn('playNotifSound error', e); }
 }
 
+/* ============ LOGIN SOUND (song.mp3 saat pelanggan masuk) ============ */
+function playLoginSound() {
+  try {
+    // Mainkan hanya sekali per sesi login (hindari dobel saat refresh)
+    if (sessionStorage.getItem('kmp_login_sound') === 'played') return;
+    sessionStorage.setItem('kmp_login_sound', 'played');
+    // Delay kecil agar audio sudah ter-unlock oleh klik login
+    setTimeout(() => {
+      playNotifSound();
+    }, 600);
+  } catch (e) { console.warn('playLoginSound error', e); }
+}
+
 const PAY_INFO = {
   cod:   { label: "COD",    icon: "fa-hand-holding-dollar", desc: "Bayar di tempat" },
   qris:  { label: "QRIS",   icon: "fa-qrcode",              desc: "Scan QR Code" },
@@ -2986,6 +2999,8 @@ async function doLogout() {
   adminOrderIds.clear();
   adminOrdersReady = false;
   stopPromoAuto();
+  // Reset flag login sound agar bisa diputar lagi di sesi login berikutnya
+  try { sessionStorage.removeItem('kmp_login_sound'); } catch(e) {}
   await signOut(auth);
   toast("Kamu telah keluar");
 }
@@ -3030,6 +3045,9 @@ function initCustomer() {
   updateWishHeaderBadge();
   switchView("home");
   startPromoAuto();
+
+  // ==== PUTAR song.mp3 SAAT PELANGGAN LOGIN MASUK DASHBOARD ====
+  setTimeout(playLoginSound, 800);
 }
 
 function updateWishHeaderBadge() {

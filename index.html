@@ -117,7 +117,6 @@ button{background:none;border:none;cursor:pointer;color:inherit;}
 .input-group select{cursor:pointer;appearance:none;}
 .input-group input::placeholder,.input-group textarea::placeholder{color:var(--text-mute);font-weight:500;}
 
-/* ============ SHOW/HIDE PASSWORD TOGGLE ============ */
 .pw-toggle{
   background:none;border:none;cursor:pointer;
   color:var(--text-mute);font-size:clamp(12.5px,3.4vw,13.5px);
@@ -150,14 +149,22 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .user-text p{font-size:var(--fs-xs);color:var(--text-soft);font-weight:500;margin-bottom:1px;}
 .user-text h3{font-size:var(--fs-lg);color:var(--text);font-weight:700;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
 .header-actions{display:flex;gap:7px;flex-shrink:0;}
+
 .notification-btn{width:clamp(40px,11vw,44px);height:clamp(40px,11vw,44px);border-radius:13px;background:#fff;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;transition:.25s;position:relative;flex-shrink:0;font-size:clamp(14px,3.8vw,15px);}
-.notification-btn::after{content:'';position:absolute;top:10px;right:10px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid #fff;}
+.notification-btn::after{content:'';position:absolute;top:6px;right:6px;width:12px;height:12px;background:var(--red);border-radius:50%;border:2.5px solid #fff;display:none;z-index:5;animation:pulseBadge 1.4s infinite;box-shadow:0 2px 6px rgba(220,38,38,.5);}
+.notification-btn.has-notif{border-color:var(--red);background:var(--red-soft);color:var(--red);}
+.notification-btn.has-notif::after{display:block;}
+.notification-btn.has-notif i{color:var(--red);animation:bellShake 2s ease-in-out infinite;}
 .notification-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
 .notification-btn.wish-btn{color:var(--red);}
-.notification-btn.wish-btn::after{display:none;}
+.notification-btn.wish-btn::after{display:none !important;}
+.notification-btn.wish-btn.has-notif{background:#fff;}
+.notification-btn.wish-btn.has-notif i{animation:none;}
 .notification-btn.wish-btn:hover{background:var(--red);color:#fff;}
 .notification-btn.wish-btn .wish-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:8.5px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:800;border:2px solid #fff;transition:.25s;}
 .notification-btn.wish-btn:hover .wish-count{background:#fff;color:var(--red);border-color:var(--red);}
+
+@keyframes bellShake{0%,100%{transform:rotate(0)}10%{transform:rotate(-12deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}50%,100%{transform:rotate(0)}}
 
 .search-section{padding:0 var(--pad) 12px;display:flex;gap:9px;}
 .search-box{flex:1;background:#fff;border-radius:var(--r-md);display:flex;align-items:center;padding:0 clamp(12px,3.4vw,15px);height:var(--inp-h);border:1.5px solid var(--border);transition:.22s;min-width:0;}
@@ -176,7 +183,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .category-btn.umkm-cat:hover{border-color:var(--umkm);color:var(--umkm);}
 .category-btn.umkm-cat.active{background:var(--gradient-umkm);color:#fff;border-color:transparent;box-shadow:var(--sh-umkm);}
 
-/* ============= PROMO SLIDER ============= */
 .promo-slider{margin:0 var(--pad) 16px;position:relative;overflow:hidden;border-radius:var(--r-xl);}
 .promo-slider-track{position:relative;min-height:180px;}
 .promo-slide{display:none;border-radius:var(--r-xl);padding:clamp(16px,4.4vw,20px);justify-content:space-between;align-items:center;position:relative;overflow:hidden;color:#fff;width:100%;}
@@ -274,7 +280,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
-/* ============= PRODUCT DETAIL ============= */
 .pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
 .pd-card{background:#fff;width:100%;max-width:400px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 30px 70px rgba(24,24,27,.4);animation:pdPop .35s cubic-bezier(.2,.9,.3,1.15);position:relative;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;}
@@ -356,6 +361,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .nav-item[data-view="promo"].active::before{background:var(--gradient-promo);}
 .nav-badge{position:absolute;top:0;right:calc(50% - 22px);background:var(--red);color:#fff;font-size:8.5px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:700;border:2px solid #fff;}
 .nav-item[data-view="promo"] .nav-badge{background:var(--promo);}
+.nav-notif-dot{position:absolute;top:2px;right:calc(50% - 16px);width:10px;height:10px;background:var(--red);border-radius:50%;border:2px solid #fff;display:none;animation:pulseBadge 1.4s infinite;z-index:3;}
+.nav-item[data-view="orders"].has-notif .nav-notif-dot{display:block;}
 @media (max-width:360px){ .nav-item{padding:6px 4px;} .nav-item span{font-size:9px;} .nav-item i{font-size:16px;} }
 
 .cart-bar{position:absolute;bottom:80px;left:var(--pad);right:var(--pad);background:var(--gradient);border-radius:15px;padding:13px 18px;display:flex;justify-content:space-between;align-items:center;color:#fff;box-shadow:var(--sh-red-lg);z-index:9;cursor:pointer;transition:.35s cubic-bezier(.2,.9,.3,1.15);border:none;transform:translateY(130px);opacity:0;pointer-events:none;}
@@ -672,6 +679,9 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .admin-nav button.active{color:var(--red);}
 .admin-nav button.active i{transform:scale(1.1);}
 .admin-nav button.active::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:20px;height:2.5px;background:var(--gradient);border-radius:3px;}
+.admin-nav button[data-aview="pesanan"]::after{content:'';position:absolute;top:2px;right:calc(50% - 15px);width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid #fff;display:none;z-index:2;animation:pulseBadge 1.6s infinite;box-shadow:0 1px 4px rgba(220,38,38,.4);}
+.admin-nav button[data-aview="pesanan"].has-new-dot::after{display:block;}
+
 .admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:15px;flex-wrap:wrap;}
 .admin-head h1{font-size:clamp(16px,4.6vw,18px);font-weight:800;color:var(--text);letter-spacing:-.4px;}
 .admin-head p{font-size:var(--fs-sm);color:var(--text-soft);margin-top:2px;font-weight:500;line-height:1.45;}
@@ -1061,7 +1071,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     <div class="bottom-nav">
       <button class="nav-item active" data-view="home"><i class="fas fa-home"></i><span>Beranda</span></button>
       <button class="nav-item" data-view="promo"><i class="fas fa-fire"></i><span>Promo</span></button>
-      <button class="nav-item" data-view="orders"><i class="fas fa-clipboard-list"></i><span>Pesanan</span></button>
+      <button class="nav-item" data-view="orders"><i class="fas fa-clipboard-list"></i><span>Pesanan</span><span class="nav-notif-dot"></span></button>
       <button class="nav-item" data-view="profile"><i class="fas fa-user"></i><span>Profil</span></button>
     </div>
   </div>
@@ -1604,6 +1614,40 @@ document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
   });
 });
 
+/* ============ NOTIFICATION UNREAD STATE (CUSTOMER) ============ */
+const notifUnreadKey = () => "kmp_notif_unread_" + (currentUser?.uid || "guest");
+let hasUnreadNotif = false;
+function loadNotifUnreadState(){
+  try { hasUnreadNotif = localStorage.getItem(notifUnreadKey()) === "1"; } catch { hasUnreadNotif = false; }
+  updateNotifDot();
+}
+function saveNotifUnreadState(){
+  try { localStorage.setItem(notifUnreadKey(), hasUnreadNotif ? "1" : "0"); } catch {}
+}
+function setUnreadNotif(v){
+  hasUnreadNotif = !!v;
+  saveNotifUnreadState();
+  updateNotifDot();
+}
+function updateNotifDot(){
+  const btn = document.getElementById("btnNotif");
+  if (btn) btn.classList.toggle("has-notif", hasUnreadNotif);
+  // juga tampilkan dot di navbar bawah Pesanan
+  const navOrders = document.querySelector('.nav-item[data-view="orders"]');
+  if (navOrders) navOrders.classList.toggle("has-notif", hasUnreadNotif);
+}
+
+/* ============ ADMIN NEW ORDER DOT ============ */
+let adminHasUnseenOrders = false;
+function updateAdminOrderDot(){
+  const btn = document.querySelector('.admin-nav button[data-aview="pesanan"]');
+  if (btn) btn.classList.toggle("has-new-dot", adminHasUnseenOrders);
+}
+function setAdminUnseenOrders(v){
+  adminHasUnseenOrders = !!v;
+  updateAdminOrderDot();
+}
+
 /* ============ NOTIFICATION SOUND (song.mp3) ============ */
 let audioUnlocked = false;
 function unlockAudio() {
@@ -1743,6 +1787,7 @@ let notifTimer = null;
 function showNotifPopup(status) {
   const info = notifPesan[status];
   if (!info) return;
+  console.log('[Notif] Menampilkan notifikasi untuk status:', status);
   $("#notifTitle").textContent = info.title;
   $("#notifMsg").textContent   = info.msg;
   $("#notifPopup .notif-icon").innerHTML = `<i class="fas ${info.icon}"></i>`;
@@ -1755,6 +1800,13 @@ function showNotifPopup(status) {
   }
 
   if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]);
+
+  // Tandai unread (red dot pada tombol bell + navbar Pesanan)
+  // untuk status diproses/dikirim/selesai — SELALU set dot
+  if (["diproses","dikirim","selesai"].includes(status)) {
+    setUnreadNotif(true);
+    console.log('[Notif] Red dot diaktifkan untuk status:', status);
+  }
 }
 
 $("#notifClose")?.addEventListener("click", () => $("#notifPopup").classList.remove("show"));
@@ -3038,6 +3090,8 @@ async function doLogout() {
   detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
   adminOrderIds.clear();
   adminOrdersReady = false;
+  adminHasUnseenOrders = false;
+  hasUnreadNotif = false;
   stopPromoAuto();
   try { sessionStorage.removeItem('kmp_login_sound'); } catch(e) {}
   await signOut(auth);
@@ -3065,6 +3119,7 @@ function detachListeners() {
   statusMapInitialized = false; lastStatusMap = {};
   adminOrderIds.clear();
   adminOrdersReady = false;
+  adminHasUnseenOrders = false;
   stopLiveTimer();
 }
 
@@ -3072,6 +3127,7 @@ function detachListeners() {
 function initCustomer() {
   showScreen("customerScreen");
   loadCart(); loadWish(); loadSavedAddresses();
+  loadNotifUnreadState();
   $("#userName").textContent      = currentUser.nama || "Pelanggan";
   // Avatar header sekarang pakai logo.png (di-set dari HTML, tidak ditimpa inisial)
   $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
@@ -3419,6 +3475,7 @@ function switchView(view) {
   if (view === "wishlist") renderWishlist();
   if (view === "umkm")     renderUmkm();
   if (view === "promo")    renderPromo();
+  if (view === "orders")   setUnreadNotif(false);
 }
 
 let customerEventsAttached = false;
@@ -3487,6 +3544,7 @@ function attachCustomerEvents() {
   $("#btnBackFromUmkm")?.addEventListener("click", () => switchView("home"));
 
   $("#btnNotif").addEventListener("click", () => {
+    setUnreadNotif(false);
     const aktif = allOrders.filter(o => o.status === "pending" || o.status === "diproses" || o.status === "dikirim").length;
     if (aktif) { switchView("orders"); toast(`Ada ${aktif} pesanan aktif`); }
     else { toast("Tidak ada notifikasi baru"); }
@@ -3772,6 +3830,7 @@ function switchAdminView(v) {
   $("#aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
   $$(".admin-nav button[data-aview]").forEach(b => b.classList.toggle("active", b.dataset.aview === v));
   const am = $(".admin-main"); if (am) am.scrollTop = 0;
+  if (v === "pesanan") setAdminUnseenOrders(false);
 }
 
 function listenAdminProducts() {
@@ -3890,6 +3949,8 @@ function listenAdminOrders() {
       const pendingCount = allOrders.filter(o => o.status === "pending").length;
       if (pendingCount > 0) {
         setTimeout(() => playNotifSound(), 600);
+        const onPesanan = document.getElementById("aviewPesanan")?.classList.contains("active");
+        if (!onPesanan) setAdminUnseenOrders(true);
       }
     } else {
       let hasNew = false;
@@ -3899,7 +3960,11 @@ function listenAdminOrders() {
           hasNew = true;
         }
       });
-      if (hasNew) playNotifSound();
+      if (hasNew) {
+        playNotifSound();
+        const onPesanan = document.getElementById("aviewPesanan")?.classList.contains("active");
+        if (!onPesanan) setAdminUnseenOrders(true);
+      }
     }
   }, err => console.error(err));
 }

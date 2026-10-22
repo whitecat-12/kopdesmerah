@@ -285,75 +285,120 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
-.pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
+/* ============================================================
+   PRODUCT DETAIL — COMPACT CARD (gambar rasio 3:4)
+   ============================================================ */
+.pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
-.pd-card{background:#fff;width:100%;max-width:400px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 30px 70px rgba(24,24,27,.4);animation:pdPop .35s cubic-bezier(.2,.9,.3,1.15);position:relative;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;}
-@keyframes pdPop{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
-.pd-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);color:var(--text);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.18);z-index:10;transition:.2s;}
-.pd-close:hover{background:var(--red);color:#fff;transform:rotate(90deg);}
-.pd-img-wrap{position:relative;width:100%;height:clamp(220px,55vw,280px);background:linear-gradient(135deg,#FEF2F2,#FEE2E2);flex-shrink:0;overflow:hidden;}
+
+.pd-card{
+  background:#fff;width:100%;max-width:352px;border-radius:20px;overflow:hidden;
+  box-shadow:0 26px 60px rgba(24,24,27,.42);
+  animation:pdPop .34s cubic-bezier(.2,.9,.3,1.15);
+  position:relative;display:flex;flex-direction:column;
+  max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);
+}
+@keyframes pdPop{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:none}}
+
+/* ---- Bagian atas: gambar 3:4 + info ringkas ---- */
+.pd-top{
+  display:flex;gap:12px;padding:12px;
+  background:linear-gradient(135deg,#FFF6F5 0%,#FFFFFF 75%);
+  border-bottom:1px solid var(--border-soft);flex-shrink:0;
+}
+
+.pd-img-wrap{
+  position:relative;align-self:flex-start;
+  flex:0 0 clamp(96px,33%,118px);width:clamp(96px,33%,118px);
+  aspect-ratio:3 / 4;
+  border-radius:14px;overflow:hidden;
+  background:var(--red-soft);
+  box-shadow:0 6px 16px rgba(24,24,27,.12);
+}
 .pd-img-carousel{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .pd-img-carousel::-webkit-scrollbar{display:none;}
 .pd-img-slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;position:relative;}
 .pd-img-slide img{width:100%;height:100%;object-fit:cover;display:block;}
-.pd-img-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:4;background:rgba(0,0,0,.35);padding:5px 9px;border-radius:20px;backdrop-filter:blur(4px);}
-.pd-img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:.25s;padding:0;border:none;cursor:pointer;}
-.pd-img-dot.active{background:#fff;width:16px;border-radius:3px;}
-.pd-img-counter{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:8px;z-index:4;backdrop-filter:blur(4px);letter-spacing:.3px;display:none;}
-.pd-ribbon{position:absolute;top:14px;right:-38px;background:var(--gradient);color:#fff;font-size:11px;font-weight:800;padding:5px 44px;transform:rotate(38deg);box-shadow:0 4px 12px rgba(220,38,38,.42);letter-spacing:.5px;z-index:5;pointer-events:none;}
-.pd-umkm-badge{position:absolute;top:14px;left:14px;background:var(--gradient-umkm);color:#fff;font-size:10px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.5px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 4px 12px rgba(180,83,9,.45);z-index:3;text-transform:uppercase;}
-.pd-umkm-badge i{font-size:9px;}
-.pd-wish-btn{position:absolute;top:14px;right:60px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border:none;display:flex;align-items:center;justify-content:center;color:var(--text-mute);box-shadow:0 4px 12px rgba(0,0,0,.18);cursor:pointer;font-size:15px;z-index:10;transition:.22s;}
-.pd-wish-btn:hover{transform:scale(1.1);color:var(--red);}
-.pd-wish-btn.active{background:var(--red);color:#fff;}
 
-.pd-body{padding:clamp(16px,4.5vw,20px) var(--pad) calc(16px + env(safe-area-inset-bottom));overflow-y:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;}
-.pd-body::-webkit-scrollbar{display:none;}
-.pd-category{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:var(--red);background:var(--red-soft);padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.pd-img-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:4;background:rgba(0,0,0,.34);padding:3px 6px;border-radius:20px;backdrop-filter:blur(4px);}
+.pd-img-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.55);transition:.25s;padding:0;border:none;cursor:pointer;}
+.pd-img-dot.active{background:#fff;width:11px;border-radius:3px;}
+
+.pd-ribbon{position:absolute;top:6px;left:6px;background:var(--gradient);color:#fff;font-size:8.5px;font-weight:800;padding:3px 6px;border-radius:6px;letter-spacing:.3px;box-shadow:0 2px 8px rgba(220,38,38,.45);z-index:5;pointer-events:none;}
+.pd-umkm-badge{position:absolute;top:6px;right:6px;background:var(--gradient-umkm);color:#fff;font-size:7.5px;font-weight:800;padding:3px 6px;border-radius:6px;letter-spacing:.4px;display:inline-flex;align-items:center;gap:3px;box-shadow:0 2px 8px rgba(180,83,9,.45);z-index:5;text-transform:uppercase;}
+.pd-umkm-badge i{font-size:7px;}
+
+.pd-head{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;padding-top:1px;}
+.pd-head-top{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.pd-head-actions{display:flex;gap:4px;flex-shrink:0;}
+
+.pd-close,.pd-wish-btn{
+  width:26px;height:26px;border-radius:8px;border:1px solid var(--border);
+  background:#fff;color:var(--text-mute);font-size:11px;cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;
+}
+.pd-close:hover{background:var(--red);border-color:var(--red);color:#fff;transform:rotate(90deg);}
+.pd-wish-btn:hover{color:var(--red);border-color:var(--red);}
+.pd-wish-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+
+.pd-category{display:inline-flex;align-items:center;gap:4px;font-size:8.5px;font-weight:800;color:var(--red);background:var(--red-soft);padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .pd-category.umkm{background:var(--umkm-soft);color:var(--umkm);}
-.pd-title{font-size:clamp(16px,4.6vw,19px);font-weight:800;color:var(--text);line-height:1.3;letter-spacing:-.4px;margin-bottom:6px;}
-.pd-store{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--umkm);font-weight:700;background:var(--umkm-soft);padding:5px 11px;border-radius:9px;margin-bottom:12px;}
-.pd-store i{font-size:11px;}
-.pd-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
-.pd-price{font-size:clamp(22px,6vw,26px);font-weight:800;color:var(--red);letter-spacing:-.6px;line-height:1;}
-.pd-price-original{font-size:13px;color:var(--text-mute);text-decoration:line-through;font-weight:600;}
-.pd-discount-pill{background:#FEF3C7;color:#B45309;font-size:11px;font-weight:800;padding:3.5px 9px;border-radius:6px;letter-spacing:.3px;}
-.pd-meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 0;border-bottom:1.5px dashed var(--border);margin-bottom:14px;}
-.pd-sold{font-size:11px;color:var(--text-soft);font-weight:600;}
-.pd-sep{width:1px;height:14px;background:var(--border);}
-.pd-stock-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;background:#ECFDF5;color:var(--success);letter-spacing:.2px;}
+
+.pd-title{font-size:clamp(13px,3.8vw,14.5px);font-weight:800;color:var(--text);line-height:1.32;letter-spacing:-.3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+.pd-store{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;color:var(--umkm);font-weight:700;background:var(--umkm-soft);padding:3px 7px;border-radius:6px;align-self:flex-start;max-width:100%;}
+.pd-store i{font-size:8.5px;flex-shrink:0;}
+.pd-store span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.pd-price-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:auto;}
+.pd-price{font-size:clamp(15px,4.4vw,17px);font-weight:800;color:var(--red);letter-spacing:-.5px;line-height:1.1;}
+.pd-price-original{font-size:10px;color:var(--text-mute);text-decoration:line-through;font-weight:600;}
+.pd-discount-pill{background:#FEF3C7;color:#B45309;font-size:8.5px;font-weight:800;padding:2px 6px;border-radius:5px;letter-spacing:.2px;}
+
+.pd-meta-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0;margin:0;border:none;}
+.pd-sold{font-size:9.5px;color:var(--text-soft);font-weight:600;}
+.pd-sep{width:1px;height:10px;background:var(--border);}
+.pd-stock-badge{display:inline-flex;align-items:center;gap:3px;font-size:8.5px;font-weight:800;padding:2.5px 6px;border-radius:20px;background:#ECFDF5;color:var(--success);letter-spacing:.2px;}
 .pd-stock-badge.habis{background:#FEF2F2;color:var(--red);}
 
-.pd-section-title{font-size:11px;font-weight:800;color:var(--text-mute);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.pd-section-title::before{content:'';width:3px;height:12px;background:var(--gradient);border-radius:2px;}
-.pd-desc{font-size:var(--fs-md);color:var(--text);line-height:1.65;font-weight:500;margin-bottom:16px;white-space:pre-wrap;word-break:break-word;}
-.pd-desc.empty{color:var(--text-mute);font-style:italic;}
-.pd-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
-.pd-info-item{background:var(--cream);border:1.5px solid var(--border);border-radius:11px;padding:10px 11px;display:flex;flex-direction:column;gap:3px;}
-.pd-info-item .lbl{font-size:9.5px;font-weight:700;color:var(--text-mute);letter-spacing:.4px;text-transform:uppercase;}
-.pd-info-item .val{font-size:12.5px;font-weight:800;color:var(--text);letter-spacing:-.2px;line-height:1.25;word-break:break-word;}
-.pd-info-item .val.green{color:var(--success);}
-.pd-info-item .val.red{color:var(--red);}
+/* ---- Bagian bawah: deskripsi, qty, tombol ---- */
+.pd-body{padding:12px 14px calc(14px + env(safe-area-inset-bottom));overflow-y:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.pd-body::-webkit-scrollbar{display:none;}
 
-.pd-qty-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);border:1.5px solid var(--border);border-radius:13px;padding:10px 14px;margin-bottom:14px;}
-.pd-qty-label{font-size:12px;font-weight:700;color:var(--text);}
-.pd-qty-ctrl{display:flex;align-items:center;gap:8px;background:#fff;padding:4px;border-radius:11px;border:1.5px solid var(--border);}
-.pd-qty-btn{width:30px;height:30px;border-radius:8px;border:none;background:var(--red-soft);cursor:pointer;color:var(--red);font-size:11px;display:flex;align-items:center;justify-content:center;transition:.18s;font-weight:800;}
+.pd-section-title{font-size:9.5px;font-weight:800;color:var(--text-mute);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.pd-section-title::before{content:'';width:3px;height:11px;background:var(--gradient);border-radius:2px;}
+
+.pd-desc{font-size:12px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:12px;white-space:pre-wrap;word-break:break-word;max-height:88px;overflow-y:auto;scrollbar-width:none;}
+.pd-desc::-webkit-scrollbar{display:none;}
+.pd-desc.empty{color:var(--text-mute);font-style:italic;}
+
+/* Info grid disembunyikan — informasinya sudah tampil di header compact */
+.pd-info-grid{display:none;}
+
+.pd-qty-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cream);border:1px solid var(--border);border-radius:11px;padding:7px 10px;margin-bottom:10px;}
+.pd-qty-label{font-size:11.5px;font-weight:700;color:var(--text);display:flex;align-items:center;}
+.pd-qty-ctrl{display:flex;align-items:center;gap:6px;background:#fff;padding:3px;border-radius:9px;border:1px solid var(--border);}
+.pd-qty-btn{width:26px;height:26px;border-radius:7px;border:none;background:var(--red-soft);cursor:pointer;color:var(--red);font-size:10px;display:flex;align-items:center;justify-content:center;transition:.18s;font-weight:800;padding:0;}
 .pd-qty-btn:hover{background:var(--red);color:#fff;}
 .pd-qty-btn:disabled{opacity:.4;cursor:not-allowed;}
-.pd-qty-num{font-size:14px;font-weight:800;min-width:26px;text-align:center;color:var(--text);}
+.pd-qty-num{font-size:12.5px;font-weight:800;min-width:22px;text-align:center;color:var(--text);}
 
-.pd-actions{display:flex;gap:8px;margin-top:6px;}
-.pd-btn-add{flex:1;background:var(--gradient);color:#fff;border:none;padding:14px 16px;border-radius:13px;font-size:13.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.25s;box-shadow:var(--sh-red);letter-spacing:.2px;}
+.pd-actions{display:flex;gap:8px;}
+.pd-btn-add{width:100%;background:var(--gradient);color:#fff;border:none;padding:12px 14px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:.25s;box-shadow:var(--sh-red);letter-spacing:.2px;}
 .pd-btn-add:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
 .pd-btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
 .pd-btn-add.is-umkm{background:var(--gradient-umkm);box-shadow:var(--sh-umkm);}
 .pd-btn-add.is-umkm:hover{box-shadow:var(--sh-umkm-lg);}
+
 @media (max-width:360px){
-  .pd-img-wrap{height:200px;}
-  .pd-title{font-size:15px;}
-  .pd-price{font-size:20px;}
-  .pd-body{padding:14px var(--pad) calc(14px + env(safe-area-inset-bottom));}
+  .pd-card{max-width:330px;border-radius:18px;}
+  .pd-top{gap:10px;padding:10px;}
+  .pd-img-wrap{flex-basis:96px;width:96px;border-radius:12px;}
+  .pd-title{font-size:12.5px;}
+  .pd-price{font-size:15px;}
+  .pd-body{padding:11px 12px calc(12px + env(safe-area-inset-bottom));}
+  .pd-desc{font-size:11.5px;max-height:78px;}
+  .pd-btn-add{padding:11px 12px;font-size:12px;}
 }
 
 .bottom-nav{background:#fff;display:flex;justify-content:space-around;padding:9px 8px calc(11px + env(safe-area-inset-bottom));border-radius:var(--r-2xl) var(--r-2xl) 0 0;box-shadow:0 -6px 22px rgba(24,24,27,.06);z-index:10;border-top:1px solid var(--border-soft);flex-shrink:0;}
@@ -682,8 +727,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .admin-nav button.active{color:var(--red);}
 .admin-nav button.active i{transform:scale(1.1);}
 .admin-nav button.active::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:20px;height:2.5px;background:var(--gradient);border-radius:3px;}
-.admin-nav button[data-aview="pesanan"]::after{content:'';position:absolute;top:2px;right:calc(50% - 15px);width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid #fff;display:none;z-index:2;animation:pulseBadge 1.6s infinite;box-shadow:0 1px 4px rgba(220,38,38,.4);}
-.admin-nav button[data-aview="pesanan"].has-new-dot::after{display:block;}
+.admin-nav button[data-aview="pesanan"]::after{content:attr(data-count);position:absolute;top:-1px;right:calc(50% - 22px);min-width:16px;height:16px;padding:0 4px;background:var(--red);color:#fff;font-size:9px;font-weight:800;border-radius:8px;border:2px solid #fff;display:none;align-items:center;justify-content:center;z-index:2;animation:pulseBadge 1.6s infinite;box-shadow:0 1px 4px rgba(220,38,38,.4);line-height:1;}
+.admin-nav button[data-aview="pesanan"].has-new-dot::after{display:flex;}
 
 .admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:15px;flex-wrap:wrap;}
 .admin-head h1{font-size:clamp(16px,4.6vw,18px);font-weight:800;color:var(--text);letter-spacing:-.4px;}
@@ -807,7 +852,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   .product-grid{padding-bottom:128px;}
   .sheet{border-radius:22px 22px 0 0;max-height:94dvh;}
   .cart-bar{bottom:76px;}
-  .pd-card{border-radius:22px;}
 }
 @media (max-width:360px){
   :root{--pad:12px;--gap:8px;}
@@ -1275,38 +1319,49 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   </div>
 </div>
 
+<!-- ================= PRODUCT DETAIL (COMPACT · gambar 3:4) ================= -->
 <div class="pd-overlay" id="pdOverlay">
   <div class="pd-card" id="pdCard">
-    <button class="pd-close" id="pdClose" title="Tutup"><i class="fas fa-xmark"></i></button>
-    <button class="pd-wish-btn" id="pdWishBtn" title="Favorit"><i class="far fa-heart"></i></button>
-    <div class="pd-img-wrap" id="pdImgWrap">
-      <div class="pd-img-carousel" id="pdImgCarousel"></div>
-      <div class="pd-img-counter" id="pdImgCounter">1/1</div>
-      <div class="pd-ribbon" id="pdRibbon" style="display:none">-0%</div>
-      <div class="pd-umkm-badge" id="pdUmkmBadge" style="display:none"><i class="fas fa-store"></i> UMKM</div>
-      <div class="pd-img-dots" id="pdImgDots" style="display:none"></div>
+
+    <div class="pd-top">
+      <div class="pd-img-wrap" id="pdImgWrap">
+        <div class="pd-img-carousel" id="pdImgCarousel"></div>
+        <div class="pd-ribbon" id="pdRibbon" style="display:none">-0%</div>
+        <div class="pd-umkm-badge" id="pdUmkmBadge" style="display:none"><i class="fas fa-store"></i> UMKM</div>
+        <div class="pd-img-dots" id="pdImgDots" style="display:none"></div>
+      </div>
+
+      <div class="pd-head">
+        <div class="pd-head-top">
+          <span class="pd-category" id="pdCategory">Sembako</span>
+          <div class="pd-head-actions">
+            <button class="pd-wish-btn" id="pdWishBtn" title="Favorit"><i class="far fa-heart"></i></button>
+            <button class="pd-close" id="pdClose" title="Tutup"><i class="fas fa-xmark"></i></button>
+          </div>
+        </div>
+
+        <h2 class="pd-title" id="pdTitle">Nama Produk</h2>
+        <div class="pd-store" id="pdStore" style="display:none"><i class="fas fa-user-tie"></i> <span id="pdStoreName">UMKM</span></div>
+
+        <div class="pd-price-row">
+          <span class="pd-price" id="pdPrice">Rp 0</span>
+          <span class="pd-price-original" id="pdPriceOriginal" style="display:none">Rp 0</span>
+          <span class="pd-discount-pill" id="pdDiscountPill" style="display:none">-0%</span>
+        </div>
+
+        <div class="pd-meta-row">
+          <span class="pd-sold" id="pdTerjual">0 terjual</span>
+          <div class="pd-sep"></div>
+          <span class="pd-stock-badge" id="pdStockBadge"><i class="fas fa-cubes"></i> <span id="pdStock">0</span></span>
+        </div>
+      </div>
     </div>
+
     <div class="pd-body">
-      <span class="pd-category" id="pdCategory">Sembako</span>
-      <h2 class="pd-title" id="pdTitle">Nama Produk</h2>
-      <div class="pd-store" id="pdStore" style="display:none"><i class="fas fa-user-tie"></i> <span id="pdStoreName">UMKM</span></div>
-
-      <div class="pd-price-row">
-        <span class="pd-price" id="pdPrice">Rp 0</span>
-        <span class="pd-price-original" id="pdPriceOriginal" style="display:none">Rp 0</span>
-        <span class="pd-discount-pill" id="pdDiscountPill" style="display:none">-0%</span>
-      </div>
-
-      <div class="pd-meta-row">
-        <span class="pd-sold" id="pdTerjual">0 terjual</span>
-        <div class="pd-sep"></div>
-        <span class="pd-stock-badge" id="pdStockBadge"><i class="fas fa-cubes"></i> <span id="pdStock">0</span></span>
-      </div>
-
       <div class="pd-section-title">Deskripsi Produk</div>
       <p class="pd-desc" id="pdDesc">Belum ada deskripsi untuk produk ini.</p>
 
-      <div class="pd-section-title">Informasi Produk</div>
+      <!-- Info grid tetap ada di DOM (dipakai JS) namun disembunyikan agar popup ringkas -->
       <div class="pd-info-grid">
         <div class="pd-info-item">
           <span class="lbl">Kategori</span>
@@ -1619,7 +1674,7 @@ document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
   });
 });
 
-/* ============ NOTIF UNREAD STATE (CUSTOMER) — tanpa titik, cukup animasi lonceng ============ */
+/* ============ NOTIF UNREAD STATE (CUSTOMER) ============ */
 const notifUnreadKey = () => "kmp_notif_unread_" + (currentUser?.uid || "guest");
 const statusMapKey   = () => "kmp_status_map_"   + (currentUser?.uid || "guest");
 let hasUnreadNotif = false;
@@ -1636,14 +1691,11 @@ function setUnreadNotif(v){
   saveNotifUnreadState();
   updateNotifDot();
 }
-/* updateNotifDot: hanya ubah kelas untuk memicu animasi getar lonceng */
 function updateNotifDot(){
   const btn = document.getElementById("btnNotif");
   if (btn) btn.classList.toggle("has-notif", hasUnreadNotif);
 }
 
-/* Simpan snapshot status pesanan per user (agar perubahan status saat
-   pelanggan sedang tidak membuka aplikasi tetap memunculkan animasi lonceng) */
 function loadPersistedStatusMap(){
   try { return JSON.parse(localStorage.getItem(statusMapKey()) || "{}") || {}; }
   catch { return {}; }
@@ -1652,18 +1704,21 @@ function savePersistedStatusMap(map){
   try { localStorage.setItem(statusMapKey(), JSON.stringify(map)); } catch {}
 }
 
-/* ============ ADMIN NEW ORDER DOT ============ */
-let adminHasUnseenOrders = false;
-function updateAdminOrderDot(){
+/* ============ ADMIN NEW ORDER BADGE ============ */
+function updateAdminOrderBadge(){
   const btn = document.querySelector('.admin-nav button[data-aview="pesanan"]');
-  if (btn) btn.classList.toggle("has-new-dot", adminHasUnseenOrders);
-}
-function setAdminUnseenOrders(v){
-  adminHasUnseenOrders = !!v;
-  updateAdminOrderDot();
+  if (!btn) return;
+  const pendingCount = allOrders.filter(o => o.status === "pending").length;
+  if (pendingCount > 0) {
+    btn.classList.add("has-new-dot");
+    btn.setAttribute("data-count", pendingCount > 99 ? "99+" : String(pendingCount));
+  } else {
+    btn.classList.remove("has-new-dot");
+    btn.removeAttribute("data-count");
+  }
 }
 
-/* ============ NOTIFICATION SOUND (song.mp3) ============ */
+/* ============ NOTIFICATION SOUND ============ */
 let audioUnlocked = false;
 function unlockAudio() {
   if (audioUnlocked) return;
@@ -1710,7 +1765,6 @@ function playNotifSound() {
   } catch(e) { console.warn('playNotifSound error', e); }
 }
 
-/* ============ LOGIN SOUND (song.mp3 saat pelanggan masuk) ============ */
 function playLoginSound() {
   try {
     if (sessionStorage.getItem('kmp_login_sound') === 'played') return;
@@ -1798,7 +1852,6 @@ const notifPesan = {
   dibatalkan:{ title: "❌ Pesanan Dibatalkan", msg: "Pesananmu telah dibatalkan.", icon: "fa-circle-xmark" }
 };
 
-// Status yang memicu animasi lonceng getar
 const NOTIF_DOT_STATUSES = ["diproses", "dikirim", "selesai", "dibatalkan"];
 
 let notifTimer = null;
@@ -1806,12 +1859,10 @@ function showNotifPopup(status) {
   const info = notifPesan[status];
   if (!info) return;
 
-  // 1) PALING PERTAMA: aktifkan animasi lonceng getar
   if (NOTIF_DOT_STATUSES.includes(status)) {
     setUnreadNotif(true);
   }
 
-  // 2) Popup
   try {
     $("#notifTitle").textContent = info.title;
     $("#notifMsg").textContent   = info.msg;
@@ -1821,7 +1872,6 @@ function showNotifPopup(status) {
     notifTimer = setTimeout(() => $("#notifPopup").classList.remove("show"), 5000);
   } catch (e) { console.warn("popup error", e); }
 
-  // 3) Suara & getar
   try { if (status === "dikirim" || status === "selesai") playNotifSound(); } catch (e) {}
   try { if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]); } catch (e) {}
 }
@@ -2018,7 +2068,7 @@ async function shareCurrentLocation() {
   }
 }
 
-/* ============ PRODUCT DETAIL POPUP ============ */
+/* ============ PRODUCT DETAIL POPUP (compact · gambar 3:4) ============ */
 function openProductDetail(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
@@ -2036,6 +2086,7 @@ function openProductDetail(id) {
   const umkmStore = (p.umkm || "").trim();
   const habis = stok <= 0;
 
+  /* --- carousel gambar (rasio 3:4) --- */
   const images = getProductImages(p);
   const carousel = $("#pdImgCarousel");
   carousel.innerHTML = images.map(url =>
@@ -2044,18 +2095,14 @@ function openProductDetail(id) {
   carousel.scrollLeft = 0;
 
   const dotsEl = $("#pdImgDots");
-  const counter = $("#pdImgCounter");
   if (images.length > 1) {
     dotsEl.innerHTML = images.map((_, i) =>
       `<button class="pd-img-dot ${i===0?'active':''}" data-pd-dot="${i}" aria-label="Foto ${i+1}"></button>`
     ).join("");
     dotsEl.style.display = "flex";
-    counter.style.display = "block";
-    counter.textContent = `1/${images.length}`;
     carousel.onscroll = () => {
       const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
       dotsEl.querySelectorAll('.pd-img-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-      counter.textContent = `${Math.min(idx + 1, images.length)}/${images.length}`;
     };
     dotsEl.querySelectorAll('[data-pd-dot]').forEach(d => {
       d.addEventListener('click', (e) => {
@@ -2067,7 +2114,6 @@ function openProductDetail(id) {
   } else {
     dotsEl.innerHTML = "";
     dotsEl.style.display = "none";
-    counter.style.display = "none";
     carousel.onscroll = null;
   }
 
@@ -2114,6 +2160,7 @@ function openProductDetail(id) {
   if (desc) { descEl.textContent = desc; descEl.classList.remove("empty"); }
   else { descEl.textContent = "Belum ada deskripsi untuk produk ini."; descEl.classList.add("empty"); }
 
+  /* Info grid (tersembunyi, tetap diisi untuk kompatibilitas) */
   $("#pdInfoCategory").textContent = p.kategori || "-";
   const infoStock = $("#pdInfoStock");
   infoStock.textContent = habis ? "Habis" : `${stok} unit`;
@@ -3107,7 +3154,6 @@ async function doLogout() {
   detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
   adminOrderIds.clear();
   adminOrdersReady = false;
-  adminHasUnseenOrders = false;
   hasUnreadNotif = false;
   updateNotifDot();
   stopPromoAuto();
@@ -3137,20 +3183,17 @@ function detachListeners() {
   statusMapInitialized = false; lastStatusMap = {};
   adminOrderIds.clear();
   adminOrdersReady = false;
-  adminHasUnseenOrders = false;
   stopLiveTimer();
 }
 
 /* ============ CUSTOMER ============ */
 function initCustomer() {
-  // pastikan listener lama tidak tertinggal (mencegah dobel listener)
   detachListeners();
 
   showScreen("customerScreen");
   loadCart(); loadWish(); loadSavedAddresses();
   loadNotifUnreadState();
   $("#userName").textContent      = currentUser.nama || "Pelanggan";
-  // Avatar header pakai logo.png (di-set dari HTML, tidak ditimpa inisial)
   $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
   $("#profileEmail").textContent  = currentUser.email || "";
   $("#profileAvatar").textContent = initials(currentUser.nama);
@@ -3192,9 +3235,6 @@ function listenCustomerOrders() {
     const newOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }))
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
 
-    // Pembanding: kalau sudah inisialisasi pakai memori; kalau belum (snapshot pertama
-    // setelah login / buka app) pakai snapshot yang tersimpan di localStorage,
-    // sehingga perubahan status saat app tertutup tetap terdeteksi.
     const prevMap = statusMapInitialized ? lastStatusMap : loadPersistedStatusMap();
 
     const changedStatuses = [];
@@ -3203,7 +3243,6 @@ function listenCustomerOrders() {
       if (old && old !== o.status && notifPesan[o.status]) changedStatuses.push(o.status);
     });
 
-    // Update memori + simpan permanen
     const newMap = {};
     newOrders.forEach(o => { newMap[o.id] = o.status; });
     lastStatusMap = newMap;
@@ -3214,7 +3253,6 @@ function listenCustomerOrders() {
     renderOrders();
     updateOrderBadge();
 
-    // Munculkan notifikasi + aktifkan animasi lonceng untuk setiap perubahan status
     changedStatuses.forEach(st => showNotifPopup(st));
 
     if (currentTrackOrderId && $("#mapOverlay").classList.contains("show")) {
@@ -3864,7 +3902,6 @@ function switchAdminView(v) {
   $("#aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
   $$(".admin-nav button[data-aview]").forEach(b => b.classList.toggle("active", b.dataset.aview === v));
   const am = $(".admin-main"); if (am) am.scrollTop = 0;
-  if (v === "pesanan") setAdminUnseenOrders(false);
 }
 
 function listenAdminProducts() {
@@ -3976,6 +4013,7 @@ function listenAdminOrders() {
   unsubAdminOrders = onSnapshot(collection(db, "orders"), snap => {
     allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     renderAdminOrders(); renderStats();
+    updateAdminOrderBadge();
 
     if (!adminOrdersReady) {
       snap.docs.forEach(d => adminOrderIds.add(d.id));
@@ -3983,8 +4021,6 @@ function listenAdminOrders() {
       const pendingCount = allOrders.filter(o => o.status === "pending").length;
       if (pendingCount > 0) {
         setTimeout(() => playNotifSound(), 600);
-        const onPesanan = document.getElementById("aviewPesanan")?.classList.contains("active");
-        if (!onPesanan) setAdminUnseenOrders(true);
       }
     } else {
       let hasNew = false;
@@ -3996,8 +4032,6 @@ function listenAdminOrders() {
       });
       if (hasNew) {
         playNotifSound();
-        const onPesanan = document.getElementById("aviewPesanan")?.classList.contains("active");
-        if (!onPesanan) setAdminUnseenOrders(true);
       }
     }
   }, err => console.error(err));

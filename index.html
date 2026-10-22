@@ -20,7 +20,6 @@
   --success:#059669; --warn:#D97706;
   --umkm:#B45309; --umkm-2:#F59E0B; --umkm-soft:#FEF3C7;
   --promo:#EA580C; --promo-dark:#C2410C;
-  --orange:#F97316;
   --gradient:linear-gradient(135deg,#EF4444 0%,#DC2626 45%,#991B1B 100%);
   --gradient-umkm:linear-gradient(135deg,#F59E0B 0%,#D97706 50%,#B45309 100%);
   --gradient-promo:linear-gradient(135deg,#F97316 0%,#EA580C 50%,#C2410C 100%);
@@ -118,19 +117,17 @@ button{background:none;border:none;cursor:pointer;color:inherit;}
 .input-group select{cursor:pointer;appearance:none;}
 .input-group input::placeholder,.input-group textarea::placeholder{color:var(--text-mute);font-weight:500;}
 
-.toggle-password{
+/* ============ SHOW/HIDE PASSWORD TOGGLE ============ */
+.pw-toggle{
   background:none;border:none;cursor:pointer;
-  color:var(--text-mute);
+  color:var(--text-mute);font-size:clamp(12.5px,3.4vw,13.5px);
+  width:32px;height:32px;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  padding:6px;flex-shrink:0;
-  font-size:clamp(12.5px,3.4vw,13.5px);
-  transition:.2s;
-  margin-left:2px;
-  border-radius:8px;
+  flex-shrink:0;transition:.2s;padding:0;margin-right:-4px;
 }
-.toggle-password:hover,.toggle-password:focus-visible{color:var(--red);outline:none;}
-.toggle-password.active{color:var(--red);}
-.toggle-password i{pointer-events:none;}
+.pw-toggle:hover{color:var(--red);background:var(--red-soft);}
+.pw-toggle:active{transform:scale(.92);}
+.pw-toggle i{pointer-events:none;}
 
 .btn-primary{background:var(--gradient);color:#fff;border:none;height:var(--btn-h);border-radius:var(--r-md);font-size:clamp(13px,3.7vw,14.5px);font-weight:700;cursor:pointer;transition:.25s;box-shadow:var(--sh-red);display:flex;align-items:center;justify-content:center;gap:7px;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
@@ -147,58 +144,15 @@ button{background:none;border:none;cursor:pointer;color:inherit;}
 header{padding:clamp(14px,4vw,18px) var(--pad) clamp(10px,3vw,13px);display:flex;justify-content:space-between;align-items:center;background:var(--bg);position:sticky;top:0;z-index:6;border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s;}
 header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,24,27,.04);}
 .user-info{display:flex;align-items:center;gap:10px;min-width:0;}
-
-.header-logo-wrap{
-  width:clamp(46px,13vw,54px);
-  height:clamp(46px,13vw,54px);
-  border-radius:15px;
-  background:#fff;
-  border:1.5px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:5px;
-  flex-shrink:0;
-  box-shadow:var(--sh-sm);
-  overflow:hidden;
-  transition:.25s;
-}
-.header-logo-wrap:hover{box-shadow:var(--sh-md);border-color:rgba(220,38,38,.20);transform:translateY(-1px);}
-.header-logo-wrap img{
-  width:100%;height:100%;object-fit:contain;display:block;
-  pointer-events:none;user-select:none;-webkit-user-drag:none;
-}
-@media (max-width:360px){
-  .header-logo-wrap{width:44px;height:44px;border-radius:13px;padding:4px;}
-}
-
-.user-avatar{width:clamp(40px,11vw,46px);height:clamp(40px,11vw,46px);border-radius:14px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:clamp(13px,3.6vw,15px);box-shadow:var(--sh-red);flex-shrink:0;letter-spacing:.4px;}
+.user-avatar{width:clamp(40px,11vw,46px);height:clamp(40px,11vw,46px);border-radius:14px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:clamp(13px,3.6vw,15px);box-shadow:var(--sh-red);flex-shrink:0;letter-spacing:.4px;overflow:hidden;padding:6px;}
+.user-avatar img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none;}
 .user-text{min-width:0;}
 .user-text p{font-size:var(--fs-xs);color:var(--text-soft);font-weight:500;margin-bottom:1px;}
 .user-text h3{font-size:var(--fs-lg);color:var(--text);font-weight:700;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
 .header-actions{display:flex;gap:7px;flex-shrink:0;}
 .notification-btn{width:clamp(40px,11vw,44px);height:clamp(40px,11vw,44px);border-radius:13px;background:#fff;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;transition:.25s;position:relative;flex-shrink:0;font-size:clamp(14px,3.8vw,15px);}
-
-/* ==== NOTIF DOT (orange) — hidden by default, shows only with .has-notif ==== */
-.notification-btn::after{content:none;}
-.notification-btn.has-notif::after{
-  content:'';
-  position:absolute;
-  top:8px;right:8px;
-  width:10px;height:10px;
-  background:var(--orange);
-  border-radius:50%;
-  border:2px solid #fff;
-  box-shadow:0 0 0 0 rgba(249,115,22,.6);
-  animation:notifOrangePulse 1.5s ease-in-out infinite;
-  z-index:3;
-}
-@keyframes notifOrangePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,.65);transform:scale(1);}
-  50%{box-shadow:0 0 0 6px rgba(249,115,22,0);transform:scale(1.15);}
-}
+.notification-btn::after{content:'';position:absolute;top:10px;right:10px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid #fff;}
 .notification-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
-.notification-btn.has-notif:hover::after{border-color:var(--red);}
 .notification-btn.wish-btn{color:var(--red);}
 .notification-btn.wish-btn::after{display:none;}
 .notification-btn.wish-btn:hover{background:var(--red);color:#fff;}
@@ -222,6 +176,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .category-btn.umkm-cat:hover{border-color:var(--umkm);color:var(--umkm);}
 .category-btn.umkm-cat.active{background:var(--gradient-umkm);color:#fff;border-color:transparent;box-shadow:var(--sh-umkm);}
 
+/* ============= PROMO SLIDER ============= */
 .promo-slider{margin:0 var(--pad) 16px;position:relative;overflow:hidden;border-radius:var(--r-xl);}
 .promo-slider-track{position:relative;min-height:180px;}
 .promo-slide{display:none;border-radius:var(--r-xl);padding:clamp(16px,4.4vw,20px);justify-content:space-between;align-items:center;position:relative;overflow:hidden;color:#fff;width:100%;}
@@ -319,6 +274,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
+/* ============= PRODUCT DETAIL ============= */
 .pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
 .pd-card{background:#fff;width:100%;max-width:400px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 30px 70px rgba(24,24,27,.4);animation:pdPop .35s cubic-bezier(.2,.9,.3,1.15);position:relative;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;}
@@ -716,30 +672,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .admin-nav button.active{color:var(--red);}
 .admin-nav button.active i{transform:scale(1.1);}
 .admin-nav button.active::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:20px;height:2.5px;background:var(--gradient);border-radius:3px;}
-
-/* ==== ADMIN NAV BADGE (orange pulsing number) ==== */
-.admin-nav button .nav-badge{
-  position:absolute;
-  top:0;
-  right:calc(50% - 22px);
-  background:var(--orange);
-  color:#fff;
-  font-size:8.5px;
-  min-width:16px;
-  height:16px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 4px;
-  font-weight:800;
-  border:2px solid #fff;
-  box-shadow:0 2px 6px rgba(249,115,22,.45);
-  animation:notifOrangePulse 1.5s ease-in-out infinite;
-  z-index:2;
-  letter-spacing:.2px;
-}
-
 .admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:15px;flex-wrap:wrap;}
 .admin-head h1{font-size:clamp(16px,4.6vw,18px);font-weight:800;color:var(--text);letter-spacing:-.4px;}
 .admin-head p{font-size:var(--fs-sm);color:var(--text-soft);margin-top:2px;font-weight:500;line-height:1.45;}
@@ -878,6 +810,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   .input-group{height:44px;padding:0 11px;border-radius:11px;gap:8px;}
   .input-group > i{width:15px;font-size:12px;}
   .input-group input,.input-group select,.input-group textarea{font-size:12.5px;}
+  .pw-toggle{width:28px;height:28px;font-size:12px;}
   .btn-primary{height:45px;font-size:13px;border-radius:11px;}
   .auth-msg{margin-top:10px;font-size:11px;}
   .hint{font-size:10px;margin-top:7px;}
@@ -955,7 +888,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <div class="input-group">
         <i class="fas fa-lock"></i>
         <input type="password" id="loginPassword" placeholder="Password" required>
-        <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Tampilkan password" title="Tampilkan/sembunyikan password">
+        <button type="button" class="pw-toggle" data-toggle-pw="loginPassword" aria-label="Tampilkan password">
           <i class="fas fa-eye"></i>
         </button>
       </div>
@@ -967,7 +900,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <div class="input-group">
         <i class="fas fa-lock"></i>
         <input type="password" id="regPassword" placeholder="Password (min. 6 karakter)" required>
-        <button type="button" class="toggle-password" data-target="regPassword" aria-label="Tampilkan password" title="Tampilkan/sembunyikan password">
+        <button type="button" class="pw-toggle" data-toggle-pw="regPassword" aria-label="Tampilkan password">
           <i class="fas fa-eye"></i>
         </button>
       </div>
@@ -986,9 +919,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     <div class="app-scroll">
       <header id="appHeader">
         <div class="user-info">
-          <div class="header-logo-wrap">
-            <img src="logo.png" alt="Koperasi Merah Putih">
+          <div class="user-avatar" id="userAvatar">
+            <img src="logo.png" alt="Logo Koperasi Merah Putih" onerror="this.style.opacity='.4'">
           </div>
+          <div class="user-text"><p>Selamat datang di KDKMP Desa Kemiri</p><h3 id="userName">Pelanggan</h3></div>
         </div>
         <div class="header-actions">
           <button class="notification-btn wish-btn" id="btnWishlistHeader" title="Favorit">
@@ -1655,27 +1589,20 @@ function hideSplash(){
 }
 setTimeout(hideSplash, 4200);
 
-/* ============ TOGGLE PASSWORD (SHOW / HIDE) ============ */
-function initPasswordToggles(){
-  document.querySelectorAll(".toggle-password").forEach(btn => {
-    if (btn._bound) return;
-    btn._bound = true;
-    btn.addEventListener("click", () => {
-      const targetId = btn.dataset.target;
-      const input = document.getElementById(targetId);
-      if (!input) return;
-      const show = input.type === "password";
-      input.type = show ? "text" : "password";
-      btn.classList.toggle("active", show);
-      btn.innerHTML = show
-        ? '<i class="fas fa-eye-slash"></i>'
-        : '<i class="fas fa-eye"></i>';
-      btn.setAttribute("aria-label", show ? "Sembunyikan password" : "Tampilkan password");
-      btn.setAttribute("title", show ? "Sembunyikan password" : "Tampilkan password");
-    });
+/* ============ SHOW/HIDE PASSWORD TOGGLE ============ */
+document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = document.getElementById(btn.dataset.togglePw);
+    if (!input) return;
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+    }
+    btn.setAttribute('aria-label', isPassword ? 'Sembunyikan password' : 'Tampilkan password');
   });
-}
-initPasswordToggles();
+});
 
 /* ============ NOTIFICATION SOUND (song.mp3) ============ */
 let audioUnlocked = false;
@@ -1733,56 +1660,6 @@ function playLoginSound() {
       playNotifSound();
     }, 600);
   } catch (e) { console.warn('playLoginSound error', e); }
-}
-
-/* ============ NOTIFICATION DOT (Customer) ============ */
-// Kunci localStorage per-user, menyimpan timestamp kapan terakhir notifikasi dibaca
-function notifReadKey() {
-  return 'kmp_notif_read_' + (currentUser?.uid || 'guest');
-}
-function getLastNotifRead() {
-  try { return Number(localStorage.getItem(notifReadKey()) || 0); }
-  catch { return 0; }
-}
-function markNotifsRead() {
-  try { localStorage.setItem(notifReadKey(), Date.now()); } catch {}
-  updateNotifDot();
-}
-// Cek apakah ada order dengan status diproses/dikirim/selesai yang updatedAt-nya lebih baru dari lastRead
-function hasUnreadOrderUpdates() {
-  if (!currentUser) return false;
-  const lastRead = getLastNotifRead();
-  return allOrders.some(o => {
-    if (!['diproses', 'dikirim', 'selesai'].includes(o.status)) return false;
-    let updMs = 0;
-    if (o.updatedAt) {
-      updMs = o.updatedAt.toDate ? o.updatedAt.toDate().getTime() : new Date(o.updatedAt).getTime();
-    }
-    return updMs > lastRead;
-  });
-}
-function updateNotifDot() {
-  const btn = $('#btnNotif');
-  if (!btn) return;
-  btn.classList.toggle('has-notif', hasUnreadOrderUpdates());
-}
-
-/* ============ ADMIN ORDER BADGE (Pending count) ============ */
-function updateAdminOrderBadge() {
-  const navBtn = document.querySelector('.admin-nav button[data-aview="pesanan"]');
-  if (!navBtn) return;
-  const pendingCount = allOrders.filter(o => o.status === 'pending').length;
-  let badge = navBtn.querySelector('.nav-badge');
-  if (pendingCount > 0) {
-    if (!badge) {
-      badge = document.createElement('span');
-      badge.className = 'nav-badge';
-      navBtn.appendChild(badge);
-    }
-    badge.textContent = pendingCount > 99 ? '99+' : pendingCount;
-  } else if (badge) {
-    badge.remove();
-  }
 }
 
 const PAY_INFO = {
@@ -3195,6 +3072,8 @@ function detachListeners() {
 function initCustomer() {
   showScreen("customerScreen");
   loadCart(); loadWish(); loadSavedAddresses();
+  $("#userName").textContent      = currentUser.nama || "Pelanggan";
+  // Avatar header sekarang pakai logo.png (di-set dari HTML, tidak ditimpa inisial)
   $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
   $("#profileEmail").textContent  = currentUser.email || "";
   $("#profileAvatar").textContent = initials(currentUser.nama);
@@ -3205,8 +3084,6 @@ function initCustomer() {
   updateWishHeaderBadge();
   switchView("home");
   startPromoAuto();
-  // Cek & update dot awal (sebelum listener mengisi data)
-  updateNotifDot();
 
   setTimeout(playLoginSound, 800);
 }
@@ -3248,8 +3125,6 @@ function listenCustomerOrders() {
     allOrders = newOrders;
     renderOrders();
     updateOrderBadge();
-    // === UPDATE ORANGE DOT ===
-    updateNotifDot();
 
     if (currentTrackOrderId && $("#mapOverlay").classList.contains("show")) {
       const o = allOrders.find(x => x.id === currentTrackOrderId);
@@ -3611,14 +3486,11 @@ function attachCustomerEvents() {
   $("#btnBackFromWish")?.addEventListener("click", () => switchView("home"));
   $("#btnBackFromUmkm")?.addEventListener("click", () => switchView("home"));
 
-  // === NOTIFIKASI BELL: tandai terbaca + navigasi ke orders ===
   $("#btnNotif").addEventListener("click", () => {
-    markNotifsRead();
-    switchView("orders");
     const aktif = allOrders.filter(o => o.status === "pending" || o.status === "diproses" || o.status === "dikirim").length;
-    if (aktif) toast(`Ada ${aktif} pesanan aktif`);
+    if (aktif) { switchView("orders"); toast(`Ada ${aktif} pesanan aktif`); }
+    else { toast("Tidak ada notifikasi baru"); }
   });
-
   $("#btnRiwayat").addEventListener("click", () => switchView("orders"));
   document.addEventListener("click", e => {
     const wish = e.target.closest("[data-wish]");
@@ -3826,6 +3698,8 @@ async function saveProfile() {
     const data = { nama: $("#epNama").value.trim(), telepon: $("#epTelepon").value.trim(), alamat: $("#epAlamat").value.trim() };
     await updateDoc(doc(db, "users", currentUser.uid), data);
     Object.assign(currentUser, data);
+    $("#userName").textContent = data.nama || "Pelanggan";
+    // Avatar header tetap pakai logo.png (tidak diubah)
     $("#profileNama").textContent = data.nama;
     $("#profileAvatar").textContent = initials(data.nama);
     $("#profileOverlay").classList.remove("show");
@@ -4009,8 +3883,6 @@ function listenAdminOrders() {
   unsubAdminOrders = onSnapshot(collection(db, "orders"), snap => {
     allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     renderAdminOrders(); renderStats();
-    // === UPDATE BADGE PENDING DI NAVBAR PESANAN ===
-    updateAdminOrderBadge();
 
     if (!adminOrdersReady) {
       snap.docs.forEach(d => adminOrderIds.add(d.id));

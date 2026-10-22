@@ -151,15 +151,15 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .header-actions{display:flex;gap:7px;flex-shrink:0;}
 
 .notification-btn{width:clamp(40px,11vw,44px);height:clamp(40px,11vw,44px);border-radius:13px;background:#fff;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;transition:.25s;position:relative;flex-shrink:0;font-size:clamp(14px,3.8vw,15px);}
-.notification-btn::after{content:'';position:absolute;top:6px;right:6px;width:12px;height:12px;background:var(--red);border-radius:50%;border:2.5px solid #fff;display:none;z-index:5;animation:pulseBadge 1.4s infinite;box-shadow:0 2px 6px rgba(220,38,38,.5);}
+/* TITIK MERAH LONCENG — elemen asli (bukan pseudo-element) agar selalu tampil */
+.bell-dot{position:absolute;top:4px;right:4px;width:13px;height:13px;background:var(--red);border-radius:50%;border:2.5px solid #fff;display:none;z-index:5;animation:pulseBadge 1.4s infinite;box-shadow:0 2px 6px rgba(220,38,38,.5);pointer-events:none;}
 .notification-btn.has-notif{border-color:var(--red);background:var(--red-soft);color:var(--red);}
-.notification-btn.has-notif::after{display:block;}
-.notification-btn.has-notif i{color:var(--red);animation:bellShake 2s ease-in-out infinite;}
+.notification-btn.has-notif .bell-dot{display:block;}
+.notification-btn.has-notif i.fa-bell{color:var(--red);animation:bellShake 2s ease-in-out infinite;}
 .notification-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.notification-btn:hover .bell-dot{background:#fff;border-color:var(--red);}
+.notification-btn:hover i.fa-bell{color:#fff;}
 .notification-btn.wish-btn{color:var(--red);}
-.notification-btn.wish-btn::after{display:none !important;}
-.notification-btn.wish-btn.has-notif{background:#fff;}
-.notification-btn.wish-btn.has-notif i{animation:none;}
 .notification-btn.wish-btn:hover{background:var(--red);color:#fff;}
 .notification-btn.wish-btn .wish-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:8.5px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:800;border:2px solid #fff;transition:.25s;}
 .notification-btn.wish-btn:hover .wish-count{background:#fff;color:var(--red);border-color:var(--red);}
@@ -939,7 +939,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
             <i class="fas fa-heart"></i>
             <span class="wish-count" id="wishHeaderCount" style="display:none">0</span>
           </button>
-          <button class="notification-btn" id="btnNotif" title="Notifikasi"><i class="fas fa-bell"></i></button>
+          <button class="notification-btn" id="btnNotif" title="Notifikasi">
+            <i class="fas fa-bell"></i>
+            <span class="bell-dot" id="bellDot"></span>
+          </button>
         </div>
       </header>
 
@@ -1616,7 +1619,9 @@ document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
 
 /* ============ NOTIFICATION UNREAD STATE (CUSTOMER) ============ */
 const notifUnreadKey = () => "kmp_notif_unread_" + (currentUser?.uid || "guest");
+const statusMapKey   = () => "kmp_status_map_"   + (currentUser?.uid || "guest");
 let hasUnreadNotif = false;
+
 function loadNotifUnreadState(){
   try { hasUnreadNotif = localStorage.getItem(notifUnreadKey()) === "1"; } catch { hasUnreadNotif = false; }
   updateNotifDot();
@@ -1635,6 +1640,16 @@ function updateNotifDot(){
   // juga tampilkan dot di navbar bawah Pesanan
   const navOrders = document.querySelector('.nav-item[data-view="orders"]');
   if (navOrders) navOrders.classList.toggle("has-notif", hasUnreadNotif);
+}
+
+/* Simpan snapshot status pesanan per user (agar perubahan status saat
+   pelanggan sedang tidak membuka aplikasi tetap memunculkan titik merah) */
+function loadPersistedStatusMap(){
+  try { return JSON.parse(localStorage.getItem(statusMapKey()) || "{}") || {}; }
+  catch { return {}; }
+}
+function savePersistedStatusMap(map){
+  try { localStorage.setItem(statusMapKey(), JSON.stringify(map)); } catch {}
 }
 
 /* ============ ADMIN NEW ORDER DOT ============ */
@@ -1783,30 +1798,32 @@ const notifPesan = {
   dibatalkan:{ title: "❌ Pesanan Dibatalkan", msg: "Pesananmu telah dibatalkan.", icon: "fa-circle-xmark" }
 };
 
+// Status yang memicu titik merah pada lonceng
+const NOTIF_DOT_STATUSES = ["diproses", "dikirim", "selesai", "dibatalkan"];
+
 let notifTimer = null;
 function showNotifPopup(status) {
   const info = notifPesan[status];
   if (!info) return;
-  console.log('[Notif] Menampilkan notifikasi untuk status:', status);
-  $("#notifTitle").textContent = info.title;
-  $("#notifMsg").textContent   = info.msg;
-  $("#notifPopup .notif-icon").innerHTML = `<i class="fas ${info.icon}"></i>`;
-  $("#notifPopup").classList.add("show");
-  clearTimeout(notifTimer);
-  notifTimer = setTimeout(() => $("#notifPopup").classList.remove("show"), 5000);
 
-  if (status === "dikirim" || status === "selesai") {
-    playNotifSound();
-  }
-
-  if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]);
-
-  // Tandai unread (red dot pada tombol bell + navbar Pesanan)
-  // untuk status diproses/dikirim/selesai — SELALU set dot
-  if (["diproses","dikirim","selesai"].includes(status)) {
+  // 1) PALING PERTAMA: aktifkan titik merah (sebelum hal lain yang bisa error)
+  if (NOTIF_DOT_STATUSES.includes(status)) {
     setUnreadNotif(true);
-    console.log('[Notif] Red dot diaktifkan untuk status:', status);
   }
+
+  // 2) Popup
+  try {
+    $("#notifTitle").textContent = info.title;
+    $("#notifMsg").textContent   = info.msg;
+    $("#notifPopup .notif-icon").innerHTML = `<i class="fas ${info.icon}"></i>`;
+    $("#notifPopup").classList.add("show");
+    clearTimeout(notifTimer);
+    notifTimer = setTimeout(() => $("#notifPopup").classList.remove("show"), 5000);
+  } catch (e) { console.warn("popup error", e); }
+
+  // 3) Suara & getar
+  try { if (status === "dikirim" || status === "selesai") playNotifSound(); } catch (e) {}
+  try { if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]); } catch (e) {}
 }
 
 $("#notifClose")?.addEventListener("click", () => $("#notifPopup").classList.remove("show"));
@@ -3092,6 +3109,7 @@ async function doLogout() {
   adminOrdersReady = false;
   adminHasUnseenOrders = false;
   hasUnreadNotif = false;
+  updateNotifDot();
   stopPromoAuto();
   try { sessionStorage.removeItem('kmp_login_sound'); } catch(e) {}
   await signOut(auth);
@@ -3125,11 +3143,14 @@ function detachListeners() {
 
 /* ============ CUSTOMER ============ */
 function initCustomer() {
+  // pastikan listener lama tidak tertinggal (mencegah dobel listener)
+  detachListeners();
+
   showScreen("customerScreen");
   loadCart(); loadWish(); loadSavedAddresses();
   loadNotifUnreadState();
   $("#userName").textContent      = currentUser.nama || "Pelanggan";
-  // Avatar header sekarang pakai logo.png (di-set dari HTML, tidak ditimpa inisial)
+  // Avatar header pakai logo.png (di-set dari HTML, tidak ditimpa inisial)
   $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
   $("#profileEmail").textContent  = currentUser.email || "";
   $("#profileAvatar").textContent = initials(currentUser.nama);
@@ -3170,17 +3191,31 @@ function listenCustomerOrders() {
   unsubOrders = onSnapshot(q, snap => {
     const newOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }))
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-    if (statusMapInitialized) {
-      newOrders.forEach(o => {
-        const old = lastStatusMap[o.id];
-        if (old && old !== o.status && notifPesan[o.status]) showNotifPopup(o.status);
-      });
-    }
-    newOrders.forEach(o => { lastStatusMap[o.id] = o.status; });
+
+    // Pembanding: kalau sudah inisialisasi pakai memori; kalau belum (snapshot pertama
+    // setelah login / buka app) pakai snapshot yang tersimpan di localStorage,
+    // sehingga perubahan status saat app tertutup tetap terdeteksi.
+    const prevMap = statusMapInitialized ? lastStatusMap : loadPersistedStatusMap();
+
+    const changedStatuses = [];
+    newOrders.forEach(o => {
+      const old = prevMap[o.id];
+      if (old && old !== o.status && notifPesan[o.status]) changedStatuses.push(o.status);
+    });
+
+    // Update memori + simpan permanen
+    const newMap = {};
+    newOrders.forEach(o => { newMap[o.id] = o.status; });
+    lastStatusMap = newMap;
     statusMapInitialized = true;
+    savePersistedStatusMap(newMap);
+
     allOrders = newOrders;
     renderOrders();
     updateOrderBadge();
+
+    // Munculkan notifikasi + titik merah untuk setiap perubahan status
+    changedStatuses.forEach(st => showNotifPopup(st));
 
     if (currentTrackOrderId && $("#mapOverlay").classList.contains("show")) {
       const o = allOrders.find(x => x.id === currentTrackOrderId);
@@ -3757,7 +3792,6 @@ async function saveProfile() {
     await updateDoc(doc(db, "users", currentUser.uid), data);
     Object.assign(currentUser, data);
     $("#userName").textContent = data.nama || "Pelanggan";
-    // Avatar header tetap pakai logo.png (tidak diubah)
     $("#profileNama").textContent = data.nama;
     $("#profileAvatar").textContent = initials(data.nama);
     $("#profileOverlay").classList.remove("show");

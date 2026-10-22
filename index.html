@@ -151,20 +151,25 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .header-actions{display:flex;gap:7px;flex-shrink:0;}
 
 .notification-btn{width:clamp(40px,11vw,44px);height:clamp(40px,11vw,44px);border-radius:13px;background:#fff;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;transition:.25s;position:relative;flex-shrink:0;font-size:clamp(14px,3.8vw,15px);}
-/* TITIK MERAH LONCENG — elemen asli (bukan pseudo-element) agar selalu tampil */
-.bell-dot{position:absolute;top:4px;right:4px;width:13px;height:13px;background:var(--red);border-radius:50%;border:2.5px solid #fff;display:none;z-index:5;animation:pulseBadge 1.4s infinite;box-shadow:0 2px 6px rgba(220,38,38,.5);pointer-events:none;}
 .notification-btn.has-notif{border-color:var(--red);background:var(--red-soft);color:var(--red);}
-.notification-btn.has-notif .bell-dot{display:block;}
-.notification-btn.has-notif i.fa-bell{color:var(--red);animation:bellShake 2s ease-in-out infinite;}
+.notification-btn.has-notif i.fa-bell{color:var(--red);animation:bellShake 1.6s ease-in-out infinite;}
 .notification-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
-.notification-btn:hover .bell-dot{background:#fff;border-color:var(--red);}
 .notification-btn:hover i.fa-bell{color:#fff;}
 .notification-btn.wish-btn{color:var(--red);}
 .notification-btn.wish-btn:hover{background:var(--red);color:#fff;}
 .notification-btn.wish-btn .wish-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:8.5px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:800;border:2px solid #fff;transition:.25s;}
 .notification-btn.wish-btn:hover .wish-count{background:#fff;color:var(--red);border-color:var(--red);}
 
-@keyframes bellShake{0%,100%{transform:rotate(0)}10%{transform:rotate(-12deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}50%,100%{transform:rotate(0)}}
+@keyframes bellShake{
+  0%,100%{transform:rotate(0)}
+  8%{transform:rotate(-15deg)}
+  16%{transform:rotate(15deg)}
+  24%{transform:rotate(-12deg)}
+  32%{transform:rotate(12deg)}
+  40%{transform:rotate(-8deg)}
+  48%{transform:rotate(8deg)}
+  56%{transform:rotate(0)}
+}
 
 .search-section{padding:0 var(--pad) 12px;display:flex;gap:9px;}
 .search-box{flex:1;background:#fff;border-radius:var(--r-md);display:flex;align-items:center;padding:0 clamp(12px,3.4vw,15px);height:var(--inp-h);border:1.5px solid var(--border);transition:.22s;min-width:0;}
@@ -361,8 +366,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .nav-item[data-view="promo"].active::before{background:var(--gradient-promo);}
 .nav-badge{position:absolute;top:0;right:calc(50% - 22px);background:var(--red);color:#fff;font-size:8.5px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:700;border:2px solid #fff;}
 .nav-item[data-view="promo"] .nav-badge{background:var(--promo);}
-.nav-notif-dot{position:absolute;top:2px;right:calc(50% - 16px);width:10px;height:10px;background:var(--red);border-radius:50%;border:2px solid #fff;display:none;animation:pulseBadge 1.4s infinite;z-index:3;}
-.nav-item[data-view="orders"].has-notif .nav-notif-dot{display:block;}
 @media (max-width:360px){ .nav-item{padding:6px 4px;} .nav-item span{font-size:9px;} .nav-item i{font-size:16px;} }
 
 .cart-bar{position:absolute;bottom:80px;left:var(--pad);right:var(--pad);background:var(--gradient);border-radius:15px;padding:13px 18px;display:flex;justify-content:space-between;align-items:center;color:#fff;box-shadow:var(--sh-red-lg);z-index:9;cursor:pointer;transition:.35s cubic-bezier(.2,.9,.3,1.15);border:none;transform:translateY(130px);opacity:0;pointer-events:none;}
@@ -941,7 +944,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
           </button>
           <button class="notification-btn" id="btnNotif" title="Notifikasi">
             <i class="fas fa-bell"></i>
-            <span class="bell-dot" id="bellDot"></span>
           </button>
         </div>
       </header>
@@ -1074,7 +1076,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     <div class="bottom-nav">
       <button class="nav-item active" data-view="home"><i class="fas fa-home"></i><span>Beranda</span></button>
       <button class="nav-item" data-view="promo"><i class="fas fa-fire"></i><span>Promo</span></button>
-      <button class="nav-item" data-view="orders"><i class="fas fa-clipboard-list"></i><span>Pesanan</span><span class="nav-notif-dot"></span></button>
+      <button class="nav-item" data-view="orders"><i class="fas fa-clipboard-list"></i><span>Pesanan</span></button>
       <button class="nav-item" data-view="profile"><i class="fas fa-user"></i><span>Profil</span></button>
     </div>
   </div>
@@ -1617,7 +1619,7 @@ document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
   });
 });
 
-/* ============ NOTIFICATION UNREAD STATE (CUSTOMER) ============ */
+/* ============ NOTIF UNREAD STATE (CUSTOMER) — tanpa titik, cukup animasi lonceng ============ */
 const notifUnreadKey = () => "kmp_notif_unread_" + (currentUser?.uid || "guest");
 const statusMapKey   = () => "kmp_status_map_"   + (currentUser?.uid || "guest");
 let hasUnreadNotif = false;
@@ -1634,16 +1636,14 @@ function setUnreadNotif(v){
   saveNotifUnreadState();
   updateNotifDot();
 }
+/* updateNotifDot: hanya ubah kelas untuk memicu animasi getar lonceng */
 function updateNotifDot(){
   const btn = document.getElementById("btnNotif");
   if (btn) btn.classList.toggle("has-notif", hasUnreadNotif);
-  // juga tampilkan dot di navbar bawah Pesanan
-  const navOrders = document.querySelector('.nav-item[data-view="orders"]');
-  if (navOrders) navOrders.classList.toggle("has-notif", hasUnreadNotif);
 }
 
 /* Simpan snapshot status pesanan per user (agar perubahan status saat
-   pelanggan sedang tidak membuka aplikasi tetap memunculkan titik merah) */
+   pelanggan sedang tidak membuka aplikasi tetap memunculkan animasi lonceng) */
 function loadPersistedStatusMap(){
   try { return JSON.parse(localStorage.getItem(statusMapKey()) || "{}") || {}; }
   catch { return {}; }
@@ -1798,7 +1798,7 @@ const notifPesan = {
   dibatalkan:{ title: "❌ Pesanan Dibatalkan", msg: "Pesananmu telah dibatalkan.", icon: "fa-circle-xmark" }
 };
 
-// Status yang memicu titik merah pada lonceng
+// Status yang memicu animasi lonceng getar
 const NOTIF_DOT_STATUSES = ["diproses", "dikirim", "selesai", "dibatalkan"];
 
 let notifTimer = null;
@@ -1806,7 +1806,7 @@ function showNotifPopup(status) {
   const info = notifPesan[status];
   if (!info) return;
 
-  // 1) PALING PERTAMA: aktifkan titik merah (sebelum hal lain yang bisa error)
+  // 1) PALING PERTAMA: aktifkan animasi lonceng getar
   if (NOTIF_DOT_STATUSES.includes(status)) {
     setUnreadNotif(true);
   }
@@ -3214,7 +3214,7 @@ function listenCustomerOrders() {
     renderOrders();
     updateOrderBadge();
 
-    // Munculkan notifikasi + titik merah untuk setiap perubahan status
+    // Munculkan notifikasi + aktifkan animasi lonceng untuk setiap perubahan status
     changedStatuses.forEach(st => showNotifPopup(st));
 
     if (currentTrackOrderId && $("#mapOverlay").classList.contains("show")) {

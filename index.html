@@ -20,10 +20,12 @@
   --success:#059669; --warn:#D97706;
   --umkm:#B45309; --umkm-2:#F59E0B; --umkm-soft:#FEF3C7;
   --promo:#EA580C; --promo-dark:#C2410C;
+  --subsidi:#1D4ED8; --subsidi-2:#2563EB; --subsidi-soft:#DBEAFE;
   --gradient:linear-gradient(135deg,#EF4444 0%,#DC2626 45%,#991B1B 100%);
   --gradient-umkm:linear-gradient(135deg,#F59E0B 0%,#D97706 50%,#B45309 100%);
   --gradient-promo:linear-gradient(135deg,#F97316 0%,#EA580C 50%,#C2410C 100%);
   --gradient-green:linear-gradient(135deg,#10B981 0%,#059669 50%,#047857 100%);
+  --gradient-subsidi:linear-gradient(135deg,#3B82F6 0%,#2563EB 50%,#1D4ED8 100%);
   --r-xs:7px; --r-sm:10px; --r-md:13px; --r-lg:16px; --r-xl:20px; --r-2xl:24px;
   --sh-sm:0 1px 4px rgba(24,24,27,.05);
   --sh-md:0 6px 18px rgba(24,24,27,.07);
@@ -33,6 +35,8 @@
   --sh-umkm-lg:0 10px 24px rgba(180,83,9,.28);
   --sh-promo:0 6px 16px rgba(234,88,12,.22);
   --sh-promo-lg:0 10px 24px rgba(234,88,12,.28);
+  --sh-subsidi:0 6px 16px rgba(37,99,235,.22);
+  --sh-subsidi-lg:0 10px 24px rgba(37,99,235,.28);
 
   --pad:clamp(13px,3.8vw,20px);
   --gap:clamp(8px,2.4vw,12px);
@@ -258,6 +262,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .product-card.is-umkm:hover{border-color:var(--umkm);box-shadow:0 8px 22px rgba(180,83,9,.14);}
 .product-card.is-promo{border-color:#FDBA74;}
 .product-card.is-promo:hover{border-color:var(--promo);box-shadow:0 8px 22px rgba(234,88,12,.15);}
+.product-card.is-subsidi{border-color:#BFDBFE;}
+.product-card.is-subsidi:hover{border-color:var(--subsidi-2);box-shadow:0 8px 22px rgba(37,99,235,.14);}
 .product-img-wrap{position:relative;border-radius:12px;overflow:hidden;height:clamp(104px,29vw,126px);background:var(--red-soft);}
 .product-card.is-umkm .product-img-wrap{background:var(--umkm-soft);}
 .product-card.is-promo .product-img-wrap{background:#FFEDD5;}
@@ -285,6 +291,11 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .umkm-store{font-size:9.5px;color:var(--umkm);font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
 .umkm-store i{font-size:8.5px;flex-shrink:0;}
 
+.subsidi-badge{position:absolute;top:8px;left:8px;background:var(--gradient-subsidi);color:#fff;font-size:8.5px;font-weight:800;padding:3px 7px;border-radius:6px;letter-spacing:.4px;display:inline-flex;align-items:center;gap:3px;box-shadow:0 3px 9px rgba(37,99,235,.40);z-index:2;text-transform:uppercase;}
+.subsidi-badge i{font-size:8px;}
+
+.cart-subsidi-tag{display:inline-block;background:#DBEAFE;color:#1D4ED8;font-size:8.5px;font-weight:800;padding:1.5px 5px;border-radius:4px;margin-left:5px;letter-spacing:.3px;vertical-align:middle;}
+
 /* ============================================================
    PRODUCT DETAIL — IMAGE ON TOP (RASIO 3:4 BESAR) + TEKS DI BAWAH
    ============================================================ */
@@ -300,7 +311,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 }
 @keyframes pdPop{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:none}}
 
-/* ---- Gambar besar rasio 3:4 di atas ---- */
 .pd-img-wrap{
   position:relative;width:100%;
   aspect-ratio:3 / 4;
@@ -322,6 +332,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-ribbon{background:var(--gradient);color:#fff;font-size:11px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.3px;box-shadow:0 4px 12px rgba(220,38,38,.5);}
 .pd-umkm-badge{background:var(--gradient-umkm);color:#fff;font-size:10px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.4px;display:inline-flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(180,83,9,.5);text-transform:uppercase;}
 .pd-umkm-badge i{font-size:9px;}
+.pd-subsidi-badge{background:var(--gradient-subsidi);color:#fff;font-size:10px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.4px;display:inline-flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(37,99,235,.5);text-transform:uppercase;}
+.pd-subsidi-badge i{font-size:9px;}
 
 .pd-close,.pd-wish-btn{
   width:34px;height:34px;border-radius:11px;border:none;
@@ -338,7 +350,6 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-wish-btn.active{background:var(--red);color:#fff;}
 .pd-wish-btn.active:hover{color:#fff;}
 
-/* ---- Konten / teks di bawah gambar ---- */
 .pd-body{
   padding:16px 16px calc(16px + env(safe-area-inset-bottom));
   overflow-y:auto;flex:1;min-height:0;
@@ -366,6 +377,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-stock-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:20px;background:#ECFDF5;color:var(--success);letter-spacing:.2px;}
 .pd-stock-badge.habis{background:#FEF2F2;color:var(--red);}
 
+.pd-subsidi-note{display:flex;align-items:flex-start;gap:8px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:11px;padding:10px 12px;margin-bottom:14px;font-size:11.5px;color:#1E40AF;font-weight:600;line-height:1.5;}
+.pd-subsidi-note i{color:var(--subsidi-2);font-size:14px;flex-shrink:0;margin-top:1px;}
+.pd-subsidi-note b{font-weight:800;color:#1D4ED8;}
+
 .pd-section-title{font-size:10px;font-weight:800;color:var(--text-mute);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .pd-section-title::before{content:'';width:3px;height:12px;background:var(--gradient);border-radius:2px;}
 
@@ -388,6 +403,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
 .pd-btn-add.is-umkm{background:var(--gradient-umkm);box-shadow:var(--sh-umkm);}
 .pd-btn-add.is-umkm:hover{box-shadow:var(--sh-umkm-lg);}
+.pd-btn-add.is-subsidi{background:var(--gradient-subsidi);box-shadow:var(--sh-subsidi);}
+.pd-btn-add.is-subsidi:hover{box-shadow:var(--sh-subsidi-lg);}
 
 @media (max-width:360px){
   .pd-card{max-width:100%;border-radius:18px;}
@@ -629,6 +646,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .qty-ctrl{display:flex;align-items:center;gap:6px;background:var(--red-soft);padding:3px;border-radius:11px;flex-shrink:0;}
 .qty-btn{width:26px;height:26px;border-radius:8px;border:none;background:#fff;cursor:pointer;color:var(--red);font-size:10px;display:flex;align-items:center;justify-content:center;transition:.2s;font-weight:700;}
 .qty-btn:hover{background:var(--red);color:#fff;}
+.qty-btn:disabled{opacity:.4;cursor:not-allowed;}
 .qty-num{font-size:var(--fs-md);font-weight:800;min-width:20px;text-align:center;color:var(--text);}
 .sheet-total{display:flex;justify-content:space-between;padding:14px 0;font-size:var(--fs-lg);font-weight:800;border-top:1.5px dashed var(--border);margin-top:10px;color:var(--text);}
 .sheet-total span:last-child{color:var(--red);}
@@ -653,6 +671,58 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .form-row.umkm-row .input-group{background:#fff;border-color:#FDE68A;}
 .form-row.umkm-row .input-group:focus-within{border-color:var(--umkm);box-shadow:0 0 0 3.5px rgba(180,83,9,.09);}
 .form-row.umkm-row .input-group > i{color:var(--umkm);}
+
+.checkbox-row{display:flex;align-items:flex-start;gap:11px;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1.5px solid #BFDBFE;border-radius:13px;padding:12px 13px;cursor:pointer;transition:.2s;}
+.checkbox-row:hover{border-color:var(--subsidi-2);}
+.checkbox-row input[type="checkbox"]{width:20px;height:20px;accent-color:#2563EB;cursor:pointer;flex-shrink:0;margin-top:1px;}
+.checkbox-row .cb-text{flex:1;min-width:0;}
+.checkbox-row .cb-text strong{display:block;font-size:12.5px;font-weight:800;color:#1E40AF;letter-spacing:-.1px;}
+.checkbox-row .cb-text small{display:block;font-size:10.5px;color:#1E3A8A;font-weight:500;margin-top:3px;line-height:1.45;}
+
+/* ============ DISCOUNT PREVIEW (ADMIN) ============ */
+.discount-preview{
+  margin-top:10px;
+  background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);
+  border:1.5px solid #6EE7B7;
+  border-radius:13px;
+  padding:11px 13px;
+  display:none;
+  animation:fadeIn .3s;
+  position:relative;
+  overflow:hidden;
+}
+.discount-preview.show{display:block;}
+.discount-preview::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3.5px;
+  background:linear-gradient(180deg,#10B981,#047857);
+}
+.discount-preview .dp-label{
+  font-size:10px;font-weight:800;color:#047857;text-transform:uppercase;
+  letter-spacing:.6px;margin-bottom:6px;display:flex;align-items:center;gap:5px;
+}
+.discount-preview .dp-label i{font-size:10px;}
+.discount-preview .dp-row{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;padding:3px 0;font-size:12px;
+}
+.discount-preview .dp-row + .dp-row{
+  border-top:1px dashed rgba(4,120,87,.22);padding-top:7px;margin-top:4px;
+}
+.discount-preview .dp-key{color:#065F46;font-weight:600;font-size:11.5px;}
+.discount-preview .dp-price-original{
+  font-weight:600;color:#71717A;text-decoration:line-through;font-size:12.5px;
+}
+.discount-preview .dp-price-final{
+  font-weight:800;color:#047857;font-size:16px;letter-spacing:-.4px;
+  line-height:1.1;
+}
+.discount-preview .dp-saving{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#FEF3C7;color:#B45309;
+  font-size:10px;font-weight:800;
+  padding:2.5px 8px;border-radius:6px;letter-spacing:.2px;
+}
+.discount-preview .dp-saving i{font-size:9px;}
 
 .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .pay-option{position:relative;background:#fff;border:2px solid var(--border);border-radius:var(--r-md);padding:12px 10px;cursor:pointer;transition:.25s;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;}
@@ -781,6 +851,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 
 .adm-umkm-tag{display:inline-flex;align-items:center;gap:4px;background:var(--umkm-soft);color:var(--umkm);font-size:9px;font-weight:800;padding:2.5px 7px;border-radius:5px;margin-left:5px;letter-spacing:.3px;}
 .adm-umkm-tag i{font-size:8.5px;}
+.adm-subsidi-tag{display:inline-flex;align-items:center;gap:4px;background:#DBEAFE;color:#1D4ED8;font-size:9px;font-weight:800;padding:2.5px 7px;border-radius:5px;margin-left:5px;letter-spacing:.3px;}
+.adm-subsidi-tag i{font-size:8.5px;}
 
 .btn-sm{background:var(--gradient);color:#fff;border:none;padding:10px 14px;border-radius:11px;font-size:var(--fs-sm);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.25s;box-shadow:var(--sh-red);}
 .btn-sm:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
@@ -1320,19 +1392,18 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 <div class="pd-overlay" id="pdOverlay">
   <div class="pd-card" id="pdCard">
 
-    <!-- Gambar besar rasio 3:4 -->
     <div class="pd-img-wrap" id="pdImgWrap">
       <div class="pd-img-carousel" id="pdImgCarousel"></div>
       <div class="pd-badges">
         <div class="pd-ribbon" id="pdRibbon" style="display:none">-0%</div>
         <div class="pd-umkm-badge" id="pdUmkmBadge" style="display:none"><i class="fas fa-store"></i> UMKM</div>
+        <div class="pd-subsidi-badge" id="pdSubsidiBadge" style="display:none"><i class="fas fa-hand-holding-heart"></i> Subsidi</div>
       </div>
       <button class="pd-close" id="pdClose" title="Tutup"><i class="fas fa-xmark"></i></button>
       <button class="pd-wish-btn" id="pdWishBtn" title="Favorit"><i class="far fa-heart"></i></button>
       <div class="pd-img-dots" id="pdImgDots" style="display:none"></div>
     </div>
 
-    <!-- Konten & teks di bawah gambar -->
     <div class="pd-body">
       <span class="pd-category" id="pdCategory">Sembako</span>
       <h2 class="pd-title" id="pdTitle">Nama Produk</h2>
@@ -1350,26 +1421,19 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <span class="pd-stock-badge" id="pdStockBadge"><i class="fas fa-cubes"></i> <span id="pdStock">0</span></span>
       </div>
 
+      <div class="pd-subsidi-note" id="pdSubsidiNote" style="display:none">
+        <i class="fas fa-circle-info"></i>
+        <div>Produk <b>subsidi</b> hanya bisa dibeli <b>maksimal 1 pcs</b> per pesanan dan <b>tidak dapat digabung</b> dengan produk subsidi lain.</div>
+      </div>
+
       <div class="pd-section-title">Deskripsi Produk</div>
       <p class="pd-desc" id="pdDesc">Belum ada deskripsi untuk produk ini.</p>
 
       <div class="pd-info-grid">
-        <div class="pd-info-item">
-          <span class="lbl">Kategori</span>
-          <span class="val" id="pdInfoCategory">-</span>
-        </div>
-        <div class="pd-info-item">
-          <span class="lbl">Stok Tersedia</span>
-          <span class="val" id="pdInfoStock">-</span>
-        </div>
-        <div class="pd-info-item">
-          <span class="lbl">Terjual</span>
-          <span class="val" id="pdInfoSold">-</span>
-        </div>
-        <div class="pd-info-item">
-          <span class="lbl">Harga Satuan</span>
-          <span class="val" id="pdInfoPrice">-</span>
-        </div>
+        <div class="pd-info-item"><span class="lbl">Kategori</span><span class="val" id="pdInfoCategory">-</span></div>
+        <div class="pd-info-item"><span class="lbl">Stok Tersedia</span><span class="val" id="pdInfoStock">-</span></div>
+        <div class="pd-info-item"><span class="lbl">Terjual</span><span class="val" id="pdInfoSold">-</span></div>
+        <div class="pd-info-item"><span class="lbl">Harga Satuan</span><span class="val" id="pdInfoPrice">-</span></div>
       </div>
 
       <div class="pd-qty-row" id="pdQtyRow">
@@ -1509,8 +1573,40 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <p class="hint-small" style="color:#78350F">Nama usaha/pemilik produk lokal.</p>
     </div>
     <div class="form-row"><label>Harga Normal (Rp)</label><div class="input-group"><i class="fas fa-money-bill-wave"></i><input type="number" id="pHarga" placeholder="65000" min="0"></div></div>
-    <div class="form-row"><label>Diskon (%) — opsional</label><div class="input-group"><i class="fas fa-percent"></i><input type="number" id="pDiskon" placeholder="0" min="0" max="100" value="0"></div><p class="hint-small">Isi 0 jika tidak ada diskon. Contoh: isi 30 untuk diskon 30%.</p></div>
+    <div class="form-row">
+      <label>Diskon (%) — opsional</label>
+      <div class="input-group"><i class="fas fa-percent"></i><input type="number" id="pDiskon" placeholder="0" min="0" max="100" value="0"></div>
+      <p class="hint-small">Isi 0 jika tidak ada diskon. Contoh: isi 30 untuk diskon 30%.</p>
+
+      <!-- ===== PREVIEW HARGA SETELAH DISKON (ADMIN) ===== -->
+      <div class="discount-preview" id="discountPreview">
+        <div class="dp-label"><i class="fas fa-eye"></i> Preview Harga Setelah Diskon</div>
+        <div class="dp-row">
+          <span class="dp-key">Harga Normal</span>
+          <span class="dp-price-original" id="dpOriginal">Rp 0</span>
+        </div>
+        <div class="dp-row">
+          <span class="dp-key">Harga Setelah Diskon</span>
+          <span class="dp-price-final" id="dpFinal">Rp 0</span>
+        </div>
+        <div class="dp-row">
+          <span class="dp-key">Potongan Harga</span>
+          <span class="dp-saving" id="dpSaving"><i class="fas fa-tag"></i> -Rp 0</span>
+        </div>
+      </div>
+    </div>
     <div class="form-row"><label>Stok</label><div class="input-group"><i class="fas fa-cubes"></i><input type="number" id="pStok" placeholder="50" min="0"></div></div>
+
+    <div class="form-row">
+      <label class="checkbox-row">
+        <input type="checkbox" id="pSubsidi">
+        <div class="cb-text">
+          <strong>🏷️ Produk Subsidi</strong>
+          <small>Produk subsidi hanya bisa dibeli <b>1 pcs</b> per pesanan dan <b>tidak dapat digabung</b> dengan produk subsidi lain.</small>
+        </div>
+      </label>
+    </div>
+
     <div class="form-row"><label>Deskripsi Produk</label><div class="input-group"><i class="fas fa-align-left"></i><textarea id="pDeskripsi" rows="3" placeholder="Deskripsi produk..."></textarea></div></div>
     <button class="btn-primary" id="btnSaveProduct" style="width:100%"><i class="fas fa-floppy-disk"></i> Simpan Produk</button>
   </div>
@@ -1610,18 +1706,14 @@ let courierLastWrite = 0;
 let courierLastPos = null;
 let courierFirstFix = true;
 
-// PRODUCT DETAIL STATE
 let currentPDProductId = null;
 let currentPDQty = 1;
 
-// MULTI IMAGE FORM STATE
 let formImages = [];
 
-// PROMO SLIDER STATE
 let promoSlideIdx = 0;
 let promoAutoTimer = null;
 
-// SAVED ADDRESSES
 let savedAddresses = [];
 let editingAddressId = null;
 let addressMapInstance = null;
@@ -1630,7 +1722,6 @@ let addressCoords = { lat: null, lng: null };
 let addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
 let addressReturnContext = "profile";
 
-// ============ ADMIN NEW ORDER TRACKING (untuk sound) ============
 let adminOrderIds = new Set();
 let adminOrdersReady = false;
 
@@ -1650,7 +1741,6 @@ function hideSplash(){
 }
 setTimeout(hideSplash, 4200);
 
-/* ============ SHOW/HIDE PASSWORD TOGGLE ============ */
 document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
   btn.addEventListener('click', () => {
     const input = document.getElementById(btn.dataset.togglePw);
@@ -1658,14 +1748,11 @@ document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
     const isPassword = input.type === 'password';
     input.type = isPassword ? 'text' : 'password';
     const icon = btn.querySelector('i');
-    if (icon) {
-      icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
-    }
+    if (icon) icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
     btn.setAttribute('aria-label', isPassword ? 'Sembunyikan password' : 'Tampilkan password');
   });
 });
 
-/* ============ NOTIF UNREAD STATE (CUSTOMER) ============ */
 const notifUnreadKey = () => "kmp_notif_unread_" + (currentUser?.uid || "guest");
 const statusMapKey   = () => "kmp_status_map_"   + (currentUser?.uid || "guest");
 let hasUnreadNotif = false;
@@ -1695,7 +1782,6 @@ function savePersistedStatusMap(map){
   try { localStorage.setItem(statusMapKey(), JSON.stringify(map)); } catch {}
 }
 
-/* ============ ADMIN NEW ORDER BADGE ============ */
 function updateAdminOrderBadge(){
   const btn = document.querySelector('.admin-nav button[data-aview="pesanan"]');
   if (!btn) return;
@@ -1709,7 +1795,6 @@ function updateAdminOrderBadge(){
   }
 }
 
-/* ============ NOTIFICATION SOUND ============ */
 let audioUnlocked = false;
 function unlockAudio() {
   if (audioUnlocked) return;
@@ -1719,16 +1804,10 @@ function unlockAudio() {
     audio.volume = 0;
     const p = audio.play();
     if (p && p.then) {
-      p.then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.volume = 1;
-        audioUnlocked = true;
-      }).catch(() => {});
+      p.then(() => { audio.pause(); audio.currentTime = 0; audio.volume = 1; audioUnlocked = true; }).catch(() => {});
     }
   } catch(e){}
 }
-
 document.addEventListener('click', unlockAudio, { passive: true });
 document.addEventListener('touchstart', unlockAudio, { passive: true });
 document.addEventListener('keydown', unlockAudio, { passive: true });
@@ -1737,8 +1816,7 @@ function playNotifSound() {
   const audio = document.getElementById('notifSound');
   if (!audio) return;
   try {
-    audio.currentTime = 0;
-    audio.volume = 1;
+    audio.currentTime = 0; audio.volume = 1;
     const p = audio.play();
     if (p && p.catch) {
       p.catch(() => {
@@ -1760,9 +1838,7 @@ function playLoginSound() {
   try {
     if (sessionStorage.getItem('kmp_login_sound') === 'played') return;
     sessionStorage.setItem('kmp_login_sound', 'played');
-    setTimeout(() => {
-      playNotifSound();
-    }, 600);
+    setTimeout(() => { playNotifSound(); }, 600);
   } catch (e) { console.warn('playLoginSound error', e); }
 }
 
@@ -1781,15 +1857,40 @@ function hargaSetelahDiskon(harga, diskon){
 
 function getProductImages(p){
   if (!p) return [PLACEHOLDER];
-  if (Array.isArray(p.gambarList) && p.gambarList.filter(Boolean).length) {
-    return p.gambarList.filter(Boolean);
-  }
+  if (Array.isArray(p.gambarList) && p.gambarList.filter(Boolean).length) return p.gambarList.filter(Boolean);
   if (p.gambar) return [p.gambar];
   return [PLACEHOLDER];
 }
-function firstProductImage(p){
-  const arr = getProductImages(p);
-  return arr[0] || PLACEHOLDER;
+function firstProductImage(p){ const arr = getProductImages(p); return arr[0] || PLACEHOLDER; }
+
+/* ============ SUBSIDI HELPERS ============ */
+function findOtherSubsidiInCart(exceptProductId = null) {
+  for (const key in cart) {
+    if (key === exceptProductId) continue;
+    const other = allProducts.find(x => x.id === key);
+    if (other && other.subsidi) return other;
+  }
+  return null;
+}
+
+/* ============ DISCOUNT PREVIEW (ADMIN FORM) ============ */
+function updateDiscountPreview() {
+  const preview = document.getElementById('discountPreview');
+  if (!preview) return;
+  const harga = Number(document.getElementById('pHarga').value) || 0;
+  const diskon = Number(document.getElementById('pDiskon').value) || 0;
+
+  // Show preview hanya jika diskon > 0 dan harga > 0
+  if (harga > 0 && diskon > 0 && diskon <= 100) {
+    const finalPrice = hargaSetelahDiskon(harga, diskon);
+    const saving = harga - finalPrice;
+    document.getElementById('dpOriginal').textContent = rupiah(harga);
+    document.getElementById('dpFinal').textContent = rupiah(finalPrice);
+    document.getElementById('dpSaving').innerHTML = `<i class="fas fa-tag"></i> -${rupiah(saving)} (${diskon}%)`;
+    preview.classList.add('show');
+  } else {
+    preview.classList.remove('show');
+  }
 }
 
 function toast(msg, type = "") {
@@ -1805,7 +1906,6 @@ function showScreen(id) {
   $("#" + id).classList.add("active");
   hideSplash();
 }
-
 function loading(on) { $("#loader").classList.toggle("show", on); }
 
 function timeAgo(ts) {
@@ -1817,7 +1917,6 @@ function timeAgo(ts) {
   if (diff < 86400) return Math.floor(diff / 3600) + " jam lalu";
   return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
 }
-
 function timeAgoShort(ts) {
   if (!ts) return "belum ada";
   const d = ts.toDate ? ts.toDate() : new Date(ts);
@@ -1842,31 +1941,24 @@ const notifPesan = {
   selesai:   { title: "✅ Pesanan Selesai",  msg: "Pesananmu telah diterima. Terima kasih!", icon: "fa-circle-check" },
   dibatalkan:{ title: "❌ Pesanan Dibatalkan", msg: "Pesananmu telah dibatalkan.", icon: "fa-circle-xmark" }
 };
-
 const NOTIF_DOT_STATUSES = ["diproses", "dikirim", "selesai", "dibatalkan"];
 
 let notifTimer = null;
 function showNotifPopup(status) {
   const info = notifPesan[status];
   if (!info) return;
-
-  if (NOTIF_DOT_STATUSES.includes(status)) {
-    setUnreadNotif(true);
-  }
-
+  if (NOTIF_DOT_STATUSES.includes(status)) setUnreadNotif(true);
   try {
     $("#notifTitle").textContent = info.title;
-    $("#notifMsg").textContent   = info.msg;
+    $("#notifMsg").textContent = info.msg;
     $("#notifPopup .notif-icon").innerHTML = `<i class="fas ${info.icon}"></i>`;
     $("#notifPopup").classList.add("show");
     clearTimeout(notifTimer);
     notifTimer = setTimeout(() => $("#notifPopup").classList.remove("show"), 5000);
   } catch (e) { console.warn("popup error", e); }
-
   try { if (status === "dikirim" || status === "selesai") playNotifSound(); } catch (e) {}
   try { if (navigator.vibrate && status === "dikirim") navigator.vibrate([200, 100, 200]); } catch (e) {}
 }
-
 $("#notifClose")?.addEventListener("click", () => $("#notifPopup").classList.remove("show"));
 
 const cartKey = () => "kmp_cart_" + (currentUser?.uid || "guest");
@@ -1876,7 +1968,6 @@ function loadCart() { try { cart = JSON.parse(localStorage.getItem(cartKey()) ||
 function saveWish() { localStorage.setItem(wishKey(), JSON.stringify(wishlist)); }
 function loadWish() { try { wishlist = JSON.parse(localStorage.getItem(wishKey()) || "[]"); } catch { wishlist = []; } }
 
-/* ============ PROMO SLIDER ============ */
 function goPromoSlide(idx){
   const slides = document.querySelectorAll('.promo-slide');
   const dots = document.querySelectorAll('.promo-dot');
@@ -1886,15 +1977,9 @@ function goPromoSlide(idx){
   slides.forEach((s, i) => s.classList.toggle('active', i === idx));
   dots.forEach((d, i) => d.classList.toggle('active', i === idx));
 }
-function startPromoAuto(){
-  stopPromoAuto();
-  promoAutoTimer = setInterval(() => goPromoSlide(promoSlideIdx + 1), 5000);
-}
-function stopPromoAuto(){
-  if (promoAutoTimer) { clearInterval(promoAutoTimer); promoAutoTimer = null; }
-}
+function startPromoAuto(){ stopPromoAuto(); promoAutoTimer = setInterval(() => goPromoSlide(promoSlideIdx + 1), 5000); }
+function stopPromoAuto(){ if (promoAutoTimer) { clearInterval(promoAutoTimer); promoAutoTimer = null; } }
 
-/* ============ WHATSAPP BUKTI TRANSFER ============ */
 function updateWaProofLinks() {
   const { total } = cartTotals();
   const pay = selectedPayment;
@@ -1904,12 +1989,10 @@ function updateWaProofLinks() {
   document.querySelectorAll(".btn-wa-proof").forEach(a => { a.href = url; });
 }
 
-/* ============ MAP + ROUTING HELPERS ============ */
 function getDestination(order) {
   if (order.destLat != null && order.destLng != null) return [Number(order.destLat), Number(order.destLng)];
   return [KOPERASI_LAT + 0.008, KOPERASI_LNG + 0.005];
 }
-
 function haversineDistance(a, b) {
   const R = 6371000;
   const lat1 = a[0] * Math.PI / 180, lat2 = b[0] * Math.PI / 180;
@@ -1918,19 +2001,8 @@ function haversineDistance(a, b) {
   const x = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
   return 2 * R * Math.asin(Math.sqrt(x));
 }
-
-function formatDistance(m) {
-  if (m < 1000) return Math.round(m) + " m";
-  return (m/1000).toFixed(1) + " km";
-}
-
-function formatDuration(s) {
-  if (s < 60) return Math.round(s) + " detik";
-  if (s < 3600) return Math.round(s/60) + " menit";
-  const h = Math.floor(s/3600);
-  const m = Math.round((s%3600)/60);
-  return h + " jam " + m + " mnt";
-}
+function formatDistance(m){ if (m < 1000) return Math.round(m) + " m"; return (m/1000).toFixed(1) + " km"; }
+function formatDuration(s){ if (s < 60) return Math.round(s) + " detik"; if (s < 3600) return Math.round(s/60) + " menit"; const h = Math.floor(s/3600); const m = Math.round((s%3600)/60); return h + " jam " + m + " mnt"; }
 
 async function getOSRMRoute(from, to) {
   try {
@@ -1940,42 +2012,26 @@ async function getOSRMRoute(from, to) {
     const data = await res.json();
     if (data.code === "Ok" && data.routes && data.routes[0]) {
       const r = data.routes[0];
-      return {
-        coords: r.geometry.coordinates.map(c => [c[1], c[0]]),
-        distance: r.distance,
-        duration: r.duration
-      };
+      return { coords: r.geometry.coordinates.map(c => [c[1], c[0]]), distance: r.distance, duration: r.duration };
     }
     return null;
-  } catch (e) {
-    console.warn("OSRM error:", e);
-    return null;
-  }
+  } catch (e) { console.warn("OSRM error:", e); return null; }
 }
-
 function interpolateAlongRoute(coords, progress) {
   if (!coords || coords.length < 2) return coords?.[0] || null;
   const p = Math.max(0, Math.min(1, progress));
-  let totalDist = 0;
-  const dists = [0];
-  for (let i = 1; i < coords.length; i++) {
-    totalDist += haversineDistance(coords[i-1], coords[i]);
-    dists.push(totalDist);
-  }
+  let totalDist = 0; const dists = [0];
+  for (let i = 1; i < coords.length; i++) { totalDist += haversineDistance(coords[i-1], coords[i]); dists.push(totalDist); }
   const target = totalDist * p;
   for (let i = 1; i < coords.length; i++) {
     if (dists[i] >= target) {
       const segDist = dists[i] - dists[i-1];
       const segP = segDist > 0 ? (target - dists[i-1]) / segDist : 0;
-      return [
-        coords[i-1][0] + (coords[i][0] - coords[i-1][0]) * segP,
-        coords[i-1][1] + (coords[i][1] - coords[i-1][1]) * segP
-      ];
+      return [coords[i-1][0] + (coords[i][0] - coords[i-1][0]) * segP, coords[i-1][1] + (coords[i][1] - coords[i-1][1]) * segP];
     }
   }
   return coords[coords.length - 1];
 }
-
 function getPackagePosition(order, routeCoords) {
   if (order.currentLat != null && order.currentLng != null) return [Number(order.currentLat), Number(order.currentLng)];
   if (routeCoords && routeCoords.length > 1) {
@@ -1986,11 +2042,9 @@ function getPackagePosition(order, routeCoords) {
   const progress = { pending: 0, diproses: 0.05, dikirim: 0.55, selesai: 1, dibatalkan: 0 }[order.status] ?? 0;
   return [KOPERASI_LAT + (dest[0] - KOPERASI_LAT) * progress, KOPERASI_LNG + (dest[1] - KOPERASI_LNG) * progress];
 }
-
 function statusLabel(s) {
   return { pending: "Menunggu konfirmasi", diproses: "Sedang dikemas", dikirim: "Dalam perjalanan ke tujuan", selesai: "Telah sampai di tujuan", dibatalkan: "Pesanan dibatalkan" }[s] || s;
 }
-
 async function reverseGeocode(lat, lng) {
   try {
     const url = `${NOMINATIM_URL}?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=id`;
@@ -1998,12 +2052,8 @@ async function reverseGeocode(lat, lng) {
     if (!res.ok) return "";
     const data = await res.json();
     return data.display_name || "";
-  } catch (e) {
-    console.warn("reverseGeocode error:", e);
-    return "";
-  }
+  } catch (e) { console.warn("reverseGeocode error:", e); return ""; }
 }
-
 function initLocMiniMap(lat, lng) {
   const el = document.getElementById("locMiniMap");
   if (!el) return;
@@ -2013,7 +2063,6 @@ function initLocMiniMap(lat, lng) {
   L.marker([lat, lng], { icon: L.divIcon({ html:'<div class="map-marker home"><i class="fas fa-home"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(locMiniMapInstance);
   setTimeout(() => locMiniMapInstance && locMiniMapInstance.invalidateSize(), 200);
 }
-
 async function shareCurrentLocation() {
   const btn = $("#btnShareLoc");
   btn.disabled = true;
@@ -2021,27 +2070,18 @@ async function shareCurrentLocation() {
   try {
     if (!navigator.geolocation) throw new Error("Browser tidak mendukung GPS");
     const pos = await new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject, {
-        enableHighAccuracy: true, timeout: 12000, maximumAge: 0
-      });
+      navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 });
     });
     const lat = pos.coords.latitude, lng = pos.coords.longitude;
     checkoutCoords = { lat, lng };
-
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengambil alamat...';
     let address = await reverseGeocode(lat, lng);
-
     const addrInput = $("#coAlamat");
-    if (address) {
-      addrInput.value = address;
-    } else {
-      addrInput.value = `Lokasi GPS: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-    }
-
+    if (address) addrInput.value = address;
+    else addrInput.value = `Lokasi GPS: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
     $("#locCoordText").textContent = `Lat: ${lat.toFixed(6)} · Lng: ${lng.toFixed(6)} · Akurasi ±${Math.round(pos.coords.accuracy)}m`;
     $("#locPreview").style.display = "block";
     setTimeout(() => initLocMiniMap(lat, lng), 120);
-
     btn.innerHTML = '<i class="fas fa-circle-check"></i> Lokasi Terdeteksi';
     btn.classList.add("detected");
     toast("Lokasi berhasil dideteksi ✓", "ok");
@@ -2054,18 +2094,17 @@ async function shareCurrentLocation() {
     toast(msg, "err");
     btn.innerHTML = '<i class="fas fa-location-crosshairs"></i> Coba Lagi';
     btn.classList.remove("detected");
-  } finally {
-    btn.disabled = false;
-  }
+  } finally { btn.disabled = false; }
 }
 
-/* ============ PRODUCT DETAIL POPUP (gambar 3:4 besar di atas) ============ */
+/* ============ PRODUCT DETAIL ============ */
 function openProductDetail(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
 
   currentPDProductId = id;
   const stok = Number(p.stok) || 0;
+  const isSubsidi = !!p.subsidi;
   currentPDQty = stok > 0 ? 1 : 0;
 
   const liked = wishlist.includes(p.id);
@@ -2077,7 +2116,6 @@ function openProductDetail(id) {
   const umkmStore = (p.umkm || "").trim();
   const habis = stok <= 0;
 
-  /* --- carousel gambar (rasio 3:4 besar) --- */
   const images = getProductImages(p);
   const carousel = $("#pdImgCarousel");
   carousel.innerHTML = images.map(url =>
@@ -2115,6 +2153,7 @@ function openProductDetail(id) {
   else ribbon.style.display = "none";
 
   $("#pdUmkmBadge").style.display = isUmkm ? "inline-flex" : "none";
+  $("#pdSubsidiBadge").style.display = isSubsidi ? "inline-flex" : "none";
 
   const cat = $("#pdCategory");
   cat.textContent = p.kategori || "Lainnya";
@@ -2146,12 +2185,13 @@ function openProductDetail(id) {
   $("#pdStock").textContent = habis ? "Habis" : `Stok ${stok}`;
   stockBadge.classList.toggle("habis", habis);
 
+  $("#pdSubsidiNote").style.display = isSubsidi ? "flex" : "none";
+
   const desc = (p.deskripsi || "").trim();
   const descEl = $("#pdDesc");
   if (desc) { descEl.textContent = desc; descEl.classList.remove("empty"); }
   else { descEl.textContent = "Belum ada deskripsi untuk produk ini."; descEl.classList.add("empty"); }
 
-  /* Info grid (tersembunyi, tetap diisi untuk kompatibilitas) */
   $("#pdInfoCategory").textContent = p.kategori || "-";
   const infoStock = $("#pdInfoStock");
   infoStock.textContent = habis ? "Habis" : `${stok} unit`;
@@ -2166,10 +2206,13 @@ function openProductDetail(id) {
   updatePDQtyUI();
   const addBtn = $("#pdAddBtn");
   addBtn.classList.toggle("is-umkm", isUmkm);
+  addBtn.classList.toggle("is-subsidi", isSubsidi);
   addBtn.disabled = habis;
   addBtn.innerHTML = habis
     ? '<i class="fas fa-ban"></i> Stok Habis'
-    : `<i class="fas fa-cart-plus"></i> Tambah ke Keranjang · ${rupiah(hargaFinal * currentPDQty)}`;
+    : isSubsidi
+      ? `<i class="fas fa-hand-holding-heart"></i> Tambah Subsidi · ${rupiah(hargaFinal)}`
+      : `<i class="fas fa-cart-plus"></i> Tambah ke Keranjang · ${rupiah(hargaFinal * currentPDQty)}`;
 
   $("#pdQtyRow").style.display = habis ? "none" : "flex";
 
@@ -2181,15 +2224,18 @@ function updatePDQtyUI() {
   const p = allProducts.find(x => x.id === currentPDProductId);
   if (!p) return;
   const stok = Number(p.stok) || 0;
+  const isSubsidi = !!p.subsidi;
   const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
 
   $("#pdQtyNum").textContent = currentPDQty;
   $("#pdQtyMinus").disabled = currentPDQty <= 1;
-  $("#pdQtyPlus").disabled = currentPDQty >= stok;
+  $("#pdQtyPlus").disabled = isSubsidi || currentPDQty >= stok;
 
   const addBtn = $("#pdAddBtn");
   if (stok > 0) {
-    addBtn.innerHTML = `<i class="fas fa-cart-plus"></i> Tambah ke Keranjang · ${rupiah(hargaFinal * currentPDQty)}`;
+    addBtn.innerHTML = isSubsidi
+      ? `<i class="fas fa-hand-holding-heart"></i> Tambah Subsidi · ${rupiah(hargaFinal)}`
+      : `<i class="fas fa-cart-plus"></i> Tambah ke Keranjang · ${rupiah(hargaFinal * currentPDQty)}`;
   }
 }
 
@@ -2207,14 +2253,29 @@ function addPDProductToCart() {
   const stok = Number(p.stok) || 0;
   if (stok <= 0) return toast("Stok produk habis", "err");
 
+  const isSubsidi = !!p.subsidi;
+  const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
+
+  if (isSubsidi) {
+    const conflict = findOtherSubsidiInCart(p.id);
+    if (conflict) {
+      return toast(`Tidak bisa membeli produk subsidi lain. Hapus "${conflict.nama}" dari keranjang dulu.`, "err");
+    }
+    const existingQty = cart[p.id]?.qty || 0;
+    if (existingQty >= 1) {
+      return toast("Produk subsidi maksimal 1 pcs per pesanan", "err");
+    }
+    cart[p.id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: 1 };
+    saveCart(); updateCartBar();
+    toast(`✅ ${p.nama} (subsidi) ×1 ditambahkan`, "ok");
+    closeProductDetail();
+    return;
+  }
+
   const existing = cart[p.id]?.qty || 0;
   if (existing + currentPDQty > stok) return toast("Melebihi stok tersedia", "err");
 
-  const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
-  cart[p.id] = {
-    id: p.id, nama: p.nama, harga: hargaFinal,
-    gambar: firstProductImage(p), qty: existing + currentPDQty
-  };
+  cart[p.id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: existing + currentPDQty };
   saveCart(); updateCartBar();
   toast(`✅ ${p.nama} ×${currentPDQty} ditambahkan`, "ok");
   closeProductDetail();
@@ -2222,12 +2283,11 @@ function addPDProductToCart() {
 
 $("#pdClose")?.addEventListener("click", closeProductDetail);
 $("#pdOverlay")?.addEventListener("click", e => { if (e.target === $("#pdOverlay")) closeProductDetail(); });
-$("#pdQtyMinus")?.addEventListener("click", () => {
-  if (currentPDQty > 1) { currentPDQty--; updatePDQtyUI(); }
-});
+$("#pdQtyMinus")?.addEventListener("click", () => { if (currentPDQty > 1) { currentPDQty--; updatePDQtyUI(); } });
 $("#pdQtyPlus")?.addEventListener("click", () => {
   const p = allProducts.find(x => x.id === currentPDProductId);
   if (!p) return;
+  if (p.subsidi) return;
   const stok = Number(p.stok) || 0;
   if (currentPDQty < stok) { currentPDQty++; updatePDQtyUI(); }
 });
@@ -2242,14 +2302,10 @@ $("#pdWishBtn")?.addEventListener("click", () => {
 });
 
 /* ============ SAVED ADDRESSES ============ */
-function genAddrId() {
-  return 'addr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-}
+function genAddrId() { return 'addr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8); }
 
 function loadSavedAddresses() {
-  savedAddresses = Array.isArray(currentUser?.savedAddresses)
-    ? JSON.parse(JSON.stringify(currentUser.savedAddresses))
-    : [];
+  savedAddresses = Array.isArray(currentUser?.savedAddresses) ? JSON.parse(JSON.stringify(currentUser.savedAddresses)) : [];
   renderAddressList();
   renderCheckoutAddressOptions();
 }
@@ -2258,11 +2314,7 @@ function renderAddressList() {
   const el = document.getElementById('addressListContainer');
   if (!el) return;
   if (!savedAddresses.length) {
-    el.innerHTML = `<div class="empty-state" style="padding:26px 10px">
-      <i class="fas fa-address-book"></i>
-      Belum ada alamat tersimpan.<br>
-      <span style="font-size:11px;color:var(--text-mute)">Tambahkan alamat untuk orang lain atau lokasi favoritmu.</span>
-    </div>`;
+    el.innerHTML = `<div class="empty-state" style="padding:26px 10px"><i class="fas fa-address-book"></i>Belum ada alamat tersimpan.<br><span style="font-size:11px;color:var(--text-mute)">Tambahkan alamat untuk orang lain atau lokasi favoritmu.</span></div>`;
     return;
   }
   el.innerHTML = savedAddresses.map(a => `
@@ -2278,29 +2330,16 @@ function renderAddressList() {
       <div class="addr-line"><i class="fas fa-phone"></i><span>${esc(a.telepon || '-')}</span></div>
       <div class="addr-line"><i class="fas fa-location-dot"></i><span>${esc(a.alamat || '-')}</span></div>
       ${a.lat != null && a.lng != null ? `<div class="addr-line" style="color:var(--text-mute);font-size:9.5px;font-family:'Courier New',monospace"><i class="fas fa-map-pin"></i><span>${Number(a.lat).toFixed(5)}, ${Number(a.lng).toFixed(5)}</span></div>` : ''}
-      <button class="btn-sm" style="width:100%;margin-top:8px;justify-content:center" data-addr-use="${esc(a.id)}">
-        <i class="fas fa-check"></i> Gunakan Alamat Ini Saat Checkout
-      </button>
-    </div>
-  `).join("");
+      <button class="btn-sm" style="width:100%;margin-top:8px;justify-content:center" data-addr-use="${esc(a.id)}"><i class="fas fa-check"></i> Gunakan Alamat Ini Saat Checkout</button>
+    </div>`).join("");
 }
 
 function renderCheckoutAddressOptions() {
   const wrap = document.getElementById('checkoutAddressWrap');
   if (!wrap) return;
   if (!savedAddresses.length) {
-    wrap.innerHTML = `<div class="form-row">
-      <label><i class="fas fa-address-book" style="color:var(--red);margin-right:5px"></i>Alamat Tersimpan</label>
-      <div class="addr-chips">
-        <button type="button" class="addr-chip add" id="addrChipAddEmpty">
-          <i class="fas fa-plus"></i> Tambah Alamat Baru
-        </button>
-      </div>
-    </div>`;
-    wrap.querySelector('#addrChipAddEmpty')?.addEventListener('click', () => {
-      addressReturnContext = 'checkout';
-      openAddressForm();
-    });
+    wrap.innerHTML = `<div class="form-row"><label><i class="fas fa-address-book" style="color:var(--red);margin-right:5px"></i>Alamat Tersimpan</label><div class="addr-chips"><button type="button" class="addr-chip add" id="addrChipAddEmpty"><i class="fas fa-plus"></i> Tambah Alamat Baru</button></div></div>`;
+    wrap.querySelector('#addrChipAddEmpty')?.addEventListener('click', () => { addressReturnContext = 'checkout'; openAddressForm(); });
     return;
   }
   wrap.innerHTML = `
@@ -2311,18 +2350,11 @@ function renderCheckoutAddressOptions() {
           <button type="button" class="addr-chip" data-addr-pick="${esc(a.id)}">
             <span><i class="fas fa-tag"></i> ${esc(a.label || 'Alamat')}</span>
             <small>${esc(a.nama || '')} · ${esc((a.alamat || '').slice(0, 24))}${(a.alamat || '').length > 24 ? '…' : ''}</small>
-          </button>
-        `).join('')}
-        <button type="button" class="addr-chip add" id="addrChipAdd">
-          <i class="fas fa-plus"></i> Tambah
-        </button>
+          </button>`).join('')}
+        <button type="button" class="addr-chip add" id="addrChipAdd"><i class="fas fa-plus"></i> Tambah</button>
       </div>
-    </div>
-  `;
-  wrap.querySelector('#addrChipAdd')?.addEventListener('click', () => {
-    addressReturnContext = 'checkout';
-    openAddressForm();
-  });
+    </div>`;
+  wrap.querySelector('#addrChipAdd')?.addEventListener('click', () => { addressReturnContext = 'checkout'; openAddressForm(); });
   wrap.querySelectorAll('[data-addr-pick]').forEach(btn => {
     btn.addEventListener('click', () => {
       const a = savedAddresses.find(x => x.id === btn.dataset.addrPick);
@@ -2345,30 +2377,19 @@ function renderCheckoutAddressOptions() {
   });
 }
 
-function openAddressList() {
-  renderAddressList();
-  document.getElementById('addressListOverlay').classList.add('show');
-}
+function openAddressList() { renderAddressList(); document.getElementById('addressListOverlay').classList.add('show'); }
 
 function openAddressForm(addrId = null) {
   editingAddressId = addrId;
   const a = addrId ? savedAddresses.find(x => x.id === addrId) : null;
-  document.getElementById('addressFormTitle').innerHTML = a
-    ? '<i class="fas fa-pen"></i> Edit Alamat'
-    : '<i class="fas fa-location-dot"></i> Tambah Alamat';
+  document.getElementById('addressFormTitle').innerHTML = a ? '<i class="fas fa-pen"></i> Edit Alamat' : '<i class="fas fa-location-dot"></i> Tambah Alamat';
   document.getElementById('addrId').value = a?.id || '';
   document.getElementById('addrLabel').value = a?.label || '';
   document.getElementById('addrNama').value = a?.nama || '';
   document.getElementById('addrTelepon').value = a?.telepon || '';
   document.getElementById('addrAlamat').value = a?.alamat || '';
-  addressCoords = {
-    lat: a?.lat != null ? Number(a.lat) : null,
-    lng: a?.lng != null ? Number(a.lng) : null
-  };
-  document.querySelectorAll('#addrLabelChips .cat-chip').forEach(c => {
-    c.classList.toggle('active', (c.dataset.label || '') === (a?.label || ''));
-  });
-
+  addressCoords = { lat: a?.lat != null ? Number(a.lat) : null, lng: a?.lng != null ? Number(a.lng) : null };
+  document.querySelectorAll('#addrLabelChips .cat-chip').forEach(c => c.classList.toggle('active', (c.dataset.label || '') === (a?.label || '')));
   const coordInfo = document.getElementById('addrCoordInfo');
   if (addressCoords.lat != null && addressCoords.lng != null) {
     coordInfo.style.display = 'flex';
@@ -2378,7 +2399,6 @@ function openAddressForm(addrId = null) {
     coordInfo.style.display = 'none';
     addressInitLocation = [KOPERASI_LAT, KOPERASI_LNG];
   }
-
   document.getElementById('addressFormOverlay').classList.add('show');
   setTimeout(initAddressMap, 220);
 }
@@ -2389,34 +2409,19 @@ function initAddressMap() {
   if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
   addressMapInstance = L.map(el, { zoomControl: true, attributionControl: false }).setView(addressInitLocation, 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(addressMapInstance);
-
-  addressMarker = L.marker(addressInitLocation, {
-    icon: L.divIcon({
-      html: '<div class="map-marker home"><i class="fas fa-home"></i></div>',
-      className: 'custom-map-marker',
-      iconSize: [36, 36],
-      iconAnchor: [18, 36]
-    }),
-    draggable: true
-  }).addTo(addressMapInstance);
-
+  addressMarker = L.marker(addressInitLocation, { icon: L.divIcon({ html: '<div class="map-marker home"><i class="fas fa-home"></i></div>', className: 'custom-map-marker', iconSize: [36, 36], iconAnchor: [18, 36] }), draggable: true }).addTo(addressMapInstance);
   addressMarker.on('dragend', async (e) => {
     const pos = e.target.getLatLng();
     addressCoords = { lat: pos.lat, lng: pos.lng };
     updateAddressCoordInfo();
     const addrEl = document.getElementById('addrAlamat');
-    if (!addrEl.value.trim()) {
-      const addr = await reverseGeocode(pos.lat, pos.lng);
-      if (addr) addrEl.value = addr;
-    }
+    if (!addrEl.value.trim()) { const addr = await reverseGeocode(pos.lat, pos.lng); if (addr) addrEl.value = addr; }
   });
-
   addressMapInstance.on('click', (e) => {
     addressMarker.setLatLng(e.latlng);
     addressCoords = { lat: e.latlng.lat, lng: e.latlng.lng };
     updateAddressCoordInfo();
   });
-
   setTimeout(() => addressMapInstance && addressMapInstance.invalidateSize(), 300);
 }
 
@@ -2426,9 +2431,7 @@ function updateAddressCoordInfo() {
   if (addressCoords.lat != null && addressCoords.lng != null) {
     info.style.display = 'flex';
     document.getElementById('addrCoordText').textContent = `Lat: ${addressCoords.lat.toFixed(6)} · Lng: ${addressCoords.lng.toFixed(6)}`;
-  } else {
-    info.style.display = 'none';
-  }
+  } else info.style.display = 'none';
 }
 
 async function useGpsForAddress() {
@@ -2437,21 +2440,13 @@ async function useGpsForAddress() {
   const originalHTML = btn.innerHTML;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendeteksi...';
   try {
-    const pos = await new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 12000 });
-    });
+    const pos = await new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 12000 }); });
     const lat = pos.coords.latitude, lng = pos.coords.longitude;
     addressCoords = { lat, lng };
     updateAddressCoordInfo();
-    if (addressMapInstance && addressMarker) {
-      addressMarker.setLatLng([lat, lng]);
-      addressMapInstance.setView([lat, lng], 16);
-    }
+    if (addressMapInstance && addressMarker) { addressMarker.setLatLng([lat, lng]); addressMapInstance.setView([lat, lng], 16); }
     const addrEl = document.getElementById('addrAlamat');
-    if (!addrEl.value.trim()) {
-      const addr = await reverseGeocode(lat, lng);
-      if (addr) addrEl.value = addr;
-    }
+    if (!addrEl.value.trim()) { const addr = await reverseGeocode(lat, lng); if (addr) addrEl.value = addr; }
     toast('Lokasi GPS terdeteksi ✓', 'ok');
   } catch (err) {
     let msg = 'Gagal deteksi GPS';
@@ -2459,10 +2454,7 @@ async function useGpsForAddress() {
     else if (err.code === 2) msg = 'Lokasi tidak tersedia.';
     else if (err.code === 3) msg = 'Waktu deteksi habis.';
     toast(msg, 'err');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
-  }
+  } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
 }
 
 async function saveAddress() {
@@ -2470,62 +2462,32 @@ async function saveAddress() {
   const nama = document.getElementById('addrNama').value.trim();
   const telepon = document.getElementById('addrTelepon').value.trim();
   const alamat = document.getElementById('addrAlamat').value.trim();
-
   if (!nama) return toast('Nama penerima wajib diisi', 'err');
   if (!telepon) return toast('Nomor telepon wajib diisi', 'err');
   if (!alamat) return toast('Alamat wajib diisi', 'err');
-  if (addressCoords.lat == null || addressCoords.lng == null) {
-    return toast('Tentukan lokasi di peta terlebih dahulu', 'err');
-  }
-
+  if (addressCoords.lat == null || addressCoords.lng == null) return toast('Tentukan lokasi di peta terlebih dahulu', 'err');
   const btn = document.getElementById('btnSaveAddress');
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-
   try {
-    const newAddr = {
-      id: editingAddressId || genAddrId(),
-      label: label || 'Alamat',
-      nama, telepon, alamat,
-      lat: addressCoords.lat,
-      lng: addressCoords.lng,
-      updatedAt: new Date().toISOString()
-    };
-
+    const newAddr = { id: editingAddressId || genAddrId(), label: label || 'Alamat', nama, telepon, alamat, lat: addressCoords.lat, lng: addressCoords.lng, updatedAt: new Date().toISOString() };
     let list = savedAddresses.slice();
     if (editingAddressId) {
       const idx = list.findIndex(x => x.id === editingAddressId);
-      if (idx > -1) list[idx] = newAddr;
-      else list.push(newAddr);
-    } else {
-      list.push(newAddr);
-    }
-
+      if (idx > -1) list[idx] = newAddr; else list.push(newAddr);
+    } else list.push(newAddr);
     await updateDoc(doc(db, 'users', currentUser.uid), { savedAddresses: list });
     currentUser.savedAddresses = list;
     savedAddresses = list;
-
     renderAddressList();
     renderCheckoutAddressOptions();
-
     toast(editingAddressId ? 'Alamat diperbarui ✓' : 'Alamat tersimpan ✓', 'ok');
-
     document.getElementById('addressFormOverlay').classList.remove('show');
     if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
     addressMarker = null;
-
-    if (addressReturnContext === 'checkout') {
-      setTimeout(() => {
-        useAddressForCheckout(newAddr.id);
-      }, 250);
-    }
-  } catch (err) {
-    toast('Gagal menyimpan: ' + err.message, 'err');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Alamat';
-    addressReturnContext = 'profile';
-  }
+    if (addressReturnContext === 'checkout') setTimeout(() => useAddressForCheckout(newAddr.id), 250);
+  } catch (err) { toast('Gagal menyimpan: ' + err.message, 'err'); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Alamat'; addressReturnContext = 'profile'; }
 }
 
 async function deleteAddress(id) {
@@ -2539,32 +2501,21 @@ async function deleteAddress(id) {
     renderAddressList();
     renderCheckoutAddressOptions();
     toast('Alamat dihapus', 'ok');
-  } catch (err) {
-    toast('Gagal menghapus: ' + err.message, 'err');
-  }
+  } catch (err) { toast('Gagal menghapus: ' + err.message, 'err'); }
 }
 
 function useAddressForCheckout(id) {
   const a = savedAddresses.find(x => x.id === id);
   if (!a) return;
   const { count } = cartTotals();
-  if (!count) {
-    toast('Keranjang kosong. Tambahkan produk dulu.', 'err');
-    return;
-  }
-
+  if (!count) { toast('Keranjang kosong. Tambahkan produk dulu.', 'err'); return; }
   document.getElementById('addressListOverlay').classList.remove('show');
-
   checkoutMode = true;
   selectedPayment = 'cod';
   document.querySelectorAll('.pay-option').forEach(o => o.classList.toggle('selected', o.dataset.pay === 'cod'));
-  ['cod','qris','dana','gopay'].forEach(p => {
-    const inst = document.getElementById('payInst_' + p);
-    if (inst) inst.classList.toggle('show', p === 'cod');
-  });
+  ['cod','qris','dana','gopay'].forEach(p => { const inst = document.getElementById('payInst_' + p); if (inst) inst.classList.toggle('show', p === 'cod'); });
   document.getElementById('checkoutForm').style.display = 'block';
   document.getElementById('btnCheckout').innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
-
   document.getElementById('coNama').value = a.nama || '';
   document.getElementById('coTelepon').value = a.telepon || '';
   document.getElementById('coAlamat').value = a.alamat || '';
@@ -2573,30 +2524,22 @@ function useAddressForCheckout(id) {
     document.getElementById('locCoordText').textContent = `Lat: ${Number(a.lat).toFixed(6)} · Lng: ${Number(a.lng).toFixed(6)} · (dari alamat tersimpan)`;
     document.getElementById('locPreview').style.display = 'block';
     setTimeout(() => initLocMiniMap(Number(a.lat), Number(a.lng)), 150);
-  } else {
-    checkoutCoords = { lat: null, lng: null };
-    document.getElementById('locPreview').style.display = 'none';
-  }
-
+  } else { checkoutCoords = { lat: null, lng: null }; document.getElementById('locPreview').style.display = 'none'; }
   renderCartSheet();
   renderCheckoutAddressOptions();
   updateWaProofLinks();
   document.getElementById('cartOverlay').classList.add('show');
-  setTimeout(() => {
-    const sheet = document.querySelector('#cartOverlay .sheet');
-    if (sheet) sheet.scrollTop = 9999;
-  }, 120);
+  setTimeout(() => { const sheet = document.querySelector('#cartOverlay .sheet'); if (sheet) sheet.scrollTop = 9999; }, 120);
   toast('Alamat siap dipakai ✓', 'ok');
 }
 
-/* ============ CUSTOMER TRACKING MAP ============ */
+/* ============ MAP FUNCTIONS ============ */
 function updateTrackingLiveStatus(order) {
   if (!order) return;
   const live = isCourierLive(order);
   const badge = $("#mapLiveBadge");
   const liveText = $("#mapLiveText");
   const lastUpd = $("#mapLastUpdate");
-
   if (badge) badge.style.display = live ? "inline-flex" : "none";
   if (liveText) liveText.textContent = live ? "Kurir sedang mengantar" : "Lokasi kurir real-time";
   if (lastUpd) {
@@ -2604,33 +2547,20 @@ function updateTrackingLiveStatus(order) {
       lastUpd.textContent = timeAgoShort(order.locationUpdatedAt);
       lastUpd.style.color = live ? "#059669" : "#71717A";
       lastUpd.style.fontWeight = live ? "800" : "600";
-    } else {
-      lastUpd.textContent = "belum ada update";
-      lastUpd.style.color = "#71717A";
-      lastUpd.style.fontWeight = "600";
-    }
+    } else { lastUpd.textContent = "belum ada update"; lastUpd.style.color = "#71717A"; lastUpd.style.fontWeight = "600"; }
   }
-
-  if ($("#mapPkgDesc") && order.status) {
-    $("#mapPkgDesc").textContent = statusLabel(order.status);
-  }
+  if ($("#mapPkgDesc") && order.status) $("#mapPkgDesc").textContent = statusLabel(order.status);
 }
 
 function startLiveTimer() {
   stopLiveTimer();
   liveUpdateTimer = setInterval(() => {
-    if (!currentTrackOrderId || !$("#mapOverlay").classList.contains("show")) {
-      stopLiveTimer();
-      return;
-    }
+    if (!currentTrackOrderId || !$("#mapOverlay").classList.contains("show")) { stopLiveTimer(); return; }
     const o = allOrders.find(x => x.id === currentTrackOrderId);
     if (o) updateTrackingLiveStatus(o);
   }, 1000);
 }
-
-function stopLiveTimer() {
-  if (liveUpdateTimer) { clearInterval(liveUpdateTimer); liveUpdateTimer = null; }
-}
+function stopLiveTimer() { if (liveUpdateTimer) { clearInterval(liveUpdateTimer); liveUpdateTimer = null; } }
 
 async function openTrackingMap(order) {
   currentTrackOrderId = order.id;
@@ -2641,52 +2571,32 @@ async function openTrackingMap(order) {
   $("#routeInfo").innerHTML = '<div class="route-info-loading"><i class="fas fa-spinner fa-spin"></i> Menghitung rute jalan...</div>';
   updateTrackingLiveStatus(order);
   startLiveTimer();
-
   setTimeout(async () => {
     if (currentTrackOrderId !== order.id) return;
     if (trackingMapInstance) { trackingMapInstance.remove(); trackingMapInstance = null; packageMarkerRef = null; }
     const from = [KOPERASI_LAT, KOPERASI_LNG];
     const dest = getDestination(order);
-
     trackingMapInstance = L.map('trackingMap').setView([from[0], from[1]], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(trackingMapInstance);
-
     let cur;
     const route = await getOSRMRoute(from, dest);
-
     if (route) {
       trackingRouteCoords = route.coords;
       L.polyline(route.coords, { color: '#DC2626', weight: 5, opacity: 0.82, lineCap: 'round', lineJoin: 'round' }).addTo(trackingMapInstance);
       cur = getPackagePosition(order, route.coords);
-      $("#routeInfo").innerHTML = `
-        <div class="route-info-item">
-          <i class="fas fa-route"></i>
-          <div><div class="lbl">Jarak Rute</div><div class="val">${formatDistance(route.distance)}</div></div>
-        </div>
-        <div class="route-info-item">
-          <i class="fas fa-clock"></i>
-          <div><div class="lbl">Estimasi Tempuh</div><div class="val">${formatDuration(route.duration)}</div></div>
-        </div>
-      `;
+      $("#routeInfo").innerHTML = `<div class="route-info-item"><i class="fas fa-route"></i><div><div class="lbl">Jarak Rute</div><div class="val">${formatDistance(route.distance)}</div></div></div><div class="route-info-item"><i class="fas fa-clock"></i><div><div class="lbl">Estimasi Tempuh</div><div class="val">${formatDuration(route.duration)}</div></div></div>`;
     } else {
       trackingRouteCoords = null;
       L.polyline([from, dest], { color: '#DC2626', weight: 4, opacity: 0.6, dashArray: '10, 8' }).addTo(trackingMapInstance);
       cur = getPackagePosition(order);
       $("#routeInfo").innerHTML = '<div class="route-info-loading" style="color:#B45309;background:#FFFBEB;border-color:#FDE68A"><i class="fas fa-info-circle"></i> Rute jalan tidak tersedia, menampilkan garis lurus</div>';
     }
-
-    L.marker(from, { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) })
-      .addTo(trackingMapInstance).bindPopup('<b>Koperasi Merah Putih</b>');
-    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) })
-      .addTo(trackingMapInstance).bindPopup('<b>Lokasi Tujuan</b>');
+    L.marker(from, { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(trackingMapInstance).bindPopup('<b>Koperasi Merah Putih</b>');
+    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(trackingMapInstance).bindPopup('<b>Lokasi Tujuan</b>');
     if (cur) {
-      const iconHTML = isCourierLive(order)
-        ? '<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>'
-        : '<div class="map-marker package"><i class="fas fa-truck-fast"></i></div>';
-      packageMarkerRef = L.marker(cur, { icon: L.divIcon({ html: iconHTML, className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) })
-        .addTo(trackingMapInstance).bindPopup('<b>Posisi Paket</b>').openPopup();
+      const iconHTML = isCourierLive(order) ? '<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>' : '<div class="map-marker package"><i class="fas fa-truck-fast"></i></div>';
+      packageMarkerRef = L.marker(cur, { icon: L.divIcon({ html: iconHTML, className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) }).addTo(trackingMapInstance).bindPopup('<b>Posisi Paket</b>').openPopup();
     }
-
     const bounds = L.latLngBounds([from, dest].concat(cur ? [cur] : []));
     trackingMapInstance.fitBounds(bounds, { padding: [40, 40] });
     setTimeout(() => trackingMapInstance && trackingMapInstance.invalidateSize(), 250);
@@ -2700,29 +2610,18 @@ async function openPickerMap(orderId) {
   $("#pickerOverlay").classList.add("show");
   const from = [KOPERASI_LAT, KOPERASI_LNG];
   const dest = getDestination(order);
-
   setTimeout(async () => {
     if (pickerMapInstance) { pickerMapInstance.remove(); pickerMapInstance = null; }
     pickerMapInstance = L.map('pickerMap').setView([from[0], from[1]], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(pickerMapInstance);
-
     const route = await getOSRMRoute(from, dest);
-    if (route) {
-      L.polyline(route.coords, { color: '#DC2626', weight: 4, opacity: 0.6 }).addTo(pickerMapInstance);
-    } else {
-      L.polyline([from, dest], { color: '#DC2626', weight: 3, opacity: 0.5, dashArray: '8, 6' }).addTo(pickerMapInstance);
-    }
-
-    L.marker(from, { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) })
-      .addTo(pickerMapInstance).bindPopup('Koperasi');
-    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) })
-      .addTo(pickerMapInstance).bindPopup('Lokasi Tujuan');
-
+    if (route) L.polyline(route.coords, { color: '#DC2626', weight: 4, opacity: 0.6 }).addTo(pickerMapInstance);
+    else L.polyline([from, dest], { color: '#DC2626', weight: 3, opacity: 0.5, dashArray: '8, 6' }).addTo(pickerMapInstance);
+    L.marker(from, { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(pickerMapInstance).bindPopup('Koperasi');
+    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(pickerMapInstance).bindPopup('Lokasi Tujuan');
     const cur = getPackagePosition(order, route?.coords);
-    pickerMarker = L.marker(cur, { icon: L.divIcon({ html:'<div class="map-marker package"><i class="fas fa-truck-fast"></i></div>', className:'custom-map-marker', iconSize:[42,42], iconAnchor:[21,42] }), draggable: true })
-      .addTo(pickerMapInstance).bindPopup('Geser untuk atur posisi');
+    pickerMarker = L.marker(cur, { icon: L.divIcon({ html:'<div class="map-marker package"><i class="fas fa-truck-fast"></i></div>', className:'custom-map-marker', iconSize:[42,42], iconAnchor:[21,42] }), draggable: true }).addTo(pickerMapInstance).bindPopup('Geser untuk atur posisi');
     pickerMapInstance.on('click', e => { pickerMarker.setLatLng(e.latlng); });
-
     const bounds = L.latLngBounds([from, dest, cur]);
     pickerMapInstance.fitBounds(bounds, { padding: [40, 40] });
     setTimeout(() => pickerMapInstance && pickerMapInstance.invalidateSize(), 250);
@@ -2735,9 +2634,7 @@ async function savePickerLocation() {
   const btn = $("#btnSaveLokasi");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
   try {
-    await updateDoc(doc(db, "orders", currentPickerOrderId), {
-      currentLat: pos.lat, currentLng: pos.lng, locationUpdatedAt: serverTimestamp()
-    });
+    await updateDoc(doc(db, "orders", currentPickerOrderId), { currentLat: pos.lat, currentLng: pos.lng, locationUpdatedAt: serverTimestamp() });
     toast("Lokasi paket berhasil diperbarui ✓", "ok");
     $("#pickerOverlay").classList.remove("show");
   } catch (err) { toast("Gagal menyimpan: " + err.message, "err"); }
@@ -2750,7 +2647,6 @@ function updateCourierUI(coords, accuracy, active) {
   const coordsTxt = $("#courierCoordsText");
   const accTxt = $("#courierAccuracyText");
   const btn = $("#btnToggleBroadcast");
-
   if (active) {
     dot.classList.add("active");
     txt.textContent = "🟢 LIVE · Aktif";
@@ -2764,17 +2660,14 @@ function updateCourierUI(coords, accuracy, active) {
     btn.innerHTML = '<i class="fas fa-play"></i> Mulai Bagikan Lokasi';
     btn.classList.remove("running");
   }
-
   if (coords) coordsTxt.textContent = `${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`;
   else coordsTxt.textContent = "-";
-
   if (accuracy != null && !isNaN(accuracy)) {
     accTxt.textContent = `±${Math.round(accuracy)} m`;
     if (accuracy < 20) accTxt.style.color = "#059669";
     else if (accuracy < 50) accTxt.style.color = "#D97706";
     else accTxt.style.color = "#DC2626";
   } else { accTxt.textContent = "-"; accTxt.style.color = ""; }
-
   if (active) btn.disabled = false;
 }
 
@@ -2782,46 +2675,25 @@ async function openCourierMode(orderId) {
   courierOrderId = orderId;
   const order = allOrders.find(o => o.id === orderId);
   if (!order) return;
-
   $("#courierOverlay").classList.add("show");
   updateCourierUI(null, null, false);
-
   if (courierWatchId != null && order.courierActive) {
-    updateCourierUI(
-      order.currentLat != null ? [Number(order.currentLat), Number(order.currentLng)] : null,
-      order.accuracy ?? null, true
-    );
+    updateCourierUI(order.currentLat != null ? [Number(order.currentLat), Number(order.currentLng)] : null, order.accuracy ?? null, true);
     $("#courierLastUpdateText").textContent = timeAgoShort(order.locationUpdatedAt);
-  } else {
-    $("#courierLastUpdateText").textContent = "-";
-  }
-
+  } else { $("#courierLastUpdateText").textContent = "-"; }
   setTimeout(() => {
     if (courierMapInstance) { courierMapInstance.remove(); courierMapInstance = null; }
     const dest = getDestination(order);
-    const cur = (order.currentLat != null && order.currentLng != null)
-      ? [Number(order.currentLat), Number(order.currentLng)]
-      : [KOPERASI_LAT, KOPERASI_LNG];
-
+    const cur = (order.currentLat != null && order.currentLng != null) ? [Number(order.currentLat), Number(order.currentLng)] : [KOPERASI_LAT, KOPERASI_LNG];
     courierMapInstance = L.map('courierMap').setView(cur, 15);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(courierMapInstance);
-
     getOSRMRoute([KOPERASI_LAT, KOPERASI_LNG], dest).then(route => {
-      if (route && courierMapInstance) {
-        L.polyline(route.coords, { color: '#DC2626', weight: 3, opacity: 0.5, dashArray: '8, 6' }).addTo(courierMapInstance);
-      }
+      if (route && courierMapInstance) L.polyline(route.coords, { color: '#DC2626', weight: 3, opacity: 0.5, dashArray: '8, 6' }).addTo(courierMapInstance);
     });
-
-    L.marker([KOPERASI_LAT, KOPERASI_LNG], { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[32,32], iconAnchor:[16,32] }) })
-      .addTo(courierMapInstance).bindPopup('Koperasi');
-    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[32,32], iconAnchor:[16,32] }) })
-      .addTo(courierMapInstance).bindPopup('Tujuan Pengiriman');
-
-    courierMarker = L.marker(cur, { icon: L.divIcon({ html:'<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>', className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) })
-      .addTo(courierMapInstance).bindPopup('Posisi Kurir');
-
+    L.marker([KOPERASI_LAT, KOPERASI_LNG], { icon: L.divIcon({ html:'<div class="map-marker koperasi"><i class="fas fa-store"></i></div>', className:'custom-map-marker', iconSize:[32,32], iconAnchor:[16,32] }) }).addTo(courierMapInstance).bindPopup('Koperasi');
+    L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[32,32], iconAnchor:[16,32] }) }).addTo(courierMapInstance).bindPopup('Tujuan Pengiriman');
+    courierMarker = L.marker(cur, { icon: L.divIcon({ html:'<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>', className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) }).addTo(courierMapInstance).bindPopup('Posisi Kurir');
     courierAccuracyCircle = L.circle(cur, { radius: 20, color: '#3B82F6', fillColor: '#3B82F6', fillOpacity: 0.15, weight: 2 }).addTo(courierMapInstance);
-
     setTimeout(() => courierMapInstance && courierMapInstance.invalidateSize(), 250);
   }, 150);
 }
@@ -2829,48 +2701,31 @@ async function openCourierMode(orderId) {
 function startCourierBroadcast() {
   if (!courierOrderId) return;
   if (!navigator.geolocation) { toast("Browser tidak mendukung GPS", "err"); return; }
-
   const btn = $("#btnToggleBroadcast");
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghubungkan GPS...';
-
   courierFirstFix = true;
   courierLastPos = null;
   courierLastWrite = 0;
-
-  updateDoc(doc(db, "orders", courierOrderId), {
-    courierActive: true, locationUpdatedAt: serverTimestamp()
-  }).then(() => { courierLastWrite = Date.now(); }).catch(e => console.warn(e));
-
+  updateDoc(doc(db, "orders", courierOrderId), { courierActive: true, locationUpdatedAt: serverTimestamp() }).then(() => { courierLastWrite = Date.now(); }).catch(e => console.warn(e));
   courierWatchId = navigator.geolocation.watchPosition(
     async (pos) => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-      const acc = pos.coords.accuracy;
-
+      const lat = pos.coords.latitude, lng = pos.coords.longitude, acc = pos.coords.accuracy;
       if (courierMarker && courierMapInstance) {
         const newPos = [lat, lng];
         courierMarker.setLatLng(newPos);
         if (courierAccuracyCircle) courierAccuracyCircle.setLatLng(newPos).setRadius(Math.max(10, acc));
         if (courierFirstFix) { courierMapInstance.setView(newPos, 16); courierFirstFix = false; }
       }
-
       updateCourierUI([lat, lng], acc, true);
       $("#courierLastUpdateText").textContent = "baru saja";
-
       const now = Date.now();
       const moved = courierLastPos ? haversineDistance(courierLastPos, [lat, lng]) : 99999;
       if (now - courierLastWrite > COURIER_WRITE_INTERVAL_MS || moved > COURIER_WRITE_DISTANCE_M) {
         courierLastWrite = now;
         courierLastPos = [lat, lng];
-        try {
-          await updateDoc(doc(db, "orders", courierOrderId), {
-            currentLat: lat, currentLng: lng, accuracy: acc,
-            courierActive: true, locationUpdatedAt: serverTimestamp()
-          });
-        } catch (e) { console.warn("GPS write error:", e); }
+        try { await updateDoc(doc(db, "orders", courierOrderId), { currentLat: lat, currentLng: lng, accuracy: acc, courierActive: true, locationUpdatedAt: serverTimestamp() }); } catch (e) { console.warn("GPS write error:", e); }
       }
-
       btn.disabled = false;
     },
     (err) => {
@@ -2883,22 +2738,15 @@ function startCourierBroadcast() {
     },
     { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 }
   );
-
   toast("🛰️ Broadcast GPS aktif", "ok");
 }
 
 async function stopCourierBroadcast(silent = false) {
   if (courierWatchId != null) { navigator.geolocation.clearWatch(courierWatchId); courierWatchId = null; }
   courierFirstFix = true;
-
   if (courierOrderId) {
-    try {
-      await updateDoc(doc(db, "orders", courierOrderId), {
-        courierActive: false, locationUpdatedAt: serverTimestamp()
-      });
-    } catch (e) { console.warn(e); }
+    try { await updateDoc(doc(db, "orders", courierOrderId), { courierActive: false, locationUpdatedAt: serverTimestamp() }); } catch (e) { console.warn(e); }
   }
-
   courierLastPos = null; courierLastWrite = 0;
   updateCourierUI(null, null, false);
   $("#courierLastUpdateText").textContent = "-";
@@ -2919,11 +2767,7 @@ function closeCourierMode() {
 
 $("#courierClose")?.addEventListener("click", closeCourierMode);
 $("#courierOverlay")?.addEventListener("click", e => { if (e.target === $("#courierOverlay")) closeCourierMode(); });
-$("#btnToggleBroadcast")?.addEventListener("click", () => {
-  if (courierWatchId != null) stopCourierBroadcast();
-  else startCourierBroadcast();
-});
-
+$("#btnToggleBroadcast")?.addEventListener("click", () => { if (courierWatchId != null) stopCourierBroadcast(); else startCourierBroadcast(); });
 $("#mapClose")?.addEventListener("click", () => {
   currentTrackOrderId = null;
   $("#mapOverlay").classList.remove("show");
@@ -2943,19 +2787,10 @@ $("#pickerOverlay")?.addEventListener("click", e => { if (e.target === $("#picke
 $("#btnSaveLokasi")?.addEventListener("click", savePickerLocation);
 $("#btnShareLoc")?.addEventListener("click", shareCurrentLocation);
 
-/* ============ ADDRESS LIST & FORM EVENTS ============ */
-$("#btnAlamatTersimpan")?.addEventListener("click", () => {
-  addressReturnContext = 'profile';
-  openAddressList();
-});
+$("#btnAlamatTersimpan")?.addEventListener("click", () => { addressReturnContext = 'profile'; openAddressList(); });
 $("#addressListClose")?.addEventListener("click", () => $("#addressListOverlay").classList.remove("show"));
-$("#addressListOverlay")?.addEventListener("click", e => {
-  if (e.target === $("#addressListOverlay")) $("#addressListOverlay").classList.remove("show");
-});
-$("#btnAddAddress")?.addEventListener("click", () => {
-  addressReturnContext = 'profile';
-  openAddressForm();
-});
+$("#addressListOverlay")?.addEventListener("click", e => { if (e.target === $("#addressListOverlay")) $("#addressListOverlay").classList.remove("show"); });
+$("#btnAddAddress")?.addEventListener("click", () => { addressReturnContext = 'profile'; openAddressForm(); });
 $("#addressListContainer")?.addEventListener("click", e => {
   const edit = e.target.closest('[data-addr-edit]');
   const del = e.target.closest('[data-addr-del]');
@@ -2964,20 +2799,8 @@ $("#addressListContainer")?.addEventListener("click", e => {
   if (del) deleteAddress(del.dataset.addrDel);
   if (use) useAddressForCheckout(use.dataset.addrUse);
 });
-$("#addressFormClose")?.addEventListener("click", () => {
-  $("#addressFormOverlay").classList.remove("show");
-  if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
-  addressMarker = null;
-  addressReturnContext = 'profile';
-});
-$("#addressFormOverlay")?.addEventListener("click", e => {
-  if (e.target === $("#addressFormOverlay")) {
-    $("#addressFormOverlay").classList.remove("show");
-    if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; }
-    addressMarker = null;
-    addressReturnContext = 'profile';
-  }
-});
+$("#addressFormClose")?.addEventListener("click", () => { $("#addressFormOverlay").classList.remove("show"); if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; } addressMarker = null; addressReturnContext = 'profile'; });
+$("#addressFormOverlay")?.addEventListener("click", e => { if (e.target === $("#addressFormOverlay")) { $("#addressFormOverlay").classList.remove("show"); if (addressMapInstance) { addressMapInstance.remove(); addressMapInstance = null; } addressMarker = null; addressReturnContext = 'profile'; } });
 $("#addrGpsBtn")?.addEventListener("click", useGpsForAddress);
 $("#btnSaveAddress")?.addEventListener("click", saveAddress);
 $("#addrLabelChips")?.addEventListener("click", e => {
@@ -2988,35 +2811,20 @@ $("#addrLabelChips")?.addEventListener("click", e => {
   document.getElementById('addrLabel').value = chip.dataset.label || '';
 });
 
-/* ============ CLOUDINARY (MULTI UPLOAD) ============ */
 let cloudinaryWidget = null;
 function initCloudinaryWidget() {
   if (typeof cloudinary === "undefined") return;
   cloudinaryWidget = cloudinary.createUploadWidget({
-    cloudName: CLOUDINARY_CLOUD_NAME,
-    uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-    folder: CLOUDINARY_FOLDER,
-    sources: ["local", "camera", "url"],
-    multiple: true,
-    maxFileSize: 5000000,
-    clientAllowedFormats: ["jpg","jpeg","png","webp","gif"],
-    cropping: false,
-    language: "id"
+    cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET, folder: CLOUDINARY_FOLDER,
+    sources: ["local", "camera", "url"], multiple: true, maxFileSize: 5000000,
+    clientAllowedFormats: ["jpg","jpeg","png","webp","gif"], cropping: false, language: "id"
   }, (error, result) => {
     if (error) { toast("Upload gagal: " + (error.message || "coba lagi"), "err"); return; }
-    if (result.event === "success") {
-      addFormImage(result.info.secure_url);
-      toast("Foto berhasil diupload ✓", "ok");
-    }
+    if (result.event === "success") { addFormImage(result.info.secure_url); toast("Foto berhasil diupload ✓", "ok"); }
   });
 }
-function openCloudinaryWidget() {
-  if (!cloudinaryWidget) initCloudinaryWidget();
-  if (cloudinaryWidget) cloudinaryWidget.open();
-  else toast("Cloudinary belum siap.", "err");
-}
+function openCloudinaryWidget() { if (!cloudinaryWidget) initCloudinaryWidget(); if (cloudinaryWidget) cloudinaryWidget.open(); else toast("Cloudinary belum siap.", "err"); }
 
-/* ============ MULTI IMAGE FORM ============ */
 function renderFormImages() {
   const grid = document.getElementById('imgUploadGrid');
   if (!grid) return;
@@ -3024,32 +2832,15 @@ function renderFormImages() {
     <div class="img-thumb ${i === 0 ? 'main' : ''}">
       <img src="${esc(url)}" onerror="this.src='${PLACEHOLDER}'">
       <button type="button" class="img-del" data-img-del="${i}" aria-label="Hapus foto"><i class="fas fa-xmark"></i></button>
-    </div>
-  `).join("");
-  const addBtn = `
-    <button type="button" class="img-add-btn" id="imgAddBtn">
-      <i class="fas fa-cloud-arrow-up"></i>
-      <span>Upload</span>
-    </button>
-  `;
+    </div>`).join("");
+  const addBtn = `<button type="button" class="img-add-btn" id="imgAddBtn"><i class="fas fa-cloud-arrow-up"></i><span>Upload</span></button>`;
   grid.innerHTML = thumbs + addBtn;
-
   grid.querySelector('#imgAddBtn').addEventListener('click', openCloudinaryWidget);
   grid.querySelectorAll('[data-img-del]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const idx = Number(btn.dataset.imgDel);
-      formImages.splice(idx, 1);
-      renderFormImages();
-    });
+    btn.addEventListener('click', (e) => { e.stopPropagation(); const idx = Number(btn.dataset.imgDel); formImages.splice(idx, 1); renderFormImages(); });
   });
 }
-
-function addFormImage(url) {
-  if (!url) return;
-  formImages.push(url);
-  renderFormImages();
-}
+function addFormImage(url) { if (!url) return; formImages.push(url); renderFormImages(); }
 
 $("#btnAddUrl")?.addEventListener('click', () => {
   const input = document.getElementById('pGambarUrl');
@@ -3059,11 +2850,8 @@ $("#btnAddUrl")?.addEventListener('click', () => {
   if (input) input.value = '';
   toast('URL gambar ditambahkan ✓', 'ok');
 });
-$("#pGambarUrl")?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnAddUrl')?.click(); }
-});
+$("#pGambarUrl")?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnAddUrl')?.click(); } });
 
-/* ============ AUTH ============ */
 $$(".role-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     $$(".role-btn").forEach(b => b.classList.remove("active"));
@@ -3115,13 +2903,7 @@ $("#registerForm").addEventListener("submit", async e => {
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: nama });
-    await setDoc(doc(db, "users", cred.user.uid), {
-      nama, email, role: authRole,
-      telepon: authRole === "admin" ? "" : telp,
-      alamat : authRole === "admin" ? "" : alamat,
-      savedAddresses: [],
-      createdAt: serverTimestamp()
-    });
+    await setDoc(doc(db, "users", cred.user.uid), { nama, email, role: authRole, telepon: authRole === "admin" ? "" : telp, alamat : authRole === "admin" ? "" : alamat, savedAddresses: [], createdAt: serverTimestamp() });
     authMsg("Pendaftaran berhasil! Mengalihkan...", true);
   } catch (err) { authMsg(friendlyError(err)); }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Daftar Sekarang'; }
@@ -3143,11 +2925,8 @@ function friendlyError(err) {
 async function doLogout() {
   if (courierWatchId != null) await stopCourierBroadcast(true);
   detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
-  adminOrderIds.clear();
-  adminOrdersReady = false;
-  hasUnreadNotif = false;
-  updateNotifDot();
-  stopPromoAuto();
+  adminOrderIds.clear(); adminOrdersReady = false;
+  hasUnreadNotif = false; updateNotifDot(); stopPromoAuto();
   try { sessionStorage.removeItem('kmp_login_sound'); } catch(e) {}
   await signOut(auth);
   toast("Kamu telah keluar");
@@ -3172,21 +2951,18 @@ function detachListeners() {
   [unsubProducts, unsubOrders, unsubAdminOrders, unsubCustomers].forEach(fn => fn && fn());
   unsubProducts = unsubOrders = unsubAdminOrders = unsubCustomers = null;
   statusMapInitialized = false; lastStatusMap = {};
-  adminOrderIds.clear();
-  adminOrdersReady = false;
+  adminOrderIds.clear(); adminOrdersReady = false;
   stopLiveTimer();
 }
 
-/* ============ CUSTOMER ============ */
 function initCustomer() {
   detachListeners();
-
   showScreen("customerScreen");
   loadCart(); loadWish(); loadSavedAddresses();
   loadNotifUnreadState();
-  $("#userName").textContent      = currentUser.nama || "Pelanggan";
-  $("#profileNama").textContent   = currentUser.nama || "Pelanggan";
-  $("#profileEmail").textContent  = currentUser.email || "";
+  $("#userName").textContent = currentUser.nama || "Pelanggan";
+  $("#profileNama").textContent = currentUser.nama || "Pelanggan";
+  $("#profileEmail").textContent = currentUser.email || "";
   $("#profileAvatar").textContent = initials(currentUser.nama);
   attachCustomerEvents();
   listenProducts();
@@ -3195,7 +2971,6 @@ function initCustomer() {
   updateWishHeaderBadge();
   switchView("home");
   startPromoAuto();
-
   setTimeout(playLoginSound, 800);
 }
 
@@ -3203,8 +2978,7 @@ function updateWishHeaderBadge() {
   const cnt = wishlist.length;
   const el = $("#wishHeaderCount");
   if (!el) return;
-  if (cnt > 0) { el.style.display = "flex"; el.textContent = cnt; }
-  else el.style.display = "none";
+  if (cnt > 0) { el.style.display = "flex"; el.textContent = cnt; } else el.style.display = "none";
 }
 
 function listenProducts() {
@@ -3214,8 +2988,7 @@ function listenProducts() {
     updatePromoBadge();
     if (currentPDProductId && $("#pdOverlay").classList.contains("show")) {
       const exists = allProducts.find(x => x.id === currentPDProductId);
-      if (exists) openProductDetail(currentPDProductId);
-      else closeProductDetail();
+      if (exists) openProductDetail(currentPDProductId); else closeProductDetail();
     }
   }, err => console.error("products:", err));
 }
@@ -3223,29 +2996,19 @@ function listenProducts() {
 function listenCustomerOrders() {
   const q = query(collection(db, "orders"), where("userId", "==", currentUser.uid));
   unsubOrders = onSnapshot(q, snap => {
-    const newOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-
+    const newOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     const prevMap = statusMapInitialized ? lastStatusMap : loadPersistedStatusMap();
-
     const changedStatuses = [];
-    newOrders.forEach(o => {
-      const old = prevMap[o.id];
-      if (old && old !== o.status && notifPesan[o.status]) changedStatuses.push(o.status);
-    });
-
+    newOrders.forEach(o => { const old = prevMap[o.id]; if (old && old !== o.status && notifPesan[o.status]) changedStatuses.push(o.status); });
     const newMap = {};
     newOrders.forEach(o => { newMap[o.id] = o.status; });
     lastStatusMap = newMap;
     statusMapInitialized = true;
     savePersistedStatusMap(newMap);
-
     allOrders = newOrders;
     renderOrders();
     updateOrderBadge();
-
     changedStatuses.forEach(st => showNotifPopup(st));
-
     if (currentTrackOrderId && $("#mapOverlay").classList.contains("show")) {
       const o = allOrders.find(x => x.id === currentTrackOrderId);
       if (o) {
@@ -3267,10 +3030,8 @@ function updateOrderBadge() {
   const navBtn = $(".nav-item[data-view='orders']");
   if (!navBtn) return;
   let b = navBtn.querySelector(".nav-badge");
-  if (aktif > 0) {
-    if (!b) { b = document.createElement("span"); b.className = "nav-badge"; navBtn.appendChild(b); }
-    b.textContent = aktif;
-  } else if (b) b.remove();
+  if (aktif > 0) { if (!b) { b = document.createElement("span"); b.className = "nav-badge"; navBtn.appendChild(b); } b.textContent = aktif; }
+  else if (b) b.remove();
 }
 
 function updatePromoBadge() {
@@ -3278,19 +3039,15 @@ function updatePromoBadge() {
   const navBtn = $(".nav-item[data-view='promo']");
   if (!navBtn) return;
   let b = navBtn.querySelector(".nav-badge");
-  if (count > 0) {
-    if (!b) { b = document.createElement("span"); b.className = "nav-badge"; navBtn.appendChild(b); }
-    b.textContent = count;
-  } else if (b) b.remove();
+  if (count > 0) { if (!b) { b = document.createElement("span"); b.className = "nav-badge"; navBtn.appendChild(b); } b.textContent = count; }
+  else if (b) b.remove();
 }
 
 function renderCategories() {
   const cats = ["Semua Produk", ...new Set(allProducts.map(p => p.kategori).filter(Boolean))];
   $("#categories").innerHTML = cats.map(c => {
     const isUmkm = c === UMKM_CAT;
-    return `<button class="category-btn ${isUmkm ? "umkm-cat" : ""} ${c === activeCategory ? "active" : ""}" data-cat="${esc(c)}">
-      ${isUmkm ? '<i class="fas fa-store" style="margin-right:5px;font-size:10px"></i>' : ""}${esc(c)}
-    </button>`;
+    return `<button class="category-btn ${isUmkm ? "umkm-cat" : ""} ${c === activeCategory ? "active" : ""}" data-cat="${esc(c)}">${isUmkm ? '<i class="fas fa-store" style="margin-right:5px;font-size:10px"></i>' : ""}${esc(c)}</button>`;
   }).join("");
 }
 
@@ -3302,13 +3059,15 @@ function productCardHTML(p) {
   const hargaFinal = hargaSetelahDiskon(hargaAsli, diskon);
   const adaDiskon = diskon > 0;
   const isUmkm = p.kategori === UMKM_CAT;
+  const isSubsidi = !!p.subsidi;
   const umkmStore = (p.umkm || "").trim();
   const images = getProductImages(p);
   const imgCount = images.length;
   return `
-  <div class="product-card ${isUmkm ? "is-umkm" : ""} ${adaDiskon ? "is-promo" : ""}" data-id="${p.id}">
+  <div class="product-card ${isUmkm ? "is-umkm" : ""} ${adaDiskon ? "is-promo" : ""} ${isSubsidi ? "is-subsidi" : ""}" data-id="${p.id}">
     ${adaDiskon ? `<div class="discount-ribbon">-${diskon}%</div>` : ""}
     ${isUmkm ? `<div class="umkm-badge"><i class="fas fa-store"></i> UMKM</div>` : ""}
+    ${isSubsidi ? `<div class="subsidi-badge" style="${isUmkm ? 'top:32px;' : ''}"><i class="fas fa-hand-holding-heart"></i> Subsidi</div>` : ""}
     <div class="product-img-wrap">
       <img src="${esc(images[0])}" class="product-img" alt="${esc(p.nama)}" onerror="this.src='${PLACEHOLDER}'">
       ${imgCount > 1 ? `<span class="img-count-badge"><i class="fas fa-camera"></i> ${imgCount}</span>` : ""}
@@ -3335,16 +3094,12 @@ function renderProducts() {
   if (sortMode === 2) list.sort((a, b) => hargaSetelahDiskon(b.harga, b.diskon) - hargaSetelahDiskon(a.harga, a.diskon));
   if (sortMode === 3) list.sort((a, b) => (b.terjual || 0) - (a.terjual || 0));
   $("#productCount").textContent = list.length + " produk";
-  $("#productGrid").innerHTML = list.length
-    ? list.map(productCardHTML).join("")
-    : `<div class="empty-state"><i class="fas fa-box-open"></i>Produk tidak ditemukan</div>`;
+  $("#productGrid").innerHTML = list.length ? list.map(productCardHTML).join("") : `<div class="empty-state"><i class="fas fa-box-open"></i>Produk tidak ditemukan</div>`;
 }
 
 function renderWishlist() {
   const list = allProducts.filter(p => wishlist.includes(p.id));
-  $("#wishlistGrid").innerHTML = list.length
-    ? list.map(productCardHTML).join("")
-    : `<div class="empty-state"><i class="fas fa-heart-crack"></i>Belum ada produk favorit</div>`;
+  $("#wishlistGrid").innerHTML = list.length ? list.map(productCardHTML).join("") : `<div class="empty-state"><i class="fas fa-heart-crack"></i>Belum ada produk favorit</div>`;
   updateWishHeaderBadge();
 }
 
@@ -3352,59 +3107,42 @@ function renderUmkm() {
   const list = allProducts.filter(p => p.kategori === UMKM_CAT).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
   const cntEl = $("#umkmCount"); if (cntEl) cntEl.textContent = list.length + " produk";
   const grid = $("#umkmGrid"); if (!grid) return;
-  grid.innerHTML = list.length ? list.map(productCardHTML).join("")
-    : `<div class="empty-state"><i class="fas fa-store-slash"></i>Belum ada produk UMKM.<br><span style="font-size:11px;color:var(--text-mute)">Nantikan produk lokal dari warga desa!</span></div>`;
+  grid.innerHTML = list.length ? list.map(productCardHTML).join("") : `<div class="empty-state"><i class="fas fa-store-slash"></i>Belum ada produk UMKM.<br><span style="font-size:11px;color:var(--text-mute)">Nantikan produk lokal dari warga desa!</span></div>`;
 }
 
 function renderPromo() {
   const list = allProducts.filter(p => Number(p.diskon) > 0).sort((a, b) => Number(b.diskon) - Number(a.diskon));
   const cntEl = $("#promoCount"); if (cntEl) cntEl.textContent = list.length + " produk";
   const grid = $("#promoGrid"); if (!grid) return;
-  grid.innerHTML = list.length ? list.map(productCardHTML).join("")
-    : `<div class="empty-state"><i class="fas fa-fire"></i>Belum ada produk diskon saat ini.<br><span style="font-size:11px;color:var(--text-mute)">Cek lagi nanti ya!</span></div>`;
+  grid.innerHTML = list.length ? list.map(productCardHTML).join("") : `<div class="empty-state"><i class="fas fa-fire"></i>Belum ada produk diskon saat ini.<br><span style="font-size:11px;color:var(--text-mute)">Cek lagi nanti ya!</span></div>`;
 }
 
 function timelineHTML(status) {
   const steps = [
-    { key:"pending",   label:"Dipesan",  icon:"fa-receipt" },
-    { key:"diproses",  label:"Diproses", icon:"fa-box-open" },
-    { key:"dikirim",   label:"Dikirim",  icon:"fa-truck-fast" },
-    { key:"selesai",   label:"Selesai",  icon:"fa-circle-check" }
+    { key:"pending", label:"Dipesan", icon:"fa-receipt" },
+    { key:"diproses", label:"Diproses", icon:"fa-box-open" },
+    { key:"dikirim", label:"Dikirim", icon:"fa-truck-fast" },
+    { key:"selesai", label:"Selesai", icon:"fa-circle-check" }
   ];
   const order = ["pending","diproses","dikirim","selesai"];
   const currentIdx = order.indexOf(status);
   if (status === "dibatalkan") {
-    return `<div class="batal-alert"><div class="icon-box"><i class="fas fa-circle-xmark"></i></div>
-      <div class="text"><strong>Pesanan Dibatalkan</strong><span>Hubungi admin koperasi untuk info lebih lanjut</span></div></div>`;
+    return `<div class="batal-alert"><div class="icon-box"><i class="fas fa-circle-xmark"></i></div><div class="text"><strong>Pesanan Dibatalkan</strong><span>Hubungi admin koperasi untuk info lebih lanjut</span></div></div>`;
   }
   const progress = currentIdx < 0 ? 0 : (currentIdx / (steps.length - 1)) * 100;
   return `<div class="timeline" style="--progress:${progress}%">
     ${steps.map((s, i) => {
       const done = i <= currentIdx;
       const current = i === currentIdx && status !== "selesai";
-      return `<div class="tl-step ${done ? "done" : ""} ${current ? "current" : ""}">
-        <div class="tl-dot"><i class="fas ${s.icon}"></i></div>
-        <span class="tl-label">${s.label}</span>
-      </div>`;
+      return `<div class="tl-step ${done ? "done" : ""} ${current ? "current" : ""}"><div class="tl-dot"><i class="fas ${s.icon}"></i></div><span class="tl-label">${s.label}</span></div>`;
     }).join("")}
   </div>`;
 }
 
 function shippingAlertHTML(status) {
-  if (status === "dikirim") {
-    return `<div class="shipping-alert"><div class="icon-box"><i class="fas fa-truck-fast"></i></div>
-      <div class="text"><strong>🚚 Pesanan Sedang Dikirim!</strong><span>Kurir sedang menuju ke alamatmu. Mohon siap menerima pesanan.</span></div></div>`;
-  }
-  if (status === "diproses") {
-    return `<div class="shipping-alert" style="background:#EFF6FF;border-color:#BFDBFE">
-      <div class="icon-box" style="background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 6px 14px rgba(37,99,235,.3)"><i class="fas fa-box-open"></i></div>
-      <div class="text"><strong style="color:#1D4ED8">📦 Sedang Dikemas</strong><span>Petugas sedang menyiapkan pesananmu dengan teliti.</span></div></div>`;
-  }
-  if (status === "selesai") {
-    return `<div class="shipping-alert" style="background:#ECFDF5;border-color:#6EE7B7">
-      <div class="icon-box" style="background:linear-gradient(135deg,#059669,#047857);box-shadow:0 6px 14px rgba(5,150,105,.3)"><i class="fas fa-circle-check"></i></div>
-      <div class="text"><strong style="color:#047857">✅ Pesanan Selesai</strong><span>Terima kasih telah berbelanja di Koperasi Merah Putih!</span></div></div>`;
-  }
+  if (status === "dikirim") return `<div class="shipping-alert"><div class="icon-box"><i class="fas fa-truck-fast"></i></div><div class="text"><strong>🚚 Pesanan Sedang Dikirim!</strong><span>Kurir sedang menuju ke alamatmu. Mohon siap menerima pesanan.</span></div></div>`;
+  if (status === "diproses") return `<div class="shipping-alert" style="background:#EFF6FF;border-color:#BFDBFE"><div class="icon-box" style="background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 6px 14px rgba(37,99,235,.3)"><i class="fas fa-box-open"></i></div><div class="text"><strong style="color:#1D4ED8">📦 Sedang Dikemas</strong><span>Petugas sedang menyiapkan pesananmu dengan teliti.</span></div></div>`;
+  if (status === "selesai") return `<div class="shipping-alert" style="background:#ECFDF5;border-color:#6EE7B7"><div class="icon-box" style="background:linear-gradient(135deg,#059669,#047857);box-shadow:0 6px 14px rgba(5,150,105,.3)"><i class="fas fa-circle-check"></i></div><div class="text"><strong style="color:#047857">✅ Pesanan Selesai</strong><span>Terima kasih telah berbelanja di Koperasi Merah Putih!</span></div></div>`;
   return "";
 }
 
@@ -3415,10 +3153,7 @@ function paymentInfoHTML(pay) {
   if (pay === "qris")  detail = "Bayar via scan QR Code";
   if (pay === "dana")  detail = "Transfer ke DANA 0812-3456-7890";
   if (pay === "gopay") detail = "Transfer ke GoPay 0812-3456-7890";
-  return `<div class="payment-info">
-    <div class="pay-icon ${pay}"><i class="fas ${info.icon}"></i></div>
-    <div class="pay-text"><strong>Pembayaran: ${info.label}</strong><span>${detail}</span></div>
-  </div>`;
+  return `<div class="payment-info"><div class="pay-icon ${pay}"><i class="fas ${info.icon}"></i></div><div class="pay-text"><strong>Pembayaran: ${info.label}</strong><span>${detail}</span></div></div>`;
 }
 
 function trackButtonHTML(o) {
@@ -3427,72 +3162,42 @@ function trackButtonHTML(o) {
   let cls = "", label = "Lacak Lokasi Paket", icon = "fa-map-location-dot";
   if (o.status === "selesai") cls = "track-done";
   if (live) { cls = "track-live"; label = "🔴 Lacak Kurir LIVE"; icon = "fa-satellite-dish"; }
-  return `<button class="btn-track ${cls}" data-track="${o.id}">
-    <i class="fas ${icon}"></i> ${label}
-  </button>`;
+  return `<button class="btn-track ${cls}" data-track="${o.id}"><i class="fas ${icon}"></i> ${label}</button>`;
 }
 
 function cancelButtonHTML(o) {
   if (o.status !== "pending" && o.status !== "diproses") return "";
-  return `<button class="btn-cancel" data-cancel="${o.id}">
-    <i class="fas fa-circle-xmark"></i> Batalkan Pesanan
-  </button>`;
+  return `<button class="btn-cancel" data-cancel="${o.id}"><i class="fas fa-circle-xmark"></i> Batalkan Pesanan</button>`;
 }
 
 async function cancelOrder(orderId) {
   const order = allOrders.find(o => o.id === orderId);
   if (!order) return;
-
-  if (order.status !== "pending" && order.status !== "diproses") {
-    return toast("Pesanan ini tidak dapat dibatalkan", "err");
-  }
-
-  const ok = confirm(
-    "Yakin ingin membatalkan pesanan ini?\n\n" +
-    "• Pesanan tidak dapat dikembalikan setelah dibatalkan\n" +
-    "• Stok produk akan otomatis dikembalikan ke koperasi"
-  );
+  if (order.status !== "pending" && order.status !== "diproses") return toast("Pesanan ini tidak dapat dibatalkan", "err");
+  const ok = confirm("Yakin ingin membatalkan pesanan ini?\n\n• Pesanan tidak dapat dikembalikan setelah dibatalkan\n• Stok produk akan otomatis dikembalikan ke koperasi");
   if (!ok) return;
-
   const btn = document.querySelector(`[data-cancel="${orderId}"]`);
-  if (btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membatalkan...';
-  }
-
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membatalkan...'; }
   try {
     for (const item of (order.items || [])) {
-      try {
-        await updateDoc(doc(db, "products", item.id), {
-          stok: increment(item.qty),
-          terjual: increment(-item.qty)
-        });
-      } catch (e) { console.warn("Restore stock err:", e); }
+      try { await updateDoc(doc(db, "products", item.id), { stok: increment(item.qty), terjual: increment(-item.qty) }); } catch (e) { console.warn("Restore stock err:", e); }
     }
-
-    await updateDoc(doc(db, "orders", orderId), {
-      status: "dibatalkan",
-      cancelledAt: serverTimestamp(),
-      cancelledBy: "customer",
-      updatedAt: serverTimestamp()
-    });
-
+    await updateDoc(doc(db, "orders", orderId), { status: "dibatalkan", cancelledAt: serverTimestamp(), cancelledBy: "customer", updatedAt: serverTimestamp() });
     toast("Pesanan berhasil dibatalkan ✓", "ok");
   } catch (err) {
     toast("Gagal membatalkan: " + err.message, "err");
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-circle-xmark"></i> Batalkan Pesanan';
-    }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-circle-xmark"></i> Batalkan Pesanan'; }
   }
 }
 
 function orderItemHTML(i) {
   const img = i.gambar || PLACEHOLDER;
+  const p = allProducts.find(x => x.id === i.id);
+  const isSubsidi = !!p?.subsidi;
   return `<div class="order-item">
     <img src="${esc(img)}" class="order-item-img" onerror="this.src='${PLACEHOLDER}'" alt="${esc(i.nama)}">
     <div class="order-item-info">
-      <span>${esc(i.nama)} × ${i.qty}</span>
+      <span>${esc(i.nama)} × ${i.qty}${isSubsidi ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</span>
       <span>${rupiah(i.harga * i.qty)}</span>
     </div>
   </div>`;
@@ -3500,10 +3205,7 @@ function orderItemHTML(i) {
 
 function renderOrders() {
   const el = $("#ordersList");
-  if (!allOrders.length) {
-    el.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`;
-    return;
-  }
+  if (!allOrders.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`; return; }
   el.innerHTML = allOrders.map(o => {
     const live = isCourierLive(o);
     const isCancelled = o.status === "dibatalkan";
@@ -3537,9 +3239,9 @@ function switchView(view) {
   $$(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === view));
   const sc = $(".app-scroll"); if (sc) sc.scrollTop = 0;
   if (view === "wishlist") renderWishlist();
-  if (view === "umkm")     renderUmkm();
-  if (view === "promo")    renderPromo();
-  if (view === "orders")   setUnreadNotif(false);
+  if (view === "umkm") renderUmkm();
+  if (view === "promo") renderPromo();
+  if (view === "orders") setUnreadNotif(false);
 }
 
 let customerEventsAttached = false;
@@ -3547,55 +3249,30 @@ function attachCustomerEvents() {
   if (customerEventsAttached) return;
   customerEventsAttached = true;
   $$(".nav-item").forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
-
   const scroller = $(".app-scroll");
   const headerEl = $("#appHeader");
-  if (scroller && headerEl) {
-    scroller.addEventListener("scroll", () => { headerEl.classList.toggle("scrolled", scroller.scrollTop > 8); }, { passive: true });
-  }
+  if (scroller && headerEl) scroller.addEventListener("scroll", () => { headerEl.classList.toggle("scrolled", scroller.scrollTop > 8); }, { passive: true });
 
-  $("#categories").addEventListener("click", e => {
-    const b = e.target.closest(".category-btn"); if (!b) return;
-    activeCategory = b.dataset.cat;
-    $$(".category-btn").forEach(x => x.classList.toggle("active", x === b));
-    renderProducts();
-  });
+  $("#categories").addEventListener("click", e => { const b = e.target.closest(".category-btn"); if (!b) return; activeCategory = b.dataset.cat; $$(".category-btn").forEach(x => x.classList.toggle("active", x === b)); renderProducts(); });
   $("#searchInput").addEventListener("input", e => { searchTerm = e.target.value; renderProducts(); });
-  $("#sortBtn").addEventListener("click", () => {
-    sortMode = (sortMode + 1) % 4;
-    const labels = ["Default", "Termurah", "Termahal", "Terlaris"];
-    toast("Urutkan: " + labels[sortMode]);
-    $("#sortBtn").classList.toggle("active", sortMode !== 0);
-    renderProducts();
-  });
+  $("#sortBtn").addEventListener("click", () => { sortMode = (sortMode + 1) % 4; const labels = ["Default", "Termurah", "Termahal", "Terlaris"]; toast("Urutkan: " + labels[sortMode]); $("#sortBtn").classList.toggle("active", sortMode !== 0); renderProducts(); });
 
   const slider = document.getElementById('promoSlider');
   if (slider) {
-    slider.querySelectorAll('.promo-dot').forEach((d, i) => {
-      d.addEventListener('click', () => { goPromoSlide(i); startPromoAuto(); });
-    });
-    slider.querySelectorAll('.shop-now-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const go = btn.dataset.go;
-        if (go === 'promo') switchView('promo');
-        else if (go === 'umkm') switchView('umkm');
-        else switchView('home');
-      });
-    });
+    slider.querySelectorAll('.promo-dot').forEach((d, i) => d.addEventListener('click', () => { goPromoSlide(i); startPromoAuto(); }));
+    slider.querySelectorAll('.shop-now-btn').forEach(btn => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const go = btn.dataset.go;
+      if (go === 'promo') switchView('promo');
+      else if (go === 'umkm') switchView('umkm');
+      else switchView('home');
+    }));
     let touchStartX = 0, touchStartY = 0;
-    slider.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      stopPromoAuto();
-    }, { passive: true });
+    slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; stopPromoAuto(); }, { passive: true });
     slider.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchStartX;
       const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-        if (dx < 0) goPromoSlide(promoSlideIdx + 1);
-        else goPromoSlide(promoSlideIdx - 1);
-      }
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) { if (dx < 0) goPromoSlide(promoSlideIdx + 1); else goPromoSlide(promoSlideIdx - 1); }
       startPromoAuto();
     }, { passive: true });
   }
@@ -3610,52 +3287,31 @@ function attachCustomerEvents() {
   $("#btnNotif").addEventListener("click", () => {
     setUnreadNotif(false);
     const aktif = allOrders.filter(o => o.status === "pending" || o.status === "diproses" || o.status === "dikirim").length;
-    if (aktif) { switchView("orders"); toast(`Ada ${aktif} pesanan aktif`); }
-    else { toast("Tidak ada notifikasi baru"); }
+    if (aktif) { switchView("orders"); toast(`Ada ${aktif} pesanan aktif`); } else { toast("Tidak ada notifikasi baru"); }
   });
   $("#btnRiwayat").addEventListener("click", () => switchView("orders"));
   document.addEventListener("click", e => {
     const wish = e.target.closest("[data-wish]");
     if (wish) { e.stopPropagation(); toggleWishlist(wish.dataset.wish); return; }
-
     const cancelBtn = e.target.closest("[data-cancel]");
-    if (cancelBtn) {
-      e.stopPropagation();
-      cancelOrder(cancelBtn.dataset.cancel);
-      return;
-    }
-
+    if (cancelBtn) { e.stopPropagation(); cancelOrder(cancelBtn.dataset.cancel); return; }
     const trackBtn = e.target.closest("[data-track]");
-    if (trackBtn) {
-      e.stopPropagation();
-      const order = allOrders.find(o => o.id === trackBtn.dataset.track);
-      if (order) openTrackingMap(order);
-      return;
-    }
+    if (trackBtn) { e.stopPropagation(); const order = allOrders.find(o => o.id === trackBtn.dataset.track); if (order) openTrackingMap(order); return; }
     const card = e.target.closest(".product-card");
-    if (card && $("#customerScreen").classList.contains("active")) {
-      openProductDetail(card.dataset.id);
-      return;
-    }
+    if (card && $("#customerScreen").classList.contains("active")) { openProductDetail(card.dataset.id); return; }
   });
   $("#cartBar").addEventListener("click", openCart);
   $("#cartClose").addEventListener("click", closeCart);
   $("#cartOverlay").addEventListener("click", e => { if (e.target === $("#cartOverlay")) closeCart(); });
   $("#btnCheckout").addEventListener("click", handleCheckout);
-  $("#cartItems").addEventListener("click", e => {
-    const btn = e.target.closest("[data-qty]"); if (!btn) return;
-    changeQty(btn.dataset.qid, Number(btn.dataset.qty));
-  });
+  $("#cartItems").addEventListener("click", e => { const btn = e.target.closest("[data-qty]"); if (!btn) return; changeQty(btn.dataset.qid, Number(btn.dataset.qty)); });
 
   document.querySelectorAll(".pay-option").forEach(opt => {
     opt.addEventListener("click", () => {
       document.querySelectorAll(".pay-option").forEach(o => o.classList.remove("selected"));
       opt.classList.add("selected");
       selectedPayment = opt.dataset.pay;
-      ["cod","qris","dana","gopay"].forEach(p => {
-        const inst = $("#payInst_" + p);
-        if (inst) inst.classList.toggle("show", p === selectedPayment);
-      });
+      ["cod","qris","dana","gopay"].forEach(p => { const inst = $("#payInst_" + p); if (inst) inst.classList.toggle("show", p === selectedPayment); });
       updateWaProofLinks();
     });
   });
@@ -3668,9 +3324,9 @@ function attachCustomerEvents() {
   });
 
   $("#btnEditProfil").addEventListener("click", () => {
-    $("#epNama").value    = currentUser.nama || "";
+    $("#epNama").value = currentUser.nama || "";
     $("#epTelepon").value = currentUser.telepon || "";
-    $("#epAlamat").value  = currentUser.alamat || "";
+    $("#epAlamat").value = currentUser.alamat || "";
     $("#profileOverlay").classList.add("show");
   });
   $("#profileClose").addEventListener("click", () => $("#profileOverlay").classList.remove("show"));
@@ -3687,18 +3343,28 @@ function toggleWishlist(id) {
 function addToCart(id) {
   const p = allProducts.find(x => x.id === id); if (!p) return;
   if (Number(p.stok || 0) <= 0) return toast("Maaf, stok produk habis", "err");
+  const isSubsidi = !!p.subsidi;
+  const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
+  if (isSubsidi) {
+    const conflict = findOtherSubsidiInCart(p.id);
+    if (conflict) return toast(`Tidak bisa membeli produk subsidi lain. Hapus "${conflict.nama}" dulu.`, "err");
+    if ((cart[p.id]?.qty || 0) >= 1) return toast("Produk subsidi maksimal 1 pcs", "err");
+    cart[p.id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: 1 };
+    saveCart(); updateCartBar(); toast(`${p.nama} (subsidi) ditambahkan`); return;
+  }
   const current = cart[id]?.qty || 0;
   if (current + 1 > Number(p.stok)) return toast("Stok tidak mencukupi", "err");
-  const hargaFinal = hargaSetelahDiskon(p.harga, p.diskon);
   cart[id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: current + 1 };
   saveCart(); updateCartBar(); toast(`${p.nama} ditambahkan`);
 }
 function changeQty(id, delta) {
   if (!cart[id]) return;
   const p = allProducts.find(x => x.id === id);
-  const max = p ? Number(p.stok) : 999;
+  const isSubsidi = !!p?.subsidi;
+  const max = isSubsidi ? 1 : (p ? Number(p.stok) : 999);
+  if (isSubsidi && delta > 0 && cart[id].qty >= 1) return toast("Produk subsidi maksimal 1 pcs", "err");
   cart[id].qty += delta;
-  if (cart[id].qty > max) { cart[id].qty = max; toast("Stok maksimal tercapai"); }
+  if (cart[id].qty > max) { cart[id].qty = max; if (!isSubsidi) toast("Stok maksimal tercapai"); }
   if (cart[id].qty <= 0) delete cart[id];
   saveCart(); updateCartBar(); renderCartSheet();
 }
@@ -3715,14 +3381,9 @@ function updateCartBar() {
 function resetCheckoutLocation() {
   checkoutCoords = { lat: null, lng: null };
   if (locMiniMapInstance) { locMiniMapInstance.remove(); locMiniMapInstance = null; }
-  const prev = $("#locPreview");
-  if (prev) prev.style.display = "none";
+  const prev = $("#locPreview"); if (prev) prev.style.display = "none";
   const btn = $("#btnShareLoc");
-  if (btn) {
-    btn.innerHTML = '<i class="fas fa-location-crosshairs"></i> Gunakan Lokasi Saat Ini';
-    btn.classList.remove("detected");
-    btn.disabled = false;
-  }
+  if (btn) { btn.innerHTML = '<i class="fas fa-location-crosshairs"></i> Gunakan Lokasi Saat Ini'; btn.classList.remove("detected"); btn.disabled = false; }
 }
 
 function openCart() {
@@ -3731,38 +3392,42 @@ function openCart() {
   selectedPayment = "cod";
   resetCheckoutLocation();
   document.querySelectorAll(".pay-option").forEach(o => o.classList.toggle("selected", o.dataset.pay === "cod"));
-  ["cod","qris","dana","gopay"].forEach(p => {
-    const inst = $("#payInst_" + p);
-    if (inst) inst.classList.toggle("show", p === "cod");
-  });
+  ["cod","qris","dana","gopay"].forEach(p => { const inst = $("#payInst_" + p); if (inst) inst.classList.toggle("show", p === "cod"); });
   updateWaProofLinks();
   renderCartSheet(); $("#cartOverlay").classList.add("show");
 }
 function closeCart() { $("#cartOverlay").classList.remove("show"); }
 function renderCartSheet() {
   const items = Object.values(cart);
-  $("#cartItems").innerHTML = items.length ? items.map(i => `
+  $("#cartItems").innerHTML = items.length ? items.map(i => {
+    const p = allProducts.find(x => x.id === i.id);
+    const isSubsidi = !!p?.subsidi;
+    return `
     <div class="cart-item">
       <img src="${esc(i.gambar)}" onerror="this.src='${PLACEHOLDER}'">
-      <div class="cart-item-info"><h4>${esc(i.nama)}</h4><p>${rupiah(i.harga * i.qty)}</p></div>
+      <div class="cart-item-info">
+        <h4>${esc(i.nama)}${isSubsidi ? '<span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</h4>
+        <p>${rupiah(i.harga * i.qty)}</p>
+      </div>
       <div class="qty-ctrl">
         <button class="qty-btn" data-qty="-1" data-qid="${i.id}"><i class="fas fa-minus"></i></button>
         <span class="qty-num">${i.qty}</span>
-        <button class="qty-btn" data-qty="1" data-qid="${i.id}"><i class="fas fa-plus"></i></button>
+        <button class="qty-btn" data-qty="1" data-qid="${i.id}" ${isSubsidi ? 'disabled' : ''}><i class="fas fa-plus"></i></button>
       </div>
-    </div>`).join("")
-    : `<div class="empty-state"><i class="fas fa-basket-shopping"></i>Keranjang masih kosong</div>`;
+    </div>`;
+  }).join("") : `<div class="empty-state"><i class="fas fa-basket-shopping"></i>Keranjang masih kosong</div>`;
   $("#cartSheetTotal").textContent = rupiah(cartTotals().total);
 }
+
 function handleCheckout() {
   const { count } = cartTotals();
   if (!count) return toast("Keranjang masih kosong", "err");
   if (!checkoutMode) {
     checkoutMode = true;
     $("#checkoutForm").style.display = "block";
-    $("#coNama").value    = currentUser.nama || "";
+    $("#coNama").value = currentUser.nama || "";
     $("#coTelepon").value = currentUser.telepon || "";
-    $("#coAlamat").value  = currentUser.alamat || "";
+    $("#coAlamat").value = currentUser.alamat || "";
     $("#btnCheckout").innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
     renderCheckoutAddressOptions();
     updateWaProofLinks();
@@ -3771,13 +3436,22 @@ function handleCheckout() {
   }
   submitOrder();
 }
+
 async function submitOrder() {
   const nama = $("#coNama").value.trim(), telepon = $("#coTelepon").value.trim();
   const alamat = $("#coAlamat").value.trim(), catatan = $("#coCatatan").value.trim();
   if (!nama || !telepon || !alamat) return toast("Lengkapi data pengiriman", "err");
   if (!selectedPayment) return toast("Pilih metode pembayaran", "err");
 
-  const items = Object.values(cart).map(i => ({ id: i.id, nama: i.nama, harga: i.harga, qty: i.qty, gambar: i.gambar || PLACEHOLDER }));
+  const cartItems = Object.values(cart);
+  const subsidiItems = cartItems.filter(i => {
+    const p = allProducts.find(x => x.id === i.id);
+    return p?.subsidi;
+  });
+  if (subsidiItems.length > 1) return toast("Hanya boleh membeli 1 produk subsidi per pesanan", "err");
+  if (subsidiItems.length === 1 && subsidiItems[0].qty > 1) return toast("Produk subsidi maksimal 1 pcs", "err");
+
+  const items = cartItems.map(i => ({ id: i.id, nama: i.nama, harga: i.harga, qty: i.qty, gambar: i.gambar || PLACEHOLDER }));
   const total = items.reduce((s, i) => s + i.harga * i.qty, 0);
   const btn = $("#btnCheckout");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
@@ -3792,20 +3466,15 @@ async function submitOrder() {
         destLat = pos.coords.latitude; destLng = pos.coords.longitude;
       } catch (e) {}
     }
-
     await addDoc(collection(db, "orders"), {
       userId: currentUser.uid, namaPembeli: currentUser.nama || nama,
       nama, telepon, alamat, catatan, items, total,
-      payment: selectedPayment,
-      paymentLabel: PAY_INFO[selectedPayment].label,
-      status: "pending",
-      destLat, destLng,
-      courierActive: false,
+      payment: selectedPayment, paymentLabel: PAY_INFO[selectedPayment].label,
+      status: "pending", destLat, destLng, courierActive: false,
       createdAt: serverTimestamp()
     });
     for (const it of items) {
-      try { await updateDoc(doc(db, "products", it.id), { stok: increment(-it.qty), terjual: increment(it.qty) }); }
-      catch (e) { console.warn(e); }
+      try { await updateDoc(doc(db, "products", it.id), { stok: increment(-it.qty), terjual: increment(it.qty) }); } catch (e) { console.warn(e); }
     }
     cart = {}; saveCart(); updateCartBar(); closeCart(); resetCheckoutLocation();
     toast("Pesanan berhasil dibuat! 🎉", "ok");
@@ -3813,6 +3482,7 @@ async function submitOrder() {
   } catch (err) { toast("Gagal membuat pesanan: " + err.message, "err"); }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Buat Pesanan'; }
 }
+
 async function saveProfile() {
   const btn = $("#btnSaveProfile");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
@@ -3850,25 +3520,21 @@ function attachAdminEvents() {
   $("#productClose").addEventListener("click", () => $("#productOverlay").classList.remove("show"));
   $("#productOverlay").addEventListener("click", e => { if (e.target === $("#productOverlay")) $("#productOverlay").classList.remove("show"); });
   $("#btnSaveProduct").addEventListener("click", saveProduct);
+  $("#pKategori").addEventListener("change", e => { const isUmkm = e.target.value === UMKM_CAT; $("#wrapUmkm").style.display = isUmkm ? "flex" : "none"; });
 
-  $("#pKategori").addEventListener("change", e => {
-    const isUmkm = e.target.value === UMKM_CAT;
-    $("#wrapUmkm").style.display = isUmkm ? "flex" : "none";
-  });
+  // Live preview harga setelah diskon
+  $("#pHarga").addEventListener("input", updateDiscountPreview);
+  $("#pDiskon").addEventListener("input", updateDiscountPreview);
 
   $("#adminProductList").addEventListener("click", e => {
     const edit = e.target.closest("[data-edit]"), del = e.target.closest("[data-del]");
     if (edit) openProductForm(edit.dataset.edit);
     if (del)  deleteProduct(del.dataset.del);
   });
-  $("#adminOrderList").addEventListener("change", e => {
-    const sel = e.target.closest("[data-order]");
-    if (sel) updateOrderStatus(sel.dataset.order, sel.value);
-  });
+  $("#adminOrderList").addEventListener("change", e => { const sel = e.target.closest("[data-order]"); if (sel) updateOrderStatus(sel.dataset.order, sel.value); });
   $("#adminOrderList").addEventListener("click", async e => {
     const courierBtn = e.target.closest("[data-courier]");
     if (courierBtn) { e.stopPropagation(); openCourierMode(courierBtn.dataset.courier); return; }
-
     const kirim = e.target.closest("[data-kirim]");
     const selesai = e.target.closest("[data-selesai]");
     const lokasi = e.target.closest("[data-lokasi]");
@@ -3909,19 +3575,21 @@ function renderAdminProducts() {
     const diskon = Number(p.diskon) || 0;
     const stok = Number(p.stok) || 0;
     const isUmkm = p.kategori === UMKM_CAT;
+    const isSubsidi = !!p.subsidi;
     const umkmStore = (p.umkm || "").trim();
     const images = getProductImages(p);
     const imgCount = images.length;
+    const hargaFinal = hargaSetelahDiskon(p.harga, diskon);
     return `
     <div class="adm-card ${isUmkm ? "is-umkm" : ""}">
       <div class="adm-prod-top">
         <img src="${esc(images[0])}" class="adm-img" onerror="this.src='${PLACEHOLDER}'">
         <div class="adm-prod-info">
-          <h4>${esc(p.nama)}${isUmkm ? `<span class="adm-umkm-tag"><i class="fas fa-store"></i>UMKM</span>` : ""}</h4>
+          <h4>${esc(p.nama)}${isUmkm ? `<span class="adm-umkm-tag"><i class="fas fa-store"></i>UMKM</span>` : ""}${isSubsidi ? `<span class="adm-subsidi-tag"><i class="fas fa-hand-holding-heart"></i>SUBSIDI</span>` : ""}</h4>
           <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b>${isUmkm && umkmStore ? ` · <i class="fas fa-user-tie" style="color:var(--umkm);font-size:9px"></i> ${esc(umkmStore)}` : ""} · ${imgCount} foto</span>
           <div class="adm-price-row">
-            <span class="adm-price">${rupiah(p.harga)}</span>
-            ${diskon > 0 ? `<span class="discount-badge">-${diskon}%</span>` : ""}
+            <span class="adm-price">${rupiah(hargaFinal)}</span>
+            ${diskon > 0 ? `<span class="price-original" style="font-size:10px">${rupiah(p.harga)}</span><span class="discount-badge">-${diskon}%</span>` : ""}
             <span class="adm-terjual">${p.terjual || 0} terjual</span>
           </div>
         </div>
@@ -3946,12 +3614,12 @@ function openProductForm(id = null) {
   $("#pDeskripsi").value = p?.deskripsi || "";
   $("#pUmkm").value = p?.umkm || "";
   $("#pGambarUrl").value = "";
+  $("#pSubsidi").checked = !!p?.subsidi;
   $("#wrapUmkm").style.display = ($("#pKategori").value === UMKM_CAT) ? "flex" : "none";
-
   formImages = getProductImages(p).filter(u => u && u !== PLACEHOLDER);
   if (p && !formImages.length && p.gambar) formImages = [p.gambar];
   renderFormImages();
-
+  updateDiscountPreview();
   $("#productOverlay").classList.add("show");
 }
 
@@ -3961,6 +3629,7 @@ async function saveProduct() {
   const harga = Number($("#pHarga").value), diskon = Number($("#pDiskon").value) || 0;
   const stok = Number($("#pStok").value);
   const umkm = $("#pUmkm").value.trim();
+  const subsidi = !!$("#pSubsidi").checked;
   if (!nama) return toast("Nama produk wajib diisi", "err");
   if (isNaN(harga) || harga < 0) return toast("Harga tidak valid", "err");
   if (diskon < 0 || diskon > 100) return toast("Diskon harus 0-100%", "err");
@@ -3970,13 +3639,11 @@ async function saveProduct() {
 
   const gambarList = formImages.filter(Boolean);
   const gambar = gambarList[0] || PLACEHOLDER;
-
   const data = {
-    nama, kategori, harga, diskon, stok,
-    gambar,
-    gambarList,
+    nama, kategori, harga, diskon, stok, gambar, gambarList,
     deskripsi: $("#pDeskripsi").value.trim(),
     umkm: kategori === UMKM_CAT ? umkm : "",
+    subsidi,
     updatedAt: serverTimestamp()
   };
   const btn = $("#btnSaveProduct");
@@ -3985,7 +3652,7 @@ async function saveProduct() {
     if (id) { await updateDoc(doc(db, "products", id), data); toast("Produk diperbarui", "ok"); }
     else {
       await addDoc(collection(db, "products"), { ...data, terjual: 0, createdAt: serverTimestamp() });
-      toast(kategori === UMKM_CAT ? "Produk UMKM ditambahkan 🏪" : "Produk ditambahkan", "ok");
+      toast(subsidi ? "Produk subsidi ditambahkan 🏷️" : (kategori === UMKM_CAT ? "Produk UMKM ditambahkan 🏪" : "Produk ditambahkan"), "ok");
     }
     $("#productOverlay").classList.remove("show");
     formImages = [];
@@ -4005,25 +3672,15 @@ function listenAdminOrders() {
     allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     renderAdminOrders(); renderStats();
     updateAdminOrderBadge();
-
     if (!adminOrdersReady) {
       snap.docs.forEach(d => adminOrderIds.add(d.id));
       adminOrdersReady = true;
       const pendingCount = allOrders.filter(o => o.status === "pending").length;
-      if (pendingCount > 0) {
-        setTimeout(() => playNotifSound(), 600);
-      }
+      if (pendingCount > 0) setTimeout(() => playNotifSound(), 600);
     } else {
       let hasNew = false;
-      snap.docs.forEach(d => {
-        if (!adminOrderIds.has(d.id)) {
-          adminOrderIds.add(d.id);
-          hasNew = true;
-        }
-      });
-      if (hasNew) {
-        playNotifSound();
-      }
+      snap.docs.forEach(d => { if (!adminOrderIds.has(d.id)) { adminOrderIds.add(d.id); hasNew = true; } });
+      if (hasNew) playNotifSound();
     }
   }, err => console.error(err));
 }
@@ -4034,11 +3691,8 @@ function renderAdminOrders() {
   const statuses = ["pending", "diproses", "dikirim", "selesai", "dibatalkan"];
   el.innerHTML = allOrders.map(o => {
     let aksiCepat = "";
-    if (o.status === "pending" || o.status === "diproses") {
-      aksiCepat = `<button class="btn-kirim" data-kirim="${o.id}"><i class="fas fa-truck-fast"></i> Tandai Dikirim</button>`;
-    } else if (o.status === "dikirim") {
-      aksiCepat = `<button class="btn-kirim selesai" data-selesai="${o.id}"><i class="fas fa-check"></i> Tandai Selesai</button>`;
-    }
+    if (o.status === "pending" || o.status === "diproses") aksiCepat = `<button class="btn-kirim" data-kirim="${o.id}"><i class="fas fa-truck-fast"></i> Tandai Dikirim</button>`;
+    else if (o.status === "dikirim") aksiCepat = `<button class="btn-kirim selesai" data-selesai="${o.id}"><i class="fas fa-check"></i> Tandai Selesai</button>`;
     const pay = o.payment || "cod";
     const payInfo = PAY_INFO[pay] || PAY_INFO.cod;
     const live = isCourierLive(o);
@@ -4048,9 +3702,7 @@ function renderAdminOrders() {
     const courierBtnIcon = live ? "fa-satellite-dish" : "fa-motorcycle";
     const isCancelled = o.status === "dibatalkan";
     const cancelledNote = isCancelled && o.cancelledBy === "customer"
-      ? `<div class="adm-line" style="color:#B91C1C"><i class="fas fa-circle-xmark" style="color:#DC2626"></i><span><b>Dibatalkan oleh Pelanggan</b>${o.cancelledAt ? ` · ${timeAgo(o.cancelledAt)}` : ""}</span></div>`
-      : "";
-
+      ? `<div class="adm-line" style="color:#B91C1C"><i class="fas fa-circle-xmark" style="color:#DC2626"></i><span><b>Dibatalkan oleh Pelanggan</b>${o.cancelledAt ? ` · ${timeAgo(o.cancelledAt)}` : ""}</span></div>` : "";
     return `
     <div class="adm-card ${live ? "is-courier-active" : ""} ${isCancelled ? "is-cancelled" : ""}">
       <div class="adm-card-head">
@@ -4065,10 +3717,14 @@ function renderAdminOrders() {
       ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
       ${cancelledNote}
       <div class="adm-items">
-        ${(o.items || []).map(i => `<div class="adm-item-row">
-          <img src="${esc(i.gambar || PLACEHOLDER)}" class="adm-item-img" onerror="this.src='${PLACEHOLDER}'">
-          <span class="adm-item-name">${esc(i.nama)} × ${i.qty}</span>
-        </div>`).join("")}
+        ${(o.items || []).map(i => {
+          const prod = allProducts.find(x => x.id === i.id);
+          const isSub = !!prod?.subsidi;
+          return `<div class="adm-item-row">
+            <img src="${esc(i.gambar || PLACEHOLDER)}" class="adm-item-img" onerror="this.src='${PLACEHOLDER}'">
+            <span class="adm-item-name">${esc(i.nama)} × ${i.qty}${isSub ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</span>
+          </div>`;
+        }).join("")}
       </div>
       <div class="adm-card-foot">
         <span class="adm-total">${rupiah(o.total)}</span>
@@ -4082,12 +3738,8 @@ function renderAdminOrders() {
       </div>
       ${showCourierBtn ? `
       <div class="adm-card-actions">
-        <button class="${courierBtnClass}" data-courier="${o.id}">
-          <i class="fas ${courierBtnIcon}"></i> ${courierBtnText}
-        </button>
-        <button class="btn-lokasi" data-lokasi="${o.id}">
-          <i class="fas fa-map-marker-alt"></i> Set Manual
-        </button>
+        <button class="${courierBtnClass}" data-courier="${o.id}"><i class="fas ${courierBtnIcon}"></i> ${courierBtnText}</button>
+        <button class="btn-lokasi" data-lokasi="${o.id}"><i class="fas fa-map-marker-alt"></i> Set Manual</button>
       </div>` : ""}
     </div>`;
   }).join("");
@@ -4096,25 +3748,14 @@ function renderAdminOrders() {
 async function updateOrderStatus(id, status) {
   try {
     const order = allOrders.find(o => o.id === id);
-
     if (status === "dibatalkan" && order && order.status !== "dibatalkan") {
       for (const item of (order.items || [])) {
-        try {
-          await updateDoc(doc(db, "products", item.id), {
-            stok: increment(item.qty),
-            terjual: increment(-item.qty)
-          });
-        } catch (e) { console.warn("Restore stock (admin) err:", e); }
+        try { await updateDoc(doc(db, "products", item.id), { stok: increment(item.qty), terjual: increment(-item.qty) }); } catch (e) { console.warn("Restore stock (admin) err:", e); }
       }
     }
-
     await updateDoc(doc(db, "orders", id), {
-      status,
-      updatedAt: serverTimestamp(),
-      ...(status === "dibatalkan" ? {
-        cancelledAt: serverTimestamp(),
-        cancelledBy: order?.cancelledBy || "admin"
-      } : {})
+      status, updatedAt: serverTimestamp(),
+      ...(status === "dibatalkan" ? { cancelledAt: serverTimestamp(), cancelledBy: order?.cancelledBy || "admin" } : {})
     });
     if (status !== "dikirim" && status !== "selesai") toast("Status pesanan → " + status, "ok");
   } catch (err) { toast("Gagal memperbarui: " + err.message, "err"); }
@@ -4138,19 +3779,11 @@ function listenCustomers() {
   }, err => console.error(err));
 }
 
-/* ============ DASHBOARD ============ */
 function getOrderDate(o) {
-  if (o && o.createdAt) {
-    if (typeof o.createdAt.toDate === "function") return o.createdAt.toDate();
-    return new Date(o.createdAt);
-  }
+  if (o && o.createdAt) { if (typeof o.createdAt.toDate === "function") return o.createdAt.toDate(); return new Date(o.createdAt); }
   return new Date();
 }
-
-function dayKey(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
+function dayKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function formatDayLabel(date) {
   const now = new Date();
   const d = new Date(date);
@@ -4160,7 +3793,6 @@ function formatDayLabel(date) {
   if (diffDays === 1) return "Kemarin";
   return d.toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 }
-
 function groupOrdersByDay(orders, maxDays = 5, maxPerDay = 5) {
   const map = new Map();
   orders.forEach(o => {
@@ -4169,24 +3801,14 @@ function groupOrdersByDay(orders, maxDays = 5, maxPerDay = 5) {
     if (!map.has(key)) map.set(key, { date: d, orders: [] });
     map.get(key).orders.push(o);
   });
-  return Array.from(map.entries())
-    .sort((a, b) => b[0].localeCompare(a[0]))
-    .slice(0, maxDays)
-    .map(([key, g]) => {
-      const sorted = g.orders.slice().sort((a, b) => {
-        const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
-        const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
-        return tb - ta;
-      });
-      return {
-        key,
-        date: g.date,
-        totalCount: sorted.length,
-        totalSum: sorted.reduce((s, o) => s + Number(o.total || 0), 0),
-        orders: sorted.slice(0, maxPerDay),
-        remaining: Math.max(0, sorted.length - maxPerDay)
-      };
+  return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0])).slice(0, maxDays).map(([key, g]) => {
+    const sorted = g.orders.slice().sort((a, b) => {
+      const ta = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+      const tb = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+      return tb - ta;
     });
+    return { key, date: g.date, totalCount: sorted.length, totalSum: sorted.reduce((s, o) => s + Number(o.total || 0), 0), orders: sorted.slice(0, maxPerDay), remaining: Math.max(0, sorted.length - maxPerDay) };
+  });
 }
 
 function renderStats() {
@@ -4199,11 +3821,7 @@ function renderStats() {
   $("#statStok").textContent = lowStock;
 
   const groups = groupOrdersByDay(allOrders, 5, 5);
-  if (!groups.length) {
-    $("#dashOrders").innerHTML = `<div class="empty-state" style="padding:26px 10px"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`;
-    return;
-  }
-
+  if (!groups.length) { $("#dashOrders").innerHTML = `<div class="empty-state" style="padding:26px 10px"><i class="fas fa-receipt"></i>Belum ada pesanan</div>`; return; }
   $("#dashOrders").innerHTML = groups.map(g => `
     <div class="dash-day-group">
       <div class="dash-day-head">
@@ -4216,8 +3834,7 @@ function renderStats() {
           <div class="dash-order-right"><span class="dash-total">${rupiah(o.total)}</span><span class="badge ${o.status}">${o.status}</span></div>
         </div>`).join("")}
       ${g.remaining > 0 ? `<div class="dash-day-more">+${g.remaining} pesanan lainnya di hari ini</div>` : ""}
-    </div>
-  `).join("");
+    </div>`).join("");
 }
 
 document.addEventListener("keydown", e => {

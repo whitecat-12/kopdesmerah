@@ -923,6 +923,23 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .badge.diambil{background:#C7D2FE;color:#3730A3;}
 
 .subsidi-doc-box{background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1.5px solid #BFDBFE;border-radius:12px;padding:11px 13px;margin-bottom:8px;}
+
+/* ===== PAYMENT METHOD TOGGLE (ADMIN) ===== */
+.pay-toggle-list{display:flex;flex-direction:column;gap:8px}
+.pay-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:9px 12px;cursor:pointer;transition:.22s;user-select:none}
+.pay-toggle-row:hover{border-color:var(--red);box-shadow:0 4px 12px rgba(220,38,38,.07)}
+.pay-toggle-row.off{background:#FAFAFA;border-color:var(--border-soft);opacity:.68}
+.pay-toggle-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.pay-toggle-left .pay-logo{width:34px;height:34px;border-radius:10px;font-size:14px;flex-shrink:0}
+.pay-toggle-left strong{display:block;font-size:12.5px;font-weight:800;color:var(--text);line-height:1.2}
+.pay-toggle-left span{display:block;font-size:10.5px;color:var(--text-soft);font-weight:500;line-height:1.35;margin-top:1px}
+.pay-switch{position:relative;width:44px;height:24px;flex-shrink:0;display:inline-block}
+.pay-switch input{position:absolute;opacity:0;width:0;height:0}
+.pay-switch-track{position:absolute;inset:0;background:#E4E4E7;border-radius:20px;transition:.25s;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+.pay-switch-track::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.22);transition:.25s}
+.pay-switch input:checked + .pay-switch-track{background:linear-gradient(135deg,#EF4444,#DC2626);box-shadow:0 2px 8px rgba(220,38,38,.35)}
+.pay-switch input:checked + .pay-switch-track::after{transform:translateX(20px)}
+.pay-option.hidden-pay{display:none !important}
 </style>
 </head>
 <body>
@@ -1215,6 +1232,29 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 
       <section id="aviewPengaturan" class="admin-view">
         <div class="admin-head"><div><h1>Pengaturan</h1><p>Pembayaran & Ongkir Otomatis</p></div></div>
+
+        <div class="panel" style="margin-bottom:14px">
+          <div class="settings-block-head"><i style="background:linear-gradient(135deg,#EF4444,#991B1B)"><i class="fas fa-wallet"></i></i> Metode Pembayaran</div>
+          <p class="hint-small" style="margin-bottom:10px;line-height:1.55">Sembunyikan metode pembayaran yang tidak ingin ditampilkan ke pelanggan saat checkout.</p>
+          <div class="pay-toggle-list">
+            <label class="pay-toggle-row" data-pay-row="cod">
+              <div class="pay-toggle-left"><div class="pay-logo cod"><i class="fas fa-hand-holding-dollar"></i></div><div><strong>COD</strong><span>Bayar di tempat</span></div></div>
+              <span class="pay-switch"><input type="checkbox" id="togglePayCod" checked><span class="pay-switch-track"></span></span>
+            </label>
+            <label class="pay-toggle-row" data-pay-row="qris">
+              <div class="pay-toggle-left"><div class="pay-logo qris"><i class="fas fa-qrcode"></i></div><div><strong>QRIS</strong><span>Scan QR Code</span></div></div>
+              <span class="pay-switch"><input type="checkbox" id="togglePayQris" checked><span class="pay-switch-track"></span></span>
+            </label>
+            <label class="pay-toggle-row" data-pay-row="dana">
+              <div class="pay-toggle-left"><div class="pay-logo dana"><i class="fas fa-wallet"></i></div><div><strong>DANA</strong><span>Transfer e-wallet</span></div></div>
+              <span class="pay-switch"><input type="checkbox" id="togglePayDana" checked><span class="pay-switch-track"></span></span>
+            </label>
+            <label class="pay-toggle-row" data-pay-row="gopay">
+              <div class="pay-toggle-left"><div class="pay-logo gopay"><i class="fas fa-motorcycle"></i></div><div><strong>GoPay</strong><span>Transfer e-wallet</span></div></div>
+              <span class="pay-switch"><input type="checkbox" id="togglePayGopay" checked><span class="pay-switch-track"></span></span>
+            </label>
+          </div>
+        </div>
 
         <div class="panel" style="margin-bottom:14px">
           <div class="settings-block-head"><i class="qris"><i class="fas fa-qrcode"></i></i> QRIS</div>
@@ -1665,7 +1705,8 @@ let trafficReady = false;
 let paymentSettings = {
   qrisImageUrl: "", qrisNmid: "",
   danaNumber: "", danaName: "Kopdesku Merah Putih",
-  gopayNumber: "", gopayName: "Kopdesku Merah Putih"
+  gopayNumber: "", gopayName: "Kopdesku Merah Putih",
+  enabledMethods: { cod: true, qris: true, dana: true, gopay: true }
 };
 let currentQrisImage = "";
 
@@ -2123,18 +2164,43 @@ function listenPaymentSettings() {
   unsubSettings = onSnapshot(doc(db, "settings", "payment"), snap => {
     if (snap.exists()) {
       const d = snap.data();
+      const em = d.enabledMethods || {};
+      const enabledMethods = {
+        cod:   em.cod   !== false,
+        qris:  em.qris  !== false,
+        dana:  em.dana  !== false,
+        gopay: em.gopay !== false
+      };
+      if (!enabledMethods.cod && !enabledMethods.qris && !enabledMethods.dana && !enabledMethods.gopay) {
+        enabledMethods.cod = enabledMethods.qris = enabledMethods.dana = enabledMethods.gopay = true;
+      }
       paymentSettings = {
         qrisImageUrl: d.qrisImageUrl || "",
         qrisNmid: d.qrisNmid || "",
         danaNumber: d.danaNumber || "",
         danaName: d.danaName || "Kopdesku Merah Putih",
         gopayNumber: d.gopayNumber || "",
-        gopayName: d.gopayName || "Kopdesku Merah Putih"
+        gopayName: d.gopayName || "Kopdesku Merah Putih",
+        enabledMethods
       };
     }
     applyPaymentSettings();
     if ($("#aviewPengaturan")?.classList.contains("active")) fillSettingsForm();
   }, err => console.warn("settings listener:", err));
+}
+
+function firstEnabledPayment() {
+  return ["cod", "qris", "dana", "gopay"].find(p => paymentSettings.enabledMethods?.[p] !== false) || "cod";
+}
+
+function selectPaymentMethod(pay) {
+  selectedPayment = pay;
+  document.querySelectorAll(".pay-option").forEach(o => o.classList.toggle("selected", o.dataset.pay === pay));
+  ["cod", "qris", "dana", "gopay"].forEach(p => {
+    const inst = document.getElementById("payInst_" + p);
+    if (inst) inst.classList.toggle("show", p === pay);
+  });
+  updateWaProofLinks();
 }
 
 function applyPaymentSettings() {
@@ -2154,6 +2220,16 @@ function applyPaymentSettings() {
   if (gopayAn) gopayAn.innerHTML = `<b>a.n.</b> ${esc(paymentSettings.gopayName || "Kopdesku Merah Putih")}`;
   const gopayCopy = document.querySelector('#payInst_gopay .copy-btn');
   if (gopayCopy) gopayCopy.dataset.copy = String(paymentSettings.gopayNumber || "").replace(/\D/g, "");
+
+  // Hide/show payment options
+  document.querySelectorAll(".pay-option").forEach(opt => {
+    const enabled = paymentSettings.enabledMethods?.[opt.dataset.pay] !== false;
+    opt.classList.toggle("hidden-pay", !enabled);
+  });
+  // If currently selected is hidden, switch to first enabled
+  if (paymentSettings.enabledMethods?.[selectedPayment] === false) {
+    selectPaymentMethod(firstEnabledPayment());
+  }
 }
 
 function fillSettingsForm() {
@@ -2171,6 +2247,19 @@ function fillSettingsForm() {
   if (preview) { preview.src = paymentSettings.qrisImageUrl || DEFAULT_QRIS_URL; preview.style.opacity = "1"; }
   const meta = document.getElementById("qrisPreviewMeta");
   if (meta) meta.textContent = paymentSettings.qrisImageUrl ? "Menggunakan gambar QRIS kustom" : "Menggunakan QR otomatis (default)";
+
+  // Fill toggle switches
+  const em = paymentSettings.enabledMethods || {};
+  const setToggle = (id, rowPay, val) => {
+    const cb = document.getElementById(id);
+    if (cb) cb.checked = val !== false;
+    const row = document.querySelector(`[data-pay-row="${rowPay}"]`);
+    if (row) row.classList.toggle("off", val === false);
+  };
+  setToggle("togglePayCod",   "cod",   em.cod);
+  setToggle("togglePayQris",  "qris",  em.qris);
+  setToggle("togglePayDana",  "dana",  em.dana);
+  setToggle("togglePayGopay", "gopay", em.gopay);
 }
 
 async function savePaymentSettings() {
@@ -2178,6 +2267,18 @@ async function savePaymentSettings() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
   try {
+    const enabledMethods = {
+      cod:   !!$("#togglePayCod").checked,
+      qris:  !!$("#togglePayQris").checked,
+      dana:  !!$("#togglePayDana").checked,
+      gopay: !!$("#togglePayGopay").checked
+    };
+    if (!enabledMethods.cod && !enabledMethods.qris && !enabledMethods.dana && !enabledMethods.gopay) {
+      toast("Minimal satu metode pembayaran harus aktif", "err");
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Pengaturan';
+      return;
+    }
     const data = {
       qrisImageUrl: currentQrisImage || "",
       qrisNmid: $("#setQrisNmid").value.trim(),
@@ -2185,6 +2286,7 @@ async function savePaymentSettings() {
       danaName: $("#setDanaName").value.trim() || "Kopdesku Merah Putih",
       gopayNumber: $("#setGopayNumber").value.trim(),
       gopayName: $("#setGopayName").value.trim() || "Kopdesku Merah Putih",
+      enabledMethods,
       updatedAt: serverTimestamp(),
       updatedBy: currentUser.uid
     };
@@ -2745,9 +2847,7 @@ function useAddressForCheckout(id) {
   if (!count) { toast('Keranjang kosong. Tambahkan produk dulu.', 'err'); return; }
   document.getElementById('addressListOverlay').classList.remove('show');
   checkoutMode = true;
-  selectedPayment = 'cod';
-  document.querySelectorAll('.pay-option').forEach(o => o.classList.toggle('selected', o.dataset.pay === 'cod'));
-  ['cod','qris','dana','gopay'].forEach(p => { const inst = document.getElementById('payInst_' + p); if (inst) inst.classList.toggle('show', p === 'cod'); });
+  selectPaymentMethod(firstEnabledPayment());
   document.getElementById('checkoutForm').style.display = 'block';
   document.getElementById('btnCheckout').innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
   document.getElementById('coNama').value = a.nama || '';
@@ -3543,11 +3643,8 @@ function attachCustomerEvents() {
 
   document.querySelectorAll(".pay-option").forEach(opt => {
     opt.addEventListener("click", () => {
-      document.querySelectorAll(".pay-option").forEach(o => o.classList.remove("selected"));
-      opt.classList.add("selected");
-      selectedPayment = opt.dataset.pay;
-      ["cod","qris","dana","gopay"].forEach(p => { const inst = $("#payInst_" + p); if (inst) inst.classList.toggle("show", p === selectedPayment); });
-      updateWaProofLinks();
+      if (opt.classList.contains("hidden-pay")) return;
+      selectPaymentMethod(opt.dataset.pay);
     });
   });
 
@@ -3615,11 +3712,8 @@ function resetCheckoutLocation() {
 function openCart() {
   checkoutMode = false; $("#checkoutForm").style.display = "none";
   $("#btnCheckout").innerHTML = '<i class="fas fa-credit-card"></i> Lanjut Checkout';
-  selectedPayment = "cod";
   resetCheckoutLocation();
-  document.querySelectorAll(".pay-option").forEach(o => o.classList.toggle("selected", o.dataset.pay === "cod"));
-  ["cod","qris","dana","gopay"].forEach(p => { const inst = $("#payInst_" + p); if (inst) inst.classList.toggle("show", p === "cod"); });
-  updateWaProofLinks();
+  selectPaymentMethod(firstEnabledPayment());
   renderCartSheet(); $("#cartOverlay").classList.add("show");
 }
 function closeCart() { $("#cartOverlay").classList.remove("show"); }
@@ -3678,7 +3772,9 @@ async function submitOrder() {
   const nama = $("#coNama").value.trim(), telepon = $("#coTelepon").value.trim();
   const alamat = $("#coAlamat").value.trim(), catatan = $("#coCatatan").value.trim();
   if (!nama || !telepon || !alamat) return toast("Lengkapi data pengiriman", "err");
-  if (!selectedPayment) return toast("Pilih metode pembayaran", "err");
+  if (!selectedPayment || paymentSettings.enabledMethods?.[selectedPayment] === false) {
+    return toast("Metode pembayaran tidak tersedia, pilih metode lain", "err");
+  }
   const cartItems = Object.values(cart);
   const subsidiItems = cartItems.filter(i => { const p = allProducts.find(x => x.id === i.id); return p?.subsidi; });
   if (subsidiItems.length > 1) return toast("Hanya boleh membeli 1 produk subsidi per pesanan", "err");
@@ -3895,6 +3991,16 @@ function attachAdminEvents() {
   $("#pSubsidi")?.addEventListener("change", e => { const wrap = document.getElementById("wrapBundle"); if (wrap) wrap.style.display = e.target.checked ? "none" : "flex"; });
   $("#btnSaveSettings")?.addEventListener("click", savePaymentSettings);
   $("#btnSaveOngkir")?.addEventListener("click", saveOngkirSettings);
+
+  // Toggle payment methods - visual feedback
+  ["togglePayCod", "togglePayQris", "togglePayDana", "togglePayGopay"].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("change", () => {
+      const row = el.closest(".pay-toggle-row");
+      if (row) row.classList.toggle("off", !el.checked);
+    });
+  });
 
   $("#btnUploadQris")?.addEventListener("click", () => {
     openCloudinaryWidget((url) => {

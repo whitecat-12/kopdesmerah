@@ -105,6 +105,7 @@ button{background:none;border:none;cursor:pointer;color:inherit;}
 .role-btn{flex:1;border:none;background:transparent;padding:clamp(9px,2.6vw,11px) 8px;border-radius:10px;font-size:clamp(11px,3.1vw,12.5px);font-weight:700;color:var(--text-soft);cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:6px;}
 .role-btn i{font-size:.92em;}
 .role-btn.active{background:var(--gradient);color:#fff;box-shadow:var(--sh-red);}
+.role-btn[data-role="kurir"].active{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 6px 16px rgba(37,99,235,.3);}
 .auth-tabs{display:flex;gap:22px;border-bottom:1.5px solid var(--border);margin-bottom:14px;}
 .auth-tab{border:none;background:none;padding:4px 2px 11px;font-size:clamp(12.5px,3.4vw,14px);font-weight:700;color:var(--text-mute);cursor:pointer;position:relative;transition:.22s;}
 .auth-tab.active{color:var(--red);}
@@ -290,6 +291,9 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 
 .cart-subsidi-tag{display:inline-block;background:#DBEAFE;color:#1D4ED8;font-size:8.5px;font-weight:800;padding:1.5px 5px;border-radius:4px;margin-left:5px;letter-spacing:.3px;vertical-align:middle;}
 
+/* ===== BUNDLE TAG DI CART & ORDER ===== */
+.cart-bundle-tag{display:inline-block;background:#FFEDD5;color:#C2410C;font-size:8.5px;font-weight:800;padding:1.5px 5px;border-radius:4px;margin-left:5px;letter-spacing:.3px;vertical-align:middle;}
+
 .pd-overlay{position:fixed;inset:0;background:rgba(24,24,27,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:14px;overflow-y:auto;}
 .pd-overlay.show{display:flex;animation:fadeIn .22s ease;}
 
@@ -365,7 +369,24 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .pd-qty-btn:disabled{opacity:.4;cursor:not-allowed;}
 .pd-qty-num{font-size:15px;font-weight:800;min-width:28px;text-align:center;color:var(--text);}
 
-.pd-actions{display:flex;gap:8px;}
+/* ===== BUNDLE CUSTOMER ===== */
+.pd-bundle-section{margin:12px 0 4px;}
+.pd-bundle-list{display:flex;flex-direction:column;gap:8px;}
+.pd-bundle-card{position:relative;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#FEF2F2 0%,#FFEDD5 100%);border:1.5px solid #FDBA74;border-radius:12px;padding:11px 13px 11px 16px;cursor:pointer;transition:.22s;text-align:left;width:100%;overflow:hidden;}
+.pd-bundle-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3.5px;background:linear-gradient(180deg,#EA580C,#C2410C);}
+.pd-bundle-card:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(234,88,12,.18);border-color:#EA580C;}
+.pd-bundle-card:active{transform:scale(.99);}
+.pd-bundle-card:disabled{opacity:.55;cursor:not-allowed;}
+.pd-bundle-card:disabled:hover{transform:none;box-shadow:none;}
+.pd-bundle-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;box-shadow:0 4px 10px rgba(234,88,12,.3);}
+.pd-bundle-info{flex:1;min-width:0;}
+.pd-bundle-label{font-size:9px;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;display:flex;align-items:center;gap:4px;}
+.pd-bundle-qty-label{font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.pd-bundle-price{font-size:15px;font-weight:800;color:var(--red);letter-spacing:-.3px;line-height:1.15;}
+.pd-bundle-per{font-size:10px;color:var(--text-soft);font-weight:600;margin-top:1px;}
+.pd-bundle-saving{font-size:9.5px;font-weight:800;color:#047857;background:#D1FAE5;padding:3px 7px;border-radius:6px;white-space:nowrap;flex-shrink:0;}
+
+.pd-actions{display:flex;gap:8px;margin-top:12px;}
 .pd-btn-add{width:100%;background:var(--gradient);color:#fff;border:none;padding:15px 16px;border-radius:13px;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.25s;box-shadow:var(--sh-red);letter-spacing:.2px;}
 .pd-btn-add:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
 .pd-btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
@@ -434,6 +455,12 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .order-item-info span:last-child{font-weight:700;color:var(--text);flex-shrink:0;}
 
 .order-total{display:flex;justify-content:space-between;border-top:1.5px dashed var(--border);margin-top:10px;padding-top:10px;font-size:var(--fs-lg);font-weight:800;color:var(--red);}
+.order-total-breakdown{border-top:1.5px dashed var(--border);margin-top:10px;padding-top:10px;display:flex;flex-direction:column;gap:5px;}
+.order-breakdown-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-soft);font-weight:600;}
+.order-breakdown-row span:last-child{color:var(--text);font-weight:700;}
+.order-breakdown-row.grand{border-top:1px dashed var(--border);margin-top:3px;padding-top:8px;font-size:var(--fs-lg);font-weight:800;color:var(--red);}
+.order-breakdown-row.grand span:last-child{color:var(--red);font-weight:800;}
+
 .payment-info{margin-top:10px;background:var(--red-soft);border-radius:11px;padding:9px 11px;display:flex;align-items:center;gap:10px;border:1px solid #FED7D7;}
 .payment-info .pay-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;}
 .pay-icon.cod{background:linear-gradient(135deg,#059669,#047857);}
@@ -443,6 +470,14 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .payment-info .pay-text{flex:1;min-width:0;}
 .payment-info .pay-text strong{display:block;font-size:11.5px;font-weight:800;color:var(--text);margin-bottom:1px;}
 .payment-info .pay-text span{font-size:10px;color:var(--text-soft);font-weight:500;display:block;line-height:1.35;}
+
+.courier-info-card{margin-top:10px;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1.5px solid #BFDBFE;border-radius:11px;padding:9px 11px;display:flex;align-items:center;gap:10px;}
+.courier-info-card .courier-avatar{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#3B82F6,#2563EB);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;box-shadow:0 3px 10px rgba(37,99,235,.3);}
+.courier-info-card .courier-text{flex:1;min-width:0;}
+.courier-info-card .courier-text strong{display:block;font-size:11.5px;font-weight:800;color:#1E40AF;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.courier-info-card .courier-text span{font-size:10px;color:#1E3A8A;font-weight:500;display:block;line-height:1.35;}
+.courier-info-card .courier-phone-btn{padding:5px 9px;background:#fff;border:1px solid #BFDBFE;border-radius:7px;color:#2563EB;font-size:10px;font-weight:800;display:inline-flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;transition:.2s;}
+.courier-info-card .courier-phone-btn:hover{background:#2563EB;color:#fff;border-color:#2563EB;}
 
 .track-wrap{margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--border);}
 .track-wrap h5{font-size:11px;font-weight:800;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px;letter-spacing:.2px;}
@@ -606,6 +641,11 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .qty-num{font-size:var(--fs-md);font-weight:800;min-width:20px;text-align:center;color:var(--text);}
 .sheet-total{display:flex;justify-content:space-between;padding:14px 0;font-size:var(--fs-lg);font-weight:800;border-top:1.5px dashed var(--border);margin-top:10px;color:var(--text);}
 .sheet-total span:last-child{color:var(--red);}
+.sheet-total-breakdown{margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--border);display:flex;flex-direction:column;gap:6px;}
+.sheet-total-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);}
+.sheet-total-row .v{font-weight:700;color:var(--text);}
+.sheet-total-row.grand{margin-top:4px;padding-top:9px;border-top:1.5px dashed var(--border);font-size:var(--fs-lg);}
+.sheet-total-row.grand .k,.sheet-total-row.grand .v{font-size:var(--fs-lg);font-weight:800;color:var(--red);}
 
 .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
 .form-row > label{font-size:clamp(11px,3vw,12px);font-weight:700;color:var(--text);letter-spacing:.2px;}
@@ -720,6 +760,20 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .admin-view{display:none;}
 .admin-view.active{display:block;animation:fadeIn .3s;}
 
+/* ===== ADMIN SEARCH BAR ===== */
+.admin-search-bar{display:flex;gap:8px;margin-bottom:12px;}
+.admin-search-box{flex:1;background:#fff;border-radius:var(--r-md);display:flex;align-items:center;padding:0 14px;height:44px;border:1.5px solid var(--border);transition:.22s;}
+.admin-search-box:focus-within{border-color:var(--red);box-shadow:0 0 0 3.5px rgba(220,38,38,.07);}
+.admin-search-box i{color:var(--red);margin-right:9px;font-size:13px;opacity:.7;flex-shrink:0;}
+.admin-search-box input{border:none;background:transparent;outline:none;width:100%;font-size:var(--fs-md);font-weight:500;color:var(--text);min-width:0;}
+.admin-search-box input::placeholder{color:var(--text-mute);}
+
+/* ===== BUNDLE ADMIN FORM ===== */
+.bundle-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
+.bundle-row .input-group{height:44px;padding:0 11px;}
+.bundle-row .input-group input{font-size:12.5px;font-weight:600;}
+.bundle-row .icon-btn.del{width:34px;height:34px;flex-shrink:0;}
+
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .stat-card{background:#fff;border-radius:var(--r-lg);padding:12px;box-shadow:var(--sh-sm);display:flex;flex-direction:column;gap:8px;border:1.5px solid var(--border-soft);transition:.25s;}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:rgba(220,38,38,.14);}
@@ -768,6 +822,32 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .adm-umkm-tag i{font-size:8.5px;}
 .adm-subsidi-tag{display:inline-flex;align-items:center;gap:4px;background:#DBEAFE;color:#1D4ED8;font-size:9px;font-weight:800;padding:2.5px 7px;border-radius:5px;margin-left:5px;letter-spacing:.3px;}
 .adm-subsidi-tag i{font-size:8.5px;}
+.adm-kurir-tag{display:inline-flex;align-items:center;gap:4px;background:#DBEAFE;color:#1D4ED8;font-size:9px;font-weight:800;padding:2.5px 7px;border-radius:5px;margin-left:5px;letter-spacing:.3px;}
+.adm-kurir-tag i{font-size:8.5px;}
+
+/* ===== WHATSAPP CLICK-TO-CHAT ===== */
+.wa-phone-btn{
+  display:inline-flex;align-items:center;gap:3px;
+  color:#1D4ED8;font-weight:800;text-decoration:none;
+  transition:.2s;border-bottom:1.5px dashed rgba(37,99,235,.45);
+  padding-bottom:0;cursor:pointer;font-size:inherit;
+}
+.wa-phone-btn:hover{color:#059669;border-bottom-color:#059669;}
+.wa-phone-btn i.fab{color:#25D366;font-size:9px;flex-shrink:0;}
+.wa-phone-btn:hover i.fab{color:#059669;}
+
+/* ===== ONGKIR OTOMATIS ===== */
+.ongkir-info{margin:12px 0;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1.5px solid #BFDBFE;border-radius:12px;padding:11px 13px;}
+.ongkir-info-head{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:#1E40AF;margin-bottom:8px;}
+.ongkir-info-head i{font-size:13px;}
+.ongkir-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:3px 0;font-size:12px;}
+.ongkir-row .k{font-weight:600;color:#1E3A8A;}
+.ongkir-row .v{font-weight:800;color:#1E40AF;letter-spacing:-.2px;}
+.ongkir-row .v.green{color:#059669;}
+.ongkir-error{background:linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%);border:1.5px solid #FCA5A5;border-radius:12px;padding:11px 13px;display:flex;align-items:flex-start;gap:10px;font-size:11.5px;color:#B91C1C;font-weight:600;line-height:1.5;}
+.ongkir-error i{font-size:14px;flex-shrink:0;margin-top:1px;}
+.ongkir-loading{background:#F8FAFC;border:1.5px dashed #BFDBFE;border-radius:12px;padding:11px 13px;text-align:center;font-size:11.5px;color:var(--text-soft);font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;}
+.ongkir-loading i{color:#2563EB;}
 
 .btn-sm{background:var(--gradient);color:#fff;border:none;padding:10px 14px;border-radius:11px;font-size:var(--fs-sm);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.25s;box-shadow:var(--sh-red);}
 .btn-sm:hover{transform:translateY(-2px);box-shadow:var(--sh-red-lg);}
@@ -804,8 +884,9 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 
 .cust-card{display:flex;align-items:center;gap:11px;background:#fff;border:1.5px solid var(--border-soft);border-radius:var(--r-lg);padding:12px;margin-bottom:9px;box-shadow:var(--sh-sm);}
 .cust-avatar{width:40px;height:40px;border-radius:13px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.cust-avatar.kurir{background:#DBEAFE;color:#2563EB;}
 .cust-info{min-width:0;flex:1;}
-.cust-info h4{font-size:var(--fs-md);font-weight:800;color:var(--text);margin-bottom:2px;}
+.cust-info h4{font-size:var(--fs-md);font-weight:800;color:var(--text);margin-bottom:2px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
 .cust-info p{font-size:10px;color:var(--text-soft);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6;}
 
 .notif-popup{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-140px);background:#fff;border-radius:var(--r-lg);padding:13px 16px;box-shadow:0 18px 40px rgba(220,38,38,.28);z-index:10000;max-width:400px;width:calc(100% - 24px);display:flex;align-items:center;gap:12px;opacity:0;transition:.5s cubic-bezier(.2,.9,.3,1.3);border:1.5px solid var(--red);pointer-events:none;}
@@ -891,6 +972,18 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
 .qris-preview-meta{font-size:10px;color:var(--text-mute);font-weight:600;margin-top:6px;line-height:1.4;}
 .settings-actions-row{display:flex;gap:6px;flex-wrap:wrap;}
 .settings-actions-row .btn-sm{flex:1;justify-content:center;min-width:100px;}
+
+/* ===== KURIR SCREEN ===== */
+#kurirScreen .admin-header::after{background:linear-gradient(90deg,#3B82F6 0%,#2563EB 50%,#fff 50%,#fff 100%);}
+#kurirScreen .admin-brand > i{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 6px 16px rgba(37,99,235,.3);}
+#kurirScreen .admin-nav button.active{color:#2563EB;}
+#kurirScreen .admin-nav button.active::before{background:linear-gradient(90deg,#3B82F6,#2563EB);}
+#kurirScreen .section-title h3::before{background:linear-gradient(180deg,#3B82F6,#2563EB);}
+#kurirScreen .stat-card:hover{border-color:rgba(37,99,235,.14);}
+.kurir-empty{text-align:center;padding:26px 14px;background:#F8FAFC;border:1.5px dashed #BFDBFE;border-radius:var(--r-lg);color:var(--text-soft);font-size:12px;font-weight:500;line-height:1.5;}
+.kurir-empty i{font-size:32px;display:block;margin-bottom:8px;color:#93C5FD;}
+.kurir-gps-live{background:linear-gradient(135deg,#ECFDF5,#D1FAE5)!important;border-color:#10B981!important;box-shadow:0 8px 22px rgba(16,185,129,.2)!important;}
+.badge.diambil{background:#C7D2FE;color:#3730A3;}
 </style>
 </head>
 <body>
@@ -931,6 +1024,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
     </p>
     <div class="role-switch">
       <button class="role-btn active" data-role="customer"><i class="fas fa-user"></i> Pelanggan</button>
+      <button class="role-btn" data-role="kurir"><i class="fas fa-motorcycle"></i> Kurir</button>
       <button class="role-btn" data-role="admin"><i class="fas fa-user-shield"></i> Admin</button>
     </div>
     <div class="auth-tabs">
@@ -960,7 +1054,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       </div>
       <div class="input-group" id="wrapTelepon"><i class="fas fa-phone"></i><input type="tel" id="regTelepon" placeholder="Nomor WhatsApp"></div>
       <div class="input-group" id="wrapAlamat"><i class="fas fa-location-dot"></i><input type="text" id="regAlamat" placeholder="Alamat rumah (RT/RW, Dusun)"></div>
-      <div class="input-group" id="wrapKode" style="display:none"><i class="fas fa-key"></i><input type="text" id="regKode" placeholder="Kode akses admin"></div>
+      <div class="input-group" id="wrapKode" style="display:none"><i class="fas fa-key"></i><input type="text" id="regKode" placeholder="Kode akses"></div>
       <button type="submit" class="btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i> Daftar Sekarang</button>
       <p class="hint">Dengan mendaftar, kamu menyetujui syarat & ketentuan koperasi.</p>
     </form>
@@ -1123,6 +1217,44 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   </div>
 </div>
 
+<!-- ================= KURIR SCREEN ================= -->
+<div id="kurirScreen" class="screen">
+  <div class="admin-container">
+    <div class="admin-header">
+      <div class="admin-brand">
+        <i class="fas fa-motorcycle"></i>
+        <div><h2>Kopdesku Merah Putih</h2><span>Panel Kurir</span></div>
+      </div>
+      <button class="admin-logout-btn" id="kurirLogout" title="Keluar"><i class="fas fa-right-from-bracket"></i></button>
+    </div>
+    <main class="admin-main">
+      <section id="kviewTugas" class="admin-view active">
+        <div class="admin-head">
+          <div><h1>Tugas Pengiriman</h1><p id="kurirWelcome">Selamat datang</p></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-icon" style="background:#FEF3C7;color:#B45309"><i class="fas fa-inbox"></i></div><div><h4>Tersedia</h4><p id="kurirStatAvailable">0</p></div></div>
+          <div class="stat-card"><div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-truck-fast"></i></div><div><h4>Tugas Aktif</h4><p id="kurirStatActive">0</p></div></div>
+          <div class="stat-card"><div class="stat-icon" style="background:#D1FAE5;color:#047857"><i class="fas fa-circle-check"></i></div><div><h4>Selesai</h4><p id="kurirStatDone">0</p></div></div>
+          <div class="stat-card"><div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-satellite-dish"></i></div><div><h4>GPS Status</h4><p id="kurirStatLive" style="font-size:12px">Nonaktif</p></div></div>
+        </div>
+        <div class="section-title" style="padding:6px 0 10px"><h3 style="font-size:14px">Pesanan Tersedia</h3><span id="kurirAvailCount"></span></div>
+        <div id="kurirAvailableList"></div>
+        <div class="section-title" style="padding:14px 0 10px"><h3 style="font-size:14px">Tugas Saya</h3><span id="kurirMyCount"></span></div>
+        <div id="kurirMyOrdersList"></div>
+      </section>
+      <section id="kviewRiwayat" class="admin-view">
+        <div class="admin-head"><div><h1>Riwayat Pengiriman</h1><p>Pesanan yang sudah selesai</p></div></div>
+        <div id="kurirHistoryList"></div>
+      </section>
+    </main>
+    <nav class="admin-nav">
+      <button class="active" data-kview="tugas"><i class="fas fa-tasks"></i><span>Tugas</span></button>
+      <button data-kview="riwayat"><i class="fas fa-clock-rotate-left"></i><span>Riwayat</span></button>
+    </nav>
+  </div>
+</div>
+
 <div id="adminScreen" class="screen">
   <div class="admin-container">
     <div class="admin-header">
@@ -1153,6 +1285,12 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
             <button class="btn-sm" id="btnAddProduct"><i class="fas fa-plus"></i> Tambah</button>
           </div>
         </div>
+        <div class="admin-search-bar">
+          <div class="admin-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="adminProductSearch" placeholder="Cari nama produk, kategori, atau UMKM...">
+          </div>
+        </div>
         <div id="adminProductList"></div>
       </section>
       <section id="aviewPesanan" class="admin-view">
@@ -1160,14 +1298,13 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <div id="adminOrderList"></div>
       </section>
       <section id="aviewPelanggan" class="admin-view">
-        <div class="admin-head"><div><h1>Daftar Pelanggan</h1><p>Semua pengguna terdaftar</p></div></div>
+        <div class="admin-head"><div><h1>Daftar Pengguna</h1><p>Semua pelanggan & kurir terdaftar</p></div></div>
         <div id="adminCustomerList"></div>
       </section>
 
-      <!-- ===== PENGATURAN PEMBAYARAN ===== -->
       <section id="aviewPengaturan" class="admin-view">
         <div class="admin-head">
-          <div><h1>Pengaturan Pembayaran</h1><p>Atur QRIS, DANA & GoPay</p></div>
+          <div><h1>Pengaturan</h1><p>Pembayaran & Ongkir Otomatis</p></div>
         </div>
 
         <div class="panel" style="margin-bottom:14px">
@@ -1222,14 +1359,53 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
           </div>
         </div>
 
-        <button class="btn-primary" id="btnSaveSettings" style="width:100%;margin-bottom:20px"><i class="fas fa-floppy-disk"></i> Simpan Pengaturan</button>
+        <button class="btn-primary" id="btnSaveSettings" style="width:100%;margin-bottom:14px"><i class="fas fa-floppy-disk"></i> Simpan Pengaturan Pembayaran</button>
+
+        <div class="panel" style="margin-bottom:14px">
+          <div class="settings-block-head"><i style="background:linear-gradient(135deg,#F59E0B,#D97706)"><i class="fas fa-truck"></i></i> Ongkir Otomatis Berdasarkan Jarak</div>
+          <div class="form-row">
+            <label class="checkbox-row" style="background:#FFFBEB;border-color:#FDE68A">
+              <input type="checkbox" id="setOngkirEnabled" checked style="accent-color:#D97706">
+              <div class="cb-text">
+                <strong style="color:#B45309">Aktifkan Ongkir Otomatis</strong>
+                <small style="color:#78350F">Ongkir dihitung dari jarak Kopdesku ke lokasi customer (GPS)</small>
+              </div>
+            </label>
+          </div>
+          <div class="form-row"><label>Ongkir Dasar (Rp)</label>
+            <div class="input-group"><i class="fas fa-money-bill-wave"></i><input type="number" id="setOngkirBaseFare" placeholder="5000" min="0" value="5000"></div>
+            <p class="hint-small">Biaya tetap sebelum ditambah tarif per km.</p>
+          </div>
+          <div class="form-row"><label>Tarif per Kilometer (Rp)</label>
+            <div class="input-group"><i class="fas fa-road"></i><input type="number" id="setOngkirPerKm" placeholder="2000" min="0" value="2000"></div>
+            <p class="hint-small">Contoh: 3.5 km × Rp 2.000 = Rp 7.000</p>
+          </div>
+          <div class="form-row"><label>Maksimal Jarak Antar (km) <span style="color:var(--text-mute);font-weight:500">— 0 = unlimited</span></label>
+            <div class="input-group"><i class="fas fa-map-location-dot"></i><input type="number" id="setOngkirMaxDistance" placeholder="20" min="0" value="20"></div>
+            <p class="hint-small">Jika jarak melebihi, customer tidak bisa checkout.</p>
+          </div>
+          <div class="form-row"><label>Gratis Ongkir Min. Belanja (Rp) <span style="color:var(--text-mute);font-weight:500">— 0 = nonaktif</span></label>
+            <div class="input-group"><i class="fas fa-gift"></i><input type="number" id="setOngkirFreeMin" placeholder="100000" min="0" value="0"></div>
+            <p class="hint-small">Jika subtotal ≥ nilai ini, ongkir otomatis GRATIS.</p>
+          </div>
+          <div class="form-row"><label>Pembulatan Ongkir (Rp) <span style="color:var(--text-mute);font-weight:500">— 0 = tanpa</span></label>
+            <div class="input-group"><i class="fas fa-circle-notch"></i><input type="number" id="setOngkirRounding" placeholder="1000" min="0" value="1000"></div>
+            <p class="hint-small">Dibulatkan ke atas. Contoh: 1000 = 7.500 → 8.000.</p>
+          </div>
+          <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:11px;padding:10px 12px;margin-top:4px;font-size:11px;color:#1E3A8A;line-height:1.55;font-weight:500">
+            <i class="fas fa-lightbulb" style="color:#2563EB;margin-right:4px"></i>
+            <b style="color:#1D4ED8">Cara kerja:</b> Customer checkout → sistem deteksi GPS → hitung jarak ke Kopdesku (Kunduran, Blora) → <b>Ongkir = Ongkir Dasar + (Jarak km × Tarif per km)</b> → dibulatkan → ditambahkan ke total.
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btnSaveOngkir" style="width:100%;margin-bottom:20px;background:linear-gradient(135deg,#F59E0B 0%,#D97706 50%,#B45309 100%);box-shadow:0 6px 16px rgba(217,119,6,.3)"><i class="fas fa-floppy-disk"></i> Simpan Pengaturan Ongkir</button>
       </section>
     </main>
     <nav class="admin-nav">
       <button class="active" data-aview="dashboard"><i class="fas fa-chart-pie"></i><span>Dashboard</span></button>
       <button data-aview="produk"><i class="fas fa-boxes-stacked"></i><span>Produk</span></button>
       <button data-aview="pesanan"><i class="fas fa-clipboard-list"></i><span>Pesanan</span></button>
-      <button data-aview="pelanggan"><i class="fas fa-users"></i><span>Pelanggan</span></button>
+      <button data-aview="pelanggan"><i class="fas fa-users"></i><span>Pengguna</span></button>
       <button data-aview="pengaturan"><i class="fas fa-gear"></i><span>Setting</span></button>
     </nav>
   </div>
@@ -1239,7 +1415,11 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
   <div class="sheet">
     <div class="sheet-head"><h3><i class="fas fa-shopping-basket"></i> Keranjang</h3><button class="close-btn" id="cartClose"><i class="fas fa-xmark"></i></button></div>
     <div id="cartItems"></div>
-    <div class="sheet-total"><span>Total</span><span id="cartSheetTotal">Rp 0</span></div>
+    <div class="sheet-total-breakdown" id="cartTotalsBreakdown">
+      <div class="sheet-total-row"><span class="k">Subtotal</span><span class="v" id="cartSubtotal">Rp 0</span></div>
+      <div class="sheet-total-row" id="cartOngkirRow" style="display:none"><span class="k">Ongkir</span><span class="v" id="cartOngkir">Rp 0</span></div>
+      <div class="sheet-total-row grand"><span class="k">Total</span><span class="v" id="cartSheetTotal">Rp 0</span></div>
+    </div>
     <div id="checkoutForm" style="display:none">
       <div id="checkoutAddressWrap"></div>
       <div class="form-row"><label>Nama Penerima</label><div class="input-group"><i class="fas fa-user"></i><input type="text" id="coNama"></div></div>
@@ -1263,6 +1443,8 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
           </div>
         </div>
       </div>
+
+      <div id="checkoutOngkirInfo"></div>
 
       <div class="form-row"><label>Catatan (opsional)</label><div class="input-group"><i class="fas fa-note-sticky"></i><input type="text" id="coCatatan" placeholder="Contoh: antar sore hari"></div></div>
       <div class="form-row">
@@ -1433,6 +1615,11 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         </div>
       </div>
 
+      <div class="pd-bundle-section" id="pdBundleSection" style="display:none">
+        <div class="pd-section-title"><i class="fas fa-boxes-packing" style="color:var(--promo);margin-right:5px"></i>Paket Bundel Hemat</div>
+        <div class="pd-bundle-list" id="pdBundleList"></div>
+      </div>
+
       <div class="pd-actions">
         <button class="pd-btn-add" id="pdAddBtn">
           <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
@@ -1594,6 +1781,15 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       </label>
     </div>
 
+    <div class="form-row" id="wrapBundle">
+      <label><i class="fas fa-boxes-packing" style="color:var(--promo);margin-right:5px"></i>Paket Bundel Hemat (opsional)</label>
+      <p class="hint-small" style="margin-top:0">Buat paket "beli banyak lebih hemat". Contoh: beli 5 pcs seharga Rp 45.000 (harga normal Rp 10.000/pcs = Rp 50.000 → hemat Rp 5.000).</p>
+      <div id="bundleList"></div>
+      <button type="button" class="btn-sm ghost" id="btnAddBundle" style="width:100%;justify-content:center;margin-top:6px">
+        <i class="fas fa-plus"></i> Tambah Paket Bundel
+      </button>
+    </div>
+
     <div class="form-row"><label>Deskripsi Produk</label><div class="input-group"><i class="fas fa-align-left"></i><textarea id="pDeskripsi" rows="3" placeholder="Deskripsi produk..."></textarea></div></div>
     <button class="btn-primary" id="btnSaveProduct" style="width:100%"><i class="fas fa-floppy-disk"></i> Simpan Produk</button>
   </div>
@@ -1635,6 +1831,7 @@ const CLOUDINARY_CLOUD_NAME = "v30lhp3p";
 const CLOUDINARY_UPLOAD_PRESET = "koperasi_preset";
 const CLOUDINARY_FOLDER = "produk-koperasi";
 const ADMIN_CODE = "KOPERASI2026";
+const KURIR_CODE = "KURIR2026";
 const PLACEHOLDER = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80";
 const UMKM_CAT = "UMKM";
 const KOPERASI_LAT = -7.0793848;
@@ -1671,7 +1868,7 @@ let searchTerm = "";
 let sortMode = 0;
 let checkoutMode = false;
 let selectedPayment = "cod";
-let unsubProducts = null, unsubOrders = null, unsubAdminOrders = null, unsubCustomers = null, unsubSettings = null;
+let unsubProducts = null, unsubOrders = null, unsubAdminOrders = null, unsubCustomers = null, unsubSettings = null, unsubKurirOrders = null, unsubOngkirSettings = null;
 let lastStatusMap = {};
 let statusMapInitialized = false;
 let trackingMapInstance = null;
@@ -1694,14 +1891,19 @@ let courierLastWrite = 0;
 let courierLastPos = null;
 let courierFirstFix = true;
 
+let kurirWatchId = null;
+let kurirActiveOrderId = null;
+let kurirLastWrite = 0;
+let kurirLastPos = null;
+let kurirFirstFix = true;
+let kurirEventsAttached = false;
+
 let currentPDProductId = null;
 let currentPDQty = 1;
-
 let formImages = [];
-
+let adminProductSearch = "";
 let promoSlideIdx = 0;
 let promoAutoTimer = null;
-
 let savedAddresses = [];
 let editingAddressId = null;
 let addressMapInstance = null;
@@ -1713,22 +1915,53 @@ let addressReturnContext = "profile";
 let adminOrderIds = new Set();
 let adminOrdersReady = false;
 
-/* ===== STATE PENGATURAN PEMBAYARAN ===== */
 let paymentSettings = {
-  qrisImageUrl: "",
-  qrisNmid: "",
-  danaNumber: "",
-  danaName: "Kopdesku Merah Putih",
-  gopayNumber: "",
-  gopayName: "Kopdesku Merah Putih"
+  qrisImageUrl: "", qrisNmid: "",
+  danaNumber: "", danaName: "Kopdesku Merah Putih",
+  gopayNumber: "", gopayName: "Kopdesku Merah Putih"
 };
 let currentQrisImage = "";
+
+/* ===== ONGKIR STATE ===== */
+let ongkirSettings = {
+  enabled: true,
+  baseFare: 5000,
+  perKmRate: 2000,
+  maxDistance: 20,
+  freeShippingMin: 0,
+  rounding: 1000
+};
 
 const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const rupiah = n => "Rp " + Number(n || 0).toLocaleString("id-ID");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const initials = name => (name || "?").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+
+/* ===== WHATSAPP HELPERS ===== */
+function waNumber(phone) {
+  if (!phone) return "";
+  let clean = String(phone).replace(/\D/g, "");
+  if (!clean) return "";
+  if (clean.startsWith("0")) clean = "62" + clean.slice(1);
+  else if (clean.startsWith("8")) clean = "62" + clean;
+  else if (!clean.startsWith("62")) clean = "62" + clean;
+  return clean;
+}
+function waPhoneHTML(phone, name = "", orderId = null, label = null) {
+  const display = label || phone || "-";
+  if (!phone) return esc(display);
+  const num = waNumber(phone);
+  if (!num) return esc(display);
+  let msg;
+  if (orderId) {
+    msg = `Halo ${name || "Kak"}, saya dari Kopdesku Merah Putih terkait pesanan #${orderId.slice(0,8).toUpperCase()}.`;
+  } else {
+    msg = `Halo ${name || "Kak"}, saya dari Kopdesku Merah Putih.`;
+  }
+  const href = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+  return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="wa-phone-btn" onclick="event.stopPropagation()" title="Chat WhatsApp ${esc(name || phone)}"><i class="fab fa-whatsapp"></i> ${esc(display)}</a>`;
+}
 
 let splashHidden = false;
 function hideSplash(){
@@ -1782,7 +2015,7 @@ function savePersistedStatusMap(map){
 }
 
 function updateAdminOrderBadge(){
-  const btn = document.querySelector('.admin-nav button[data-aview="pesanan"]');
+  const btn = document.querySelector('#adminScreen .admin-nav button[data-aview="pesanan"]');
   if (!btn) return;
   const pendingCount = allOrders.filter(o => o.status === "pending").length;
   if (pendingCount > 0) {
@@ -1864,11 +2097,75 @@ function firstProductImage(p){ const arr = getProductImages(p); return arr[0] ||
 
 function findOtherSubsidiInCart(exceptProductId = null) {
   for (const key in cart) {
-    if (key === exceptProductId) continue;
-    const other = allProducts.find(x => x.id === key);
+    const item = cart[key];
+    if (!item || item.id === exceptProductId) continue;
+    const other = allProducts.find(x => x.id === item.id);
     if (other && other.subsidi) return other;
   }
   return null;
+}
+
+/* ===== BUNDLE HELPERS ===== */
+function totalProductQtyInCart(productId) {
+  let total = 0;
+  for (const key in cart) {
+    const item = cart[key];
+    if (!item || item.id !== productId) continue;
+    total += item.qty * (item.bundleQty || 1);
+  }
+  return total;
+}
+
+function addBundleToCart(productId, bundleQty, bundlePrice) {
+  const p = allProducts.find(x => x.id === productId);
+  if (!p) return;
+  const stok = Number(p.stok) || 0;
+  if (stok < bundleQty) return toast(`Stok tidak cukup untuk bundel ${bundleQty} pcs`, "err");
+
+  const inCart = totalProductQtyInCart(productId);
+  if (inCart + bundleQty > stok) {
+    return toast(`Stok tidak mencukupi (sisa ${stok - inCart} pcs)`, "err");
+  }
+
+  const key = `${productId}__bundle_${bundleQty}`;
+  if (cart[key]) {
+    cart[key].qty += 1;
+  } else {
+    cart[key] = {
+      id: p.id,
+      nama: p.nama,
+      harga: bundlePrice,
+      gambar: firstProductImage(p),
+      qty: 1,
+      isBundle: true,
+      bundleQty: bundleQty,
+      bundlePrice: bundlePrice
+    };
+  }
+  saveCart();
+  updateCartBar();
+  toast(`✅ Bundel ${bundleQty} pcs ${p.nama} ditambahkan`, "ok");
+  closeProductDetail();
+}
+
+function addBundleRow(qty = "", price = "") {
+  const list = document.getElementById("bundleList");
+  if (!list) return;
+  const row = document.createElement("div");
+  row.className = "bundle-row";
+  row.innerHTML = `
+    <div class="input-group" style="flex:1">
+      <i class="fas fa-cubes"></i>
+      <input type="number" class="bundle-qty" placeholder="Qty (min 2)" min="2" value="${qty}">
+    </div>
+    <div class="input-group" style="flex:1.3">
+      <i class="fas fa-money-bill-wave"></i>
+      <input type="number" class="bundle-price" placeholder="Harga total (Rp)" min="0" value="${price}">
+    </div>
+    <button type="button" class="icon-btn del" title="Hapus"><i class="fas fa-trash"></i></button>
+  `;
+  row.querySelector(".icon-btn.del").addEventListener("click", () => row.remove());
+  list.appendChild(row);
 }
 
 function updateDiscountPreview() {
@@ -1986,7 +2283,7 @@ function updateWaProofLinks() {
 }
 
 /* ============================================================
-   PENGATURAN PEMBAYARAN — LOAD, APPLY, SAVE (ADMIN)
+   PENGATURAN PEMBAYARAN
    ============================================================ */
 function listenPaymentSettings() {
   if (unsubSettings) return;
@@ -2008,25 +2305,16 @@ function listenPaymentSettings() {
 }
 
 function applyPaymentSettings() {
-  // QRIS
   const qrisImg = document.getElementById("qrisImg");
-  if (qrisImg) {
-    qrisImg.src = paymentSettings.qrisImageUrl || DEFAULT_QRIS_URL;
-  }
+  if (qrisImg) qrisImg.src = paymentSettings.qrisImageUrl || DEFAULT_QRIS_URL;
   const qrisNmidText = document.getElementById("qrisNmidText");
-  if (qrisNmidText) {
-    qrisNmidText.textContent = `Kopdesku Merah Putih · NMID: ${paymentSettings.qrisNmid || "ID1024XXXXXX"}`;
-  }
-
-  // DANA
+  if (qrisNmidText) qrisNmidText.textContent = `Kopdesku Merah Putih · NMID: ${paymentSettings.qrisNmid || "ID1024XXXXXX"}`;
   const noDana = document.getElementById("noDana");
   if (noDana) noDana.textContent = paymentSettings.danaNumber || "0812-3456-7890";
   const danaAn = document.getElementById("danaAn");
   if (danaAn) danaAn.innerHTML = `<b>a.n.</b> ${esc(paymentSettings.danaName || "Kopdesku Merah Putih")}`;
   const danaCopy = document.querySelector('#payInst_dana .copy-btn');
   if (danaCopy) danaCopy.dataset.copy = String(paymentSettings.danaNumber || "").replace(/\D/g, "");
-
-  // GoPay
   const noGopay = document.getElementById("noGopay");
   if (noGopay) noGopay.textContent = paymentSettings.gopayNumber || "0812-3456-7890";
   const gopayAn = document.getElementById("gopayAn");
@@ -2047,10 +2335,7 @@ function fillSettingsForm() {
   if (urlInp) urlInp.value = "";
   currentQrisImage = paymentSettings.qrisImageUrl || "";
   const preview = document.getElementById("qrisPreviewImg");
-  if (preview) {
-    preview.src = paymentSettings.qrisImageUrl || DEFAULT_QRIS_URL;
-    preview.style.opacity = "1";
-  }
+  if (preview) { preview.src = paymentSettings.qrisImageUrl || DEFAULT_QRIS_URL; preview.style.opacity = "1"; }
   const meta = document.getElementById("qrisPreviewMeta");
   if (meta) meta.textContent = paymentSettings.qrisImageUrl ? "Menggunakan gambar QRIS kustom" : "Menggunakan QR otomatis (default)";
 }
@@ -2079,6 +2364,101 @@ async function savePaymentSettings() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Pengaturan';
   }
+}
+
+/* ============================================================
+   ONGKIR OTOMATIS
+   ============================================================ */
+function listenOngkirSettings() {
+  if (unsubOngkirSettings) return;
+  unsubOngkirSettings = onSnapshot(doc(db, "settings", "ongkir"), snap => {
+    if (snap.exists()) {
+      const d = snap.data();
+      ongkirSettings = {
+        enabled: d.enabled !== false,
+        baseFare: Number(d.baseFare) || 0,
+        perKmRate: Number(d.perKmRate) || 0,
+        maxDistance: Number(d.maxDistance) || 0,
+        freeShippingMin: Number(d.freeShippingMin) || 0,
+        rounding: Number(d.rounding) || 0
+      };
+    }
+    if ($("#aviewPengaturan")?.classList.contains("active")) fillOngkirForm();
+    if (checkoutMode && $("#cartOverlay")?.classList.contains("show")) renderCartSheet();
+  }, err => console.warn("ongkir listener:", err));
+}
+
+function calculateOngkir(destLat, destLng, subtotal) {
+  if (!ongkirSettings.enabled) return { ongkir: 0, distance: 0, error: null, free: true, disabled: true };
+  if (destLat == null || destLng == null) return { ongkir: null, distance: null, error: null, notSet: true };
+  const distM = haversineDistance([KOPERASI_LAT, KOPERASI_LNG], [Number(destLat), Number(destLng)]);
+  const distKm = distM / 1000;
+  if (ongkirSettings.maxDistance > 0 && distKm > ongkirSettings.maxDistance) {
+    return { ongkir: null, distance: distKm, error: `Jarak ${distKm.toFixed(1)} km melebihi batas maksimal ${ongkirSettings.maxDistance} km. Hubungi admin untuk pengiriman khusus.` };
+  }
+  if (ongkirSettings.freeShippingMin > 0 && subtotal >= ongkirSettings.freeShippingMin) {
+    return { ongkir: 0, distance: distKm, error: null, free: true };
+  }
+  let ongkir = ongkirSettings.baseFare + (distKm * ongkirSettings.perKmRate);
+  if (ongkirSettings.rounding > 0) ongkir = Math.ceil(ongkir / ongkirSettings.rounding) * ongkirSettings.rounding;
+  return { ongkir: Math.round(ongkir), distance: distKm, error: null };
+}
+
+function fillOngkirForm() {
+  const el = document.getElementById("setOngkirBaseFare");
+  if (!el) return;
+  document.getElementById("setOngkirEnabled").checked = !!ongkirSettings.enabled;
+  document.getElementById("setOngkirBaseFare").value = ongkirSettings.baseFare;
+  document.getElementById("setOngkirPerKm").value = ongkirSettings.perKmRate;
+  document.getElementById("setOngkirMaxDistance").value = ongkirSettings.maxDistance;
+  document.getElementById("setOngkirFreeMin").value = ongkirSettings.freeShippingMin;
+  document.getElementById("setOngkirRounding").value = ongkirSettings.rounding;
+}
+
+async function saveOngkirSettings() {
+  const btn = $("#btnSaveOngkir");
+  if (!btn) return;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+  try {
+    const data = {
+      enabled: !!$("#setOngkirEnabled").checked,
+      baseFare: Math.max(0, Number($("#setOngkirBaseFare").value) || 0),
+      perKmRate: Math.max(0, Number($("#setOngkirPerKm").value) || 0),
+      maxDistance: Math.max(0, Number($("#setOngkirMaxDistance").value) || 0),
+      freeShippingMin: Math.max(0, Number($("#setOngkirFreeMin").value) || 0),
+      rounding: Math.max(0, Number($("#setOngkirRounding").value) || 0),
+      updatedAt: serverTimestamp(),
+      updatedBy: currentUser.uid
+    };
+    await setDoc(doc(db, "settings", "ongkir"), data, { merge: true });
+    toast("Pengaturan ongkir tersimpan ✓", "ok");
+  } catch (err) { toast("Gagal menyimpan: " + err.message, "err"); console.error(err); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Pengaturan Ongkir'; }
+}
+
+function updateCheckoutOngkirUI() {
+  const wrap = document.getElementById("checkoutOngkirInfo");
+  if (!wrap) return;
+  if (!ongkirSettings.enabled) { wrap.innerHTML = ""; return; }
+  const subtotal = cartTotals().total;
+  const result = calculateOngkir(checkoutCoords.lat, checkoutCoords.lng, subtotal);
+  if (result.error) { wrap.innerHTML = `<div class="ongkir-error"><i class="fas fa-triangle-exclamation"></i><div><b>Ongkir tidak tersedia</b><br>${esc(result.error)}</div></div>`; return; }
+  if (result.ongkir == null) { wrap.innerHTML = `<div class="ongkir-loading"><i class="fas fa-location-crosshairs"></i> Tentukan lokasi (peta/GPS) untuk menghitung ongkir</div>`; return; }
+  const distKm = result.distance.toFixed(1);
+  wrap.innerHTML = `
+    <div class="ongkir-info">
+      <div class="ongkir-info-head"><i class="fas fa-truck-fast"></i> Estimasi Ongkir Otomatis</div>
+      <div class="ongkir-row"><span class="k"><i class="fas fa-route" style="margin-right:4px;opacity:.7"></i>Jarak dari Kopdesku</span><span class="v">${distKm} km</span></div>
+      ${result.free ? `
+        <div class="ongkir-row"><span class="k">Ongkir</span><span class="v green">🎉 GRATIS</span></div>
+        <div style="font-size:10.5px;color:#047857;margin-top:4px;font-weight:600"><i class="fas fa-gift"></i> Gratis ongkir untuk belanja ≥ ${rupiah(ongkirSettings.freeShippingMin)}</div>
+      ` : `
+        ${ongkirSettings.baseFare > 0 ? `<div class="ongkir-row"><span class="k">Ongkir dasar</span><span class="v">${rupiah(ongkirSettings.baseFare)}</span></div>` : ''}
+        ${ongkirSettings.perKmRate > 0 ? `<div class="ongkir-row"><span class="k">Tarif (${distKm} km × ${rupiah(ongkirSettings.perKmRate)})</span><span class="v">${rupiah(Math.round(result.distance * ongkirSettings.perKmRate))}</span></div>` : ''}
+        <div class="ongkir-row" style="border-top:1px dashed rgba(37,99,235,.3);margin-top:4px;padding-top:7px"><span class="k" style="color:#1E40AF">Total Ongkir</span><span class="v" style="font-size:14px">${rupiah(result.ongkir)}</span></div>
+      `}
+    </div>`;
 }
 
 function getDestination(order) {
@@ -2174,6 +2554,7 @@ async function shareCurrentLocation() {
     $("#locCoordText").textContent = `Lat: ${lat.toFixed(6)} · Lng: ${lng.toFixed(6)} · Akurasi ±${Math.round(pos.coords.accuracy)}m`;
     $("#locPreview").style.display = "block";
     setTimeout(() => initLocMiniMap(lat, lng), 120);
+    renderCartSheet();
     btn.innerHTML = '<i class="fas fa-circle-check"></i> Lokasi Terdeteksi';
     btn.classList.add("detected");
     toast("Lokasi berhasil dideteksi ✓", "ok");
@@ -2307,6 +2688,43 @@ function openProductDetail(id) {
 
   $("#pdQtyRow").style.display = habis ? "none" : "flex";
 
+  // ===== Render Paket Bundel =====
+  const bundles = Array.isArray(p.bundles) ? p.bundles : [];
+  const bundleSection = $("#pdBundleSection");
+  const bundleListEl = $("#pdBundleList");
+  if (bundleSection && bundleListEl) {
+    if (bundles.length && !isSubsidi && !habis) {
+      bundleSection.style.display = "block";
+      bundleListEl.innerHTML = bundles.map(b => {
+        const normalTotal = hargaFinal * b.qty;
+        const saving = normalTotal - b.price;
+        const perPcs = Math.round(b.price / b.qty);
+        const disabled = b.qty > stok;
+        return `
+          <button class="pd-bundle-card" data-bundle-qty="${b.qty}" data-bundle-price="${b.price}" ${disabled ? 'disabled title="Stok tidak cukup"' : ''}>
+            <div class="pd-bundle-icon"><i class="fas fa-boxes-packing"></i></div>
+            <div class="pd-bundle-info">
+              <div class="pd-bundle-label"><i class="fas fa-tag"></i> Paket Hemat</div>
+              <div class="pd-bundle-qty-label">Beli ${b.qty} pcs</div>
+              <div class="pd-bundle-price">${rupiah(b.price)}</div>
+              <div class="pd-bundle-per">${rupiah(perPcs)}/pcs</div>
+            </div>
+            <div class="pd-bundle-saving"><i class="fas fa-arrow-down"></i> Hemat ${rupiah(saving)}</div>
+          </button>
+        `;
+      }).join("");
+      bundleListEl.querySelectorAll("[data-bundle-qty]").forEach(card => {
+        card.addEventListener("click", () => {
+          if (card.disabled) return;
+          addBundleToCart(p.id, Number(card.dataset.bundleQty), Number(card.dataset.bundlePrice));
+        });
+      });
+    } else {
+      bundleSection.style.display = "none";
+      bundleListEl.innerHTML = "";
+    }
+  }
+
   $("#pdOverlay").classList.add("show");
   document.body.style.overflow = "hidden";
 }
@@ -2353,9 +2771,7 @@ function addPDProductToCart() {
       return toast(`Tidak bisa membeli produk subsidi lain. Hapus "${conflict.nama}" dari keranjang dulu.`, "err");
     }
     const existingQty = cart[p.id]?.qty || 0;
-    if (existingQty >= 1) {
-      return toast("Produk subsidi maksimal 1 pcs per pesanan", "err");
-    }
+    if (existingQty >= 1) return toast("Produk subsidi maksimal 1 pcs per pesanan", "err");
     cart[p.id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: 1 };
     saveCart(); updateCartBar();
     toast(`✅ ${p.nama} (subsidi) ×1 ditambahkan`, "ok");
@@ -2364,7 +2780,8 @@ function addPDProductToCart() {
   }
 
   const existing = cart[p.id]?.qty || 0;
-  if (existing + currentPDQty > stok) return toast("Melebihi stok tersedia", "err");
+  const inCart = totalProductQtyInCart(p.id);
+  if (inCart + currentPDQty > stok) return toast("Melebihi stok tersedia", "err");
 
   cart[p.id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: existing + currentPDQty };
   saveCart(); updateCartBar();
@@ -2463,6 +2880,7 @@ function renderCheckoutAddressOptions() {
         document.getElementById('locPreview').style.display = 'none';
       }
       wrap.querySelectorAll('.addr-chip').forEach(c => c.classList.toggle('selected', c === btn));
+      renderCartSheet();
       toast('Alamat dipilih ✓', 'ok');
     });
   });
@@ -2641,6 +3059,13 @@ function updateTrackingLiveStatus(order) {
     } else { lastUpd.textContent = "belum ada update"; lastUpd.style.color = "#71717A"; lastUpd.style.fontWeight = "600"; }
   }
   if ($("#mapPkgDesc") && order.status) $("#mapPkgDesc").textContent = statusLabel(order.status);
+  if ($("#mapPkgTitle")) {
+    if (order.courierName) {
+      $("#mapPkgTitle").textContent = live ? `Kurir LIVE: ${order.courierName}` : `Kurir: ${order.courierName}`;
+    } else {
+      $("#mapPkgTitle").textContent = live ? "Posisi Kurir (LIVE)" : "Posisi Paket";
+    }
+  }
 }
 
 function startLiveTimer() {
@@ -2656,7 +3081,9 @@ function stopLiveTimer() { if (liveUpdateTimer) { clearInterval(liveUpdateTimer)
 async function openTrackingMap(order) {
   currentTrackOrderId = order.id;
   $("#mapOverlay").classList.add("show");
-  $("#mapPkgTitle").textContent = isCourierLive(order) ? "Posisi Kurir (LIVE)" : "Posisi Paket";
+  $("#mapPkgTitle").textContent = order.courierName
+    ? (isCourierLive(order) ? `Kurir LIVE: ${order.courierName}` : `Kurir: ${order.courierName}`)
+    : (isCourierLive(order) ? "Posisi Kurir (LIVE)" : "Posisi Paket");
   $("#mapPkgDesc").textContent = statusLabel(order.status);
   $("#mapDestText").textContent = order.alamat || "Alamat pengiriman";
   $("#routeInfo").innerHTML = '<div class="route-info-loading"><i class="fas fa-spinner fa-spin"></i> Menghitung rute jalan...</div>';
@@ -2686,7 +3113,8 @@ async function openTrackingMap(order) {
     L.marker(dest, { icon: L.divIcon({ html:'<div class="map-marker dest"><i class="fas fa-location-dot"></i></div>', className:'custom-map-marker', iconSize:[36,36], iconAnchor:[18,36] }) }).addTo(trackingMapInstance).bindPopup('<b>Lokasi Tujuan</b>');
     if (cur) {
       const iconHTML = isCourierLive(order) ? '<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>' : '<div class="map-marker package"><i class="fas fa-truck-fast"></i></div>';
-      packageMarkerRef = L.marker(cur, { icon: L.divIcon({ html: iconHTML, className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) }).addTo(trackingMapInstance).bindPopup('<b>Posisi Paket</b>').openPopup();
+      const popupTxt = order.courierName ? `<b>Kurir: ${esc(order.courierName)}</b>` : '<b>Posisi Paket</b>';
+      packageMarkerRef = L.marker(cur, { icon: L.divIcon({ html: iconHTML, className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }) }).addTo(trackingMapInstance).bindPopup(popupTxt).openPopup();
     }
     const bounds = L.latLngBounds([from, dest].concat(cur ? [cur] : []));
     trackingMapInstance.fitBounds(bounds, { padding: [40, 40] });
@@ -2902,7 +3330,7 @@ $("#addrLabelChips")?.addEventListener("click", e => {
   document.getElementById('addrLabel').value = chip.dataset.label || '';
 });
 
-/* ================= CLOUDINARY (dengan callback generik) ================= */
+/* ================= CLOUDINARY ================= */
 let cloudinaryWidget = null;
 let uploadSuccessCallback = null;
 
@@ -2962,15 +3390,24 @@ $("#btnAddUrl")?.addEventListener('click', () => {
 });
 $("#pGambarUrl")?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnAddUrl')?.click(); } });
 
+/* ================= AUTH ROLE SWITCH ================= */
 $$(".role-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     $$(".role-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     authRole = btn.dataset.role;
     const isAdmin = authRole === "admin";
-    $("#wrapKode").style.display = isAdmin ? "flex" : "none";
+    const isKurir = authRole === "kurir";
+    const needsCode = isAdmin || isKurir;
+
+    $("#wrapKode").style.display = needsCode ? "flex" : "none";
     $("#wrapTelepon").style.display = isAdmin ? "none" : "flex";
-    $("#wrapAlamat").style.display = isAdmin ? "none" : "flex";
+    $("#wrapAlamat").style.display = (isAdmin || isKurir) ? "none" : "flex";
+
+    const kodeInp = document.querySelector("#wrapKode input");
+    if (kodeInp) {
+      kodeInp.placeholder = isAdmin ? "Kode akses admin" : isKurir ? "Kode akses kurir" : "Kode akses";
+    }
     $("#authMsg").textContent = "";
   });
 });
@@ -2995,7 +3432,11 @@ $("#loginForm").addEventListener("submit", async e => {
     const cred = await signInWithEmailAndPassword(auth, email, pass);
     const snap = await getDoc(doc(db, "users", cred.user.uid));
     const data = snap.exists() ? snap.data() : { role: "customer" };
-    if (data.role !== authRole) { await signOut(auth); throw new Error(authRole === "admin" ? "Akun ini bukan admin toko." : "Akun ini adalah admin. Pilih tab Admin untuk masuk."); }
+    if (data.role !== authRole) {
+      await signOut(auth);
+      const labels = { admin: "admin", kurir: "kurir", customer: "pelanggan" };
+      throw new Error(`Akun ini bukan akun ${labels[authRole] || authRole}. Pilih role yang sesuai.`);
+    }
     authMsg("Berhasil masuk!", true);
   } catch (err) { authMsg(friendlyError(err)); }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Masuk'; }
@@ -3008,12 +3449,20 @@ $("#registerForm").addEventListener("submit", async e => {
   const btn = $("#registerBtn");
   if (pass.length < 6) return authMsg("Password minimal 6 karakter.");
   if (authRole === "admin" && kode !== ADMIN_CODE) return authMsg("Kode akses admin salah.");
+  if (authRole === "kurir" && kode !== KURIR_CODE) return authMsg("Kode akses kurir salah.");
+  if (authRole === "kurir" && !telp) return authMsg("Nomor WhatsApp wajib diisi untuk kurir.");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftarkan...';
   authMsg("");
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: nama });
-    await setDoc(doc(db, "users", cred.user.uid), { nama, email, role: authRole, telepon: authRole === "admin" ? "" : telp, alamat : authRole === "admin" ? "" : alamat, savedAddresses: [], createdAt: serverTimestamp() });
+    await setDoc(doc(db, "users", cred.user.uid), {
+      nama, email, role: authRole,
+      telepon: authRole === "admin" ? "" : telp,
+      alamat: (authRole === "admin" || authRole === "kurir") ? "" : alamat,
+      savedAddresses: [],
+      createdAt: serverTimestamp()
+    });
     authMsg("Pendaftaran berhasil! Mengalihkan...", true);
   } catch (err) { authMsg(friendlyError(err)); }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Daftar Sekarang'; }
@@ -3034,6 +3483,7 @@ function friendlyError(err) {
 
 async function doLogout() {
   if (courierWatchId != null) await stopCourierBroadcast(true);
+  if (kurirWatchId != null) await stopKurirGps(true);
   detachListeners(); cart = {}; wishlist = []; savedAddresses = [];
   adminOrderIds.clear(); adminOrdersReady = false;
   hasUnreadNotif = false; updateNotifDot(); stopPromoAuto();
@@ -3043,6 +3493,7 @@ async function doLogout() {
 }
 $("#btnLogout")?.addEventListener("click", doLogout);
 $("#adminLogout")?.addEventListener("click", doLogout);
+$("#kurirLogout")?.addEventListener("click", doLogout);
 
 onAuthStateChanged(auth, async user => {
   if (!user) { currentUser = null; showScreen("authScreen"); return; }
@@ -3052,19 +3503,21 @@ onAuthStateChanged(auth, async user => {
     const data = snap.exists() ? snap.data() : { nama: user.email, role: "customer" };
     currentUser = { uid: user.uid, email: user.email, ...data };
     if (currentUser.role === "admin") initAdmin();
+    else if (currentUser.role === "kurir") initKurir();
     else initCustomer();
   } catch (err) { console.error(err); toast("Gagal memuat profil: " + err.message, "err"); showScreen("authScreen"); }
   finally { loading(false); }
 });
 
 function detachListeners() {
-  [unsubProducts, unsubOrders, unsubAdminOrders, unsubCustomers, unsubSettings].forEach(fn => fn && fn());
-  unsubProducts = unsubOrders = unsubAdminOrders = unsubCustomers = unsubSettings = null;
+  [unsubProducts, unsubOrders, unsubAdminOrders, unsubCustomers, unsubSettings, unsubKurirOrders, unsubOngkirSettings].forEach(fn => fn && fn());
+  unsubProducts = unsubOrders = unsubAdminOrders = unsubCustomers = unsubSettings = unsubKurirOrders = unsubOngkirSettings = null;
   statusMapInitialized = false; lastStatusMap = {};
   adminOrderIds.clear(); adminOrdersReady = false;
   stopLiveTimer();
 }
 
+/* ================= CUSTOMER ================= */
 function initCustomer() {
   detachListeners();
   showScreen("customerScreen");
@@ -3078,6 +3531,7 @@ function initCustomer() {
   listenProducts();
   listenCustomerOrders();
   listenPaymentSettings();
+  listenOngkirSettings();
   updateCartBar();
   updateWishHeaderBadge();
   switchView("home");
@@ -3129,7 +3583,9 @@ function listenCustomerOrders() {
           if (isCourierLive(o) && packageMarkerRef.options.icon.options.html && !packageMarkerRef.options.icon.options.html.includes("courier")) {
             packageMarkerRef.setIcon(L.divIcon({ html:'<div class="map-marker courier"><i class="fas fa-motorcycle"></i></div>', className:'custom-map-marker', iconSize:[44,44], iconAnchor:[22,44] }));
           }
-          $("#mapPkgTitle").textContent = isCourierLive(o) ? "Posisi Kurir (LIVE)" : "Posisi Paket";
+          $("#mapPkgTitle").textContent = o.courierName
+            ? (isCourierLive(o) ? `Kurir LIVE: ${o.courierName}` : `Kurir: ${o.courierName}`)
+            : (isCourierLive(o) ? "Posisi Kurir (LIVE)" : "Posisi Paket");
         }
       }
     }
@@ -3267,6 +3723,21 @@ function paymentInfoHTML(pay) {
   return `<div class="payment-info"><div class="pay-icon ${pay}"><i class="fas ${info.icon}"></i></div><div class="pay-text"><strong>Pembayaran: ${info.label}</strong><span>${detail}</span></div></div>`;
 }
 
+function courierInfoHTML(o) {
+  if (!o || !o.courierName) return "";
+  const phoneClean = (o.courierPhone || "").replace(/\D/g, "");
+  const waLink = phoneClean ? `https://wa.me/${phoneClean.startsWith("0") ? "62" + phoneClean.slice(1) : phoneClean}?text=${encodeURIComponent(`Halo ${o.courierName}, saya pemilik pesanan #${o.id.slice(0,8).toUpperCase()}.`)}` : "";
+  return `
+    <div class="courier-info-card">
+      <div class="courier-avatar"><i class="fas fa-motorcycle"></i></div>
+      <div class="courier-text">
+        <strong><i class="fas fa-user-tie" style="font-size:9px;margin-right:3px"></i>${esc(o.courierName)}</strong>
+        <span>${o.courierPhone ? "📞 " + esc(o.courierPhone) : "Sedang mengantar pesananmu"}</span>
+      </div>
+      ${waLink ? `<a class="courier-phone-btn" href="${waLink}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Chat</a>` : ""}
+    </div>`;
+}
+
 function trackButtonHTML(o) {
   if (o.status === "dibatalkan") return "";
   const live = isCourierLive(o);
@@ -3291,7 +3762,10 @@ async function cancelOrder(orderId) {
   if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membatalkan...'; }
   try {
     for (const item of (order.items || [])) {
-      try { await updateDoc(doc(db, "products", item.id), { stok: increment(item.qty), terjual: increment(-item.qty) }); } catch (e) { console.warn("Restore stock err:", e); }
+      try {
+        const stockQty = (item.qty || 0) * (item.bundleQty || 1);
+        await updateDoc(doc(db, "products", item.id), { stok: increment(stockQty), terjual: increment(-stockQty) });
+      } catch (e) { console.warn("Restore stock err:", e); }
     }
     await updateDoc(doc(db, "orders", orderId), { status: "dibatalkan", cancelledAt: serverTimestamp(), cancelledBy: "customer", updatedAt: serverTimestamp() });
     toast("Pesanan berhasil dibatalkan ✓", "ok");
@@ -3305,13 +3779,29 @@ function orderItemHTML(i) {
   const img = i.gambar || PLACEHOLDER;
   const p = allProducts.find(x => x.id === i.id);
   const isSubsidi = !!p?.subsidi;
+  const isBundle = !!i.isBundle;
   return `<div class="order-item">
     <img src="${esc(img)}" class="order-item-img" onerror="this.src='${PLACEHOLDER}'" alt="${esc(i.nama)}">
     <div class="order-item-info">
-      <span>${esc(i.nama)} × ${i.qty}${isSubsidi ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</span>
+      <span>${esc(i.nama)} × ${i.qty}${isSubsidi ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}${isBundle ? ` <span class="cart-bundle-tag">BUNDEL ×${i.bundleQty}</span>` : ''}</span>
       <span>${rupiah(i.harga * i.qty)}</span>
     </div>
   </div>`;
+}
+
+function renderOrderTotalHTML(o) {
+  const total = Number(o.total) || 0;
+  const ongkir = Number(o.ongkir) || 0;
+  const subtotal = o.subtotal != null ? Number(o.subtotal) : (total - ongkir);
+  if (ongkir === 0 && subtotal === total) {
+    return `<div class="order-total"><span>Total</span><span>${rupiah(total)}</span></div>`;
+  }
+  return `
+    <div class="order-total-breakdown">
+      <div class="order-breakdown-row"><span>Subtotal</span><span>${rupiah(subtotal)}</span></div>
+      <div class="order-breakdown-row"><span>Ongkir${o.ongkirDistance ? ` (${Number(o.ongkirDistance).toFixed(1)} km)` : ''}${o.ongkirFree ? ' · <b style="color:#059669">GRATIS</b>' : ''}</span><span style="${o.ongkirFree ? 'color:#059669;font-weight:800' : ''}">${rupiah(ongkir)}</span></div>
+      <div class="order-breakdown-row grand"><span>Total</span><span>${rupiah(total)}</span></div>
+    </div>`;
 }
 
 function renderOrders() {
@@ -3331,8 +3821,9 @@ function renderOrders() {
         </div>
       </div>
       ${(o.items || []).map(orderItemHTML).join("")}
-      <div class="order-total"><span>Total</span><span>${rupiah(o.total)}</span></div>
+      ${renderOrderTotalHTML(o)}
       ${paymentInfoHTML(o.payment || "cod")}
+      ${courierInfoHTML(o)}
       ${shippingAlertHTML(o.status)}
       ${trackButtonHTML(o)}
       ${cancelButtonHTML(o)}
@@ -3464,19 +3955,28 @@ function addToCart(id) {
     saveCart(); updateCartBar(); toast(`${p.nama} (subsidi) ditambahkan`); return;
   }
   const current = cart[id]?.qty || 0;
-  if (current + 1 > Number(p.stok)) return toast("Stok tidak mencukupi", "err");
+  const inCart = totalProductQtyInCart(p.id);
+  if (inCart + 1 > Number(p.stok)) return toast("Stok tidak mencukupi", "err");
   cart[id] = { id: p.id, nama: p.nama, harga: hargaFinal, gambar: firstProductImage(p), qty: current + 1 };
   saveCart(); updateCartBar(); toast(`${p.nama} ditambahkan`);
 }
-function changeQty(id, delta) {
-  if (!cart[id]) return;
-  const p = allProducts.find(x => x.id === id);
+function changeQty(key, delta) {
+  if (!cart[key]) return;
+  const item = cart[key];
+  const p = allProducts.find(x => x.id === item.id);
   const isSubsidi = !!p?.subsidi;
-  const max = isSubsidi ? 1 : (p ? Number(p.stok) : 999);
-  if (isSubsidi && delta > 0 && cart[id].qty >= 1) return toast("Produk subsidi maksimal 1 pcs", "err");
-  cart[id].qty += delta;
-  if (cart[id].qty > max) { cart[id].qty = max; if (!isSubsidi) toast("Stok maksimal tercapai"); }
-  if (cart[id].qty <= 0) delete cart[id];
+  const isBundle = !!item.isBundle;
+  const perUnit = isBundle ? item.bundleQty : 1;
+
+  if (isSubsidi && delta > 0 && item.qty >= 1) return toast("Produk subsidi maksimal 1 pcs", "err");
+
+  if (delta > 0 && p) {
+    const totalAfter = totalProductQtyInCart(item.id) + perUnit;
+    if (totalAfter > Number(p.stok)) return toast("Stok tidak mencukupi", "err");
+  }
+
+  item.qty += delta;
+  if (item.qty <= 0) delete cart[key];
   saveCart(); updateCartBar(); renderCartSheet();
 }
 function cartTotals() {
@@ -3508,26 +4008,55 @@ function openCart() {
   renderCartSheet(); $("#cartOverlay").classList.add("show");
 }
 function closeCart() { $("#cartOverlay").classList.remove("show"); }
+
 function renderCartSheet() {
-  const items = Object.values(cart);
-  $("#cartItems").innerHTML = items.length ? items.map(i => {
+  const entries = Object.entries(cart);
+  $("#cartItems").innerHTML = entries.length ? entries.map(([key, i]) => {
     const p = allProducts.find(x => x.id === i.id);
     const isSubsidi = !!p?.subsidi;
+    const isBundle = !!i.isBundle;
     return `
     <div class="cart-item">
       <img src="${esc(i.gambar)}" onerror="this.src='${PLACEHOLDER}'">
       <div class="cart-item-info">
-        <h4>${esc(i.nama)}${isSubsidi ? '<span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</h4>
+        <h4>${esc(i.nama)}${isSubsidi ? '<span class="cart-subsidi-tag">SUBSIDI</span>' : ''}${isBundle ? `<span class="cart-bundle-tag">BUNDEL ×${i.bundleQty}</span>` : ''}</h4>
         <p>${rupiah(i.harga * i.qty)}</p>
       </div>
       <div class="qty-ctrl">
-        <button class="qty-btn" data-qty="-1" data-qid="${i.id}"><i class="fas fa-minus"></i></button>
+        <button class="qty-btn" data-qty="-1" data-qid="${esc(key)}"><i class="fas fa-minus"></i></button>
         <span class="qty-num">${i.qty}</span>
-        <button class="qty-btn" data-qty="1" data-qid="${i.id}" ${isSubsidi ? 'disabled' : ''}><i class="fas fa-plus"></i></button>
+        <button class="qty-btn" data-qty="1" data-qid="${esc(key)}" ${isSubsidi ? 'disabled' : ''}><i class="fas fa-plus"></i></button>
       </div>
     </div>`;
   }).join("") : `<div class="empty-state"><i class="fas fa-basket-shopping"></i>Keranjang masih kosong</div>`;
-  $("#cartSheetTotal").textContent = rupiah(cartTotals().total);
+
+  const subtotal = cartTotals().total;
+  let ongkir = 0;
+  let showOngkir = false;
+  let ongkirFree = false;
+
+  if (checkoutMode && ongkirSettings.enabled) {
+    const result = calculateOngkir(checkoutCoords.lat, checkoutCoords.lng, subtotal);
+    if (result.ongkir != null) { ongkir = result.ongkir; ongkirFree = !!result.free; showOngkir = true; }
+  }
+
+  const subtotalEl = $("#cartSubtotal");
+  if (subtotalEl) subtotalEl.textContent = rupiah(subtotal);
+
+  const ongkirRow = $("#cartOngkirRow");
+  if (ongkirRow) {
+    ongkirRow.style.display = showOngkir ? "flex" : "none";
+    const ongkirEl = $("#cartOngkir");
+    if (ongkirEl) {
+      ongkirEl.textContent = ongkirFree ? "🎉 GRATIS" : rupiah(ongkir);
+      ongkirEl.style.color = ongkirFree ? "#059669" : "";
+    }
+  }
+
+  const totalEl = $("#cartSheetTotal");
+  if (totalEl) totalEl.textContent = rupiah(subtotal + ongkir);
+
+  updateCheckoutOngkirUI();
 }
 
 function handleCheckout() {
@@ -3541,6 +4070,7 @@ function handleCheckout() {
     $("#coAlamat").value = currentUser.alamat || "";
     $("#btnCheckout").innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
     renderCheckoutAddressOptions();
+    renderCartSheet();
     updateWaProofLinks();
     $("#cartOverlay .sheet").scrollTop = 9999;
     return;
@@ -3562,8 +4092,11 @@ async function submitOrder() {
   if (subsidiItems.length > 1) return toast("Hanya boleh membeli 1 produk subsidi per pesanan", "err");
   if (subsidiItems.length === 1 && subsidiItems[0].qty > 1) return toast("Produk subsidi maksimal 1 pcs", "err");
 
-  const items = cartItems.map(i => ({ id: i.id, nama: i.nama, harga: i.harga, qty: i.qty, gambar: i.gambar || PLACEHOLDER }));
-  const total = items.reduce((s, i) => s + i.harga * i.qty, 0);
+  const items = cartItems.map(i => ({
+    id: i.id, nama: i.nama, harga: i.harga, qty: i.qty, gambar: i.gambar || PLACEHOLDER,
+    isBundle: !!i.isBundle, bundleQty: i.bundleQty || null
+  }));
+  const subtotal = items.reduce((s, i) => s + i.harga * i.qty, 0);
   const btn = $("#btnCheckout");
   btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
   try {
@@ -3577,15 +4110,39 @@ async function submitOrder() {
         destLat = pos.coords.latitude; destLng = pos.coords.longitude;
       } catch (e) {}
     }
+
+    let ongkir = 0, ongkirDistance = 0, ongkirFree = false;
+    if (ongkirSettings.enabled) {
+      const result = calculateOngkir(destLat, destLng, subtotal);
+      if (result.error) {
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
+        return toast(result.error, "err");
+      }
+      if (result.ongkir == null) {
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Buat Pesanan';
+        return toast("Tentukan lokasi pengiriman (pilih alamat atau gunakan GPS) untuk menghitung ongkir.", "err");
+      }
+      ongkir = result.ongkir;
+      ongkirDistance = result.distance || 0;
+      ongkirFree = !!result.free;
+    }
+
+    const total = subtotal + ongkir;
+
     await addDoc(collection(db, "orders"), {
       userId: currentUser.uid, namaPembeli: currentUser.nama || nama,
-      nama, telepon, alamat, catatan, items, total,
+      nama, telepon, alamat, catatan, items,
+      subtotal, ongkir, ongkirDistance, ongkirFree, total,
       payment: selectedPayment, paymentLabel: PAY_INFO[selectedPayment].label,
       status: "pending", destLat, destLng, courierActive: false,
       createdAt: serverTimestamp()
     });
+
     for (const it of items) {
-      try { await updateDoc(doc(db, "products", it.id), { stok: increment(-it.qty), terjual: increment(it.qty) }); } catch (e) { console.warn(e); }
+      try {
+        const stockQty = it.qty * (it.bundleQty || 1);
+        await updateDoc(doc(db, "products", it.id), { stok: increment(-stockQty), terjual: increment(stockQty) });
+      } catch (e) { console.warn(e); }
     }
     cart = {}; saveCart(); updateCartBar(); closeCart(); resetCheckoutLocation();
     toast("Pesanan berhasil dibuat! 🎉", "ok");
@@ -3610,7 +4167,277 @@ async function saveProfile() {
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Perubahan'; }
 }
 
-/* ============ ADMIN ============ */
+/* ================= KURIR ================= */
+function initKurir() {
+  detachListeners();
+  showScreen("kurirScreen");
+  $("#kurirWelcome").textContent = "Halo, " + (currentUser.nama || "Kurir") + " 👋";
+  attachKurirEvents();
+  listenKurirOrders();
+  switchKurirView("tugas");
+}
+
+function attachKurirEvents() {
+  if (kurirEventsAttached) return;
+  kurirEventsAttached = true;
+
+  document.querySelectorAll('#kurirScreen .admin-nav button[data-kview]').forEach(btn =>
+    btn.addEventListener("click", () => switchKurirView(btn.dataset.kview))
+  );
+
+  document.querySelector("#kurirScreen").addEventListener("click", e => {
+    const take = e.target.closest("[data-kurir-take]");
+    if (take) { takeKurirOrder(take.dataset.kurirTake); return; }
+
+    const startGps = e.target.closest("[data-kurir-start-gps]");
+    if (startGps) { startKurirGps(startGps.dataset.kurirStartGps); return; }
+
+    const stopGps = e.target.closest("[data-kurir-stop-gps]");
+    if (stopGps) { stopKurirGps(); return; }
+
+    const finish = e.target.closest("[data-kurir-finish]");
+    if (finish) { finishKurirOrder(finish.dataset.kurirFinish); return; }
+
+    const map = e.target.closest("[data-kurir-map]");
+    if (map) { const o = allOrders.find(x => x.id === map.dataset.kurirMap); if (o) openTrackingMap(o); return; }
+  });
+}
+
+function switchKurirView(v) {
+  document.querySelectorAll("#kurirScreen .admin-view").forEach(s => s.classList.remove("active"));
+  document.querySelector("#kurirScreen #kview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
+  document.querySelectorAll("#kurirScreen .admin-nav button[data-kview]").forEach(b =>
+    b.classList.toggle("active", b.dataset.kview === v)
+  );
+  const am = document.querySelector("#kurirScreen .admin-main");
+  if (am) am.scrollTop = 0;
+}
+
+function listenKurirOrders() {
+  unsubKurirOrders = onSnapshot(collection(db, "orders"), snap => {
+    allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    renderKurirOrders();
+  }, err => console.error("kurir orders:", err));
+}
+
+function renderKurirOrders() {
+  const available = allOrders.filter(o => o.status === "diproses" && !o.courierId);
+  const myOrders = allOrders.filter(o =>
+    o.courierId === currentUser.uid && (o.status === "dikirim" || o.status === "diproses")
+  );
+  const myDone = allOrders.filter(o =>
+    o.courierId === currentUser.uid && o.status === "selesai"
+  );
+
+  $("#kurirStatAvailable").textContent = available.length;
+  $("#kurirStatActive").textContent = myOrders.length;
+  $("#kurirStatDone").textContent = myDone.length;
+
+  const liveEl = $("#kurirStatLive");
+  if (liveEl) {
+    const isLive = kurirWatchId != null;
+    liveEl.textContent = isLive ? "Aktif" : "Nonaktif";
+    liveEl.style.color = isLive ? "#059669" : "";
+  }
+
+  const availCnt = $("#kurirAvailCount"); if (availCnt) availCnt.textContent = available.length + " pesanan";
+  const myCnt = $("#kurirMyCount"); if (myCnt) myCnt.textContent = myOrders.length + " pesanan";
+
+  const availEl = $("#kurirAvailableList");
+  if (availEl) {
+    availEl.innerHTML = available.length
+      ? available.map(o => kurirOrderCardHTML(o, "available")).join("")
+      : `<div class="kurir-empty"><i class="fas fa-inbox"></i>Belum ada pesanan tersedia.<br>Pesanan yang sudah dikonfirmasi admin (status <b>diproses</b>) akan muncul di sini.</div>`;
+  }
+
+  const myEl = $("#kurirMyOrdersList");
+  if (myEl) {
+    myEl.innerHTML = myOrders.length
+      ? myOrders.map(o => kurirOrderCardHTML(o, "mine")).join("")
+      : `<div class="kurir-empty"><i class="fas fa-motorcycle"></i>Belum ada tugas aktif.<br>Ambil pesanan di atas untuk mulai mengantar.</div>`;
+  }
+
+  const histEl = $("#kurirHistoryList");
+  if (histEl) {
+    histEl.innerHTML = myDone.length
+      ? myDone.map(o => kurirOrderCardHTML(o, "done")).join("")
+      : `<div class="kurir-empty"><i class="fas fa-clock-rotate-left"></i>Belum ada riwayat pengiriman.</div>`;
+  }
+}
+
+function kurirOrderCardHTML(o, mode) {
+  const live = isCourierLive(o);
+  const payInfo = PAY_INFO[o.payment] || PAY_INFO.cod;
+
+  let actions = "";
+  if (mode === "available") {
+    actions = `<button class="btn-kirim" data-kurir-take="${o.id}" style="width:100%;justify-content:center"><i class="fas fa-hand-holding"></i> Ambil Pesanan Ini</button>`;
+  } else if (mode === "mine") {
+    const gpsBtn = live
+      ? `<button class="btn-kirim selesai" data-kurir-stop-gps="1" style="flex:1"><i class="fas fa-stop"></i> Hentikan GPS</button>`
+      : `<button class="btn-kirim" data-kurir-start-gps="${o.id}" style="flex:1"><i class="fas fa-satellite-dish"></i> Mulai GPS</button>`;
+    actions = `
+      <div style="display:flex;gap:7px;flex-wrap:wrap;width:100%">
+        ${gpsBtn}
+        <button class="btn-lokasi" data-kurir-map="${o.id}" style="flex:0 0 auto"><i class="fas fa-map-location-dot"></i> Peta</button>
+      </div>
+      <button class="btn-kirim selesai" data-kurir-finish="${o.id}" style="width:100%;justify-content:center;margin-top:7px"><i class="fas fa-circle-check"></i> Tandai Selesai</button>
+    `;
+  } else if (mode === "done") {
+    actions = `<div style="font-size:11px;color:var(--text-soft);text-align:center;padding:6px 0"><i class="fas fa-circle-check" style="color:#059669"></i> Pengiriman selesai${o.completedAt ? " · " + timeAgo(o.completedAt) : ""}</div>`;
+  }
+
+  return `
+  <div class="adm-card ${live ? "is-courier-active" : ""}">
+    <div class="adm-card-head">
+      <span class="order-id">#${o.id.slice(0, 8).toUpperCase()} · ${timeAgo(o.createdAt)}</span>
+      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+        ${live ? '<span class="live-badge">LIVE</span>' : ''}
+        <span class="badge ${o.status}">${o.status}</span>
+      </div>
+    </div>
+    <div class="adm-line"><i class="fas fa-user"></i><span><b>${esc(o.nama || "-")}</b> · ${waPhoneHTML(o.telepon, o.nama, o.id)}</span></div>
+    <div class="adm-line"><i class="fas fa-location-dot"></i><span>${esc(o.alamat || "-")}</span></div>
+    ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
+    ${o.courierName && mode !== "mine" ? `<div class="adm-line" style="color:#1D4ED8"><i class="fas fa-motorcycle"></i><span>Kurir: <b>${esc(o.courierName)}</b></span></div>` : ""}
+    <div class="adm-items">
+      ${(o.items || []).map(i => `<div class="adm-item-row">
+        <img src="${esc(i.gambar || PLACEHOLDER)}" class="adm-item-img" onerror="this.src='${PLACEHOLDER}'">
+        <span class="adm-item-name">${esc(i.nama)} × ${i.qty}${i.isBundle ? ` <span class="cart-bundle-tag">BUNDEL ×${i.bundleQty}</span>` : ''}</span>
+      </div>`).join("")}
+    </div>
+    <div class="adm-card-foot">
+      <div>
+        <span class="adm-total">${rupiah(o.total)}</span>
+        ${(o.ongkir > 0 || o.subtotal != null) ? `<div style="font-size:9.5px;color:var(--text-soft);font-weight:600;margin-top:3px;line-height:1.4">Subtotal ${rupiah(o.subtotal != null ? o.subtotal : (o.total - (o.ongkir||0)))}${o.ongkir > 0 ? ` · Ongkir ${rupiah(o.ongkir)}` : ''}${o.ongkirFree ? ' <b style="color:#059669">· GRATIS</b>' : ''}${o.ongkirDistance ? ` (${Number(o.ongkirDistance).toFixed(1)}km)` : ''}</div>` : ''}
+      </div>
+      <span class="pay-badge ${o.payment || 'cod'}"><i class="fas ${payInfo.icon}"></i> ${payInfo.label}</span>
+    </div>
+    ${actions ? `<div class="adm-card-actions" style="flex-direction:column">${actions}</div>` : ""}
+  </div>`;
+}
+
+async function takeKurirOrder(orderId) {
+  const o = allOrders.find(x => x.id === orderId);
+  if (!o) return;
+  if (o.courierId && o.courierId !== currentUser.uid) {
+    return toast("Pesanan sudah diambil kurir lain", "err");
+  }
+  if (o.status !== "diproses") {
+    return toast("Pesanan belum siap diambil (status bukan 'diproses')", "err");
+  }
+  if (!confirm(`Ambil pesanan #${orderId.slice(0,8).toUpperCase()}?\n\nPastikan kamu siap mengantar pesanan ini.`)) return;
+
+  try {
+    await updateDoc(doc(db, "orders", orderId), {
+      courierId: currentUser.uid,
+      courierName: currentUser.nama || currentUser.email,
+      courierPhone: currentUser.telepon || "",
+      courierTakenAt: serverTimestamp(),
+      status: "dikirim",
+      updatedAt: serverTimestamp()
+    });
+    toast("✅ Pesanan berhasil diambil. GPS akan aktif otomatis.", "ok");
+    setTimeout(() => startKurirGps(orderId), 500);
+  } catch (err) {
+    toast("Gagal mengambil pesanan: " + err.message, "err");
+  }
+}
+
+async function finishKurirOrder(orderId) {
+  if (!confirm("Tandai pesanan ini sebagai SELESAI?\n\nPastikan paket sudah diterima pelanggan.")) return;
+  try {
+    if (kurirWatchId != null && kurirActiveOrderId === orderId) {
+      await stopKurirGps(true);
+    }
+    await updateDoc(doc(db, "orders", orderId), {
+      status: "selesai",
+      courierActive: false,
+      updatedAt: serverTimestamp(),
+      completedAt: serverTimestamp()
+    });
+    toast("✅ Pesanan selesai!", "ok");
+  } catch (err) {
+    toast("Gagal menyelesaikan: " + err.message, "err");
+  }
+}
+
+function startKurirGps(orderId) {
+  if (!navigator.geolocation) return toast("Browser tidak mendukung GPS", "err");
+  if (kurirWatchId != null) stopKurirGps(true);
+
+  kurirActiveOrderId = orderId;
+  kurirLastWrite = 0;
+  kurirLastPos = null;
+  kurirFirstFix = true;
+
+  updateDoc(doc(db, "orders", orderId), {
+    courierActive: true,
+    locationUpdatedAt: serverTimestamp()
+  }).then(() => { kurirLastWrite = Date.now(); }).catch(e => console.warn(e));
+
+  kurirWatchId = navigator.geolocation.watchPosition(
+    async (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const acc = pos.coords.accuracy;
+      const now = Date.now();
+      const moved = kurirLastPos ? haversineDistance(kurirLastPos, [lat, lng]) : 99999;
+
+      if (now - kurirLastWrite > COURIER_WRITE_INTERVAL_MS || moved > COURIER_WRITE_DISTANCE_M) {
+        kurirLastWrite = now;
+        kurirLastPos = [lat, lng];
+        try {
+          await updateDoc(doc(db, "orders", orderId), {
+            currentLat: lat, currentLng: lng, accuracy: acc,
+            courierActive: true,
+            locationUpdatedAt: serverTimestamp()
+          });
+        } catch (e) { console.warn("GPS write err:", e); }
+      }
+    },
+    (err) => {
+      let msg = "GPS error";
+      if (err.code === 1) msg = "Izin lokasi ditolak. Aktifkan GPS.";
+      else if (err.code === 2) msg = "Lokasi tidak tersedia";
+      else if (err.code === 3) msg = "GPS timeout";
+      toast(msg, "err");
+      stopKurirGps(true);
+    },
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 }
+  );
+
+  const liveEl = $("#kurirStatLive");
+  if (liveEl) { liveEl.textContent = "Aktif"; liveEl.style.color = "#059669"; }
+  toast("🛰️ Broadcast GPS aktif", "ok");
+  renderKurirOrders();
+}
+
+async function stopKurirGps(silent = false) {
+  if (kurirWatchId != null) {
+    navigator.geolocation.clearWatch(kurirWatchId);
+    kurirWatchId = null;
+  }
+  if (kurirActiveOrderId) {
+    try {
+      await updateDoc(doc(db, "orders", kurirActiveOrderId), {
+        courierActive: false,
+        locationUpdatedAt: serverTimestamp()
+      });
+    } catch (e) { console.warn(e); }
+  }
+  kurirActiveOrderId = null;
+  kurirLastPos = null;
+  kurirLastWrite = 0;
+  kurirFirstFix = true;
+  const liveEl = $("#kurirStatLive");
+  if (liveEl) { liveEl.textContent = "Nonaktif"; liveEl.style.color = ""; }
+  if (!silent) toast("⏸ GPS dihentikan");
+  renderKurirOrders();
+}
+
+/* ================= ADMIN ================= */
 function initAdmin() {
   showScreen("adminScreen");
   $("#adminWelcome").textContent = "Halo, " + (currentUser.nama || "Admin") + " 👋";
@@ -3619,6 +4446,7 @@ function initAdmin() {
   listenAdminOrders();
   listenCustomers();
   listenPaymentSettings();
+  listenOngkirSettings();
   switchAdminView("dashboard");
   initCloudinaryWidget();
 }
@@ -3627,7 +4455,9 @@ let adminEventsAttached = false;
 function attachAdminEvents() {
   if (adminEventsAttached) return;
   adminEventsAttached = true;
-  $$(".admin-nav button[data-aview]").forEach(btn => btn.addEventListener("click", () => switchAdminView(btn.dataset.aview)));
+  document.querySelectorAll("#adminScreen .admin-nav button[data-aview]").forEach(btn =>
+    btn.addEventListener("click", () => switchAdminView(btn.dataset.aview))
+  );
   $("#btnAddProduct").addEventListener("click", () => openProductForm());
   $("#productClose").addEventListener("click", () => $("#productOverlay").classList.remove("show"));
   $("#productOverlay").addEventListener("click", e => { if (e.target === $("#productOverlay")) $("#productOverlay").classList.remove("show"); });
@@ -3637,8 +4467,24 @@ function attachAdminEvents() {
   $("#pHarga").addEventListener("input", updateDiscountPreview);
   $("#pDiskon").addEventListener("input", updateDiscountPreview);
 
-  // ===== PENGATURAN PEMBAYARAN =====
+  /* Search produk admin */
+  $("#adminProductSearch")?.addEventListener("input", e => {
+    adminProductSearch = e.target.value;
+    renderAdminProducts();
+  });
+
+  /* Tambah baris bundel */
+  $("#btnAddBundle")?.addEventListener("click", () => addBundleRow());
+
+  /* Sembunyikan bundle saat produk subsidi */
+  $("#pSubsidi")?.addEventListener("change", e => {
+    const wrap = document.getElementById("wrapBundle");
+    if (wrap) wrap.style.display = e.target.checked ? "none" : "flex";
+  });
+
   $("#btnSaveSettings")?.addEventListener("click", savePaymentSettings);
+  $("#btnSaveOngkir")?.addEventListener("click", saveOngkirSettings);
+
   $("#btnUploadQris")?.addEventListener("click", () => {
     openCloudinaryWidget((url) => {
       currentQrisImage = url;
@@ -3700,11 +4546,14 @@ function attachAdminEvents() {
 }
 
 function switchAdminView(v) {
-  $$(".admin-view").forEach(s => s.classList.remove("active"));
-  $("#aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
-  $$(".admin-nav button[data-aview]").forEach(b => b.classList.toggle("active", b.dataset.aview === v));
-  const am = $(".admin-main"); if (am) am.scrollTop = 0;
-  if (v === "pengaturan") fillSettingsForm();
+  document.querySelectorAll("#adminScreen .admin-view").forEach(s => s.classList.remove("active"));
+  document.querySelector("#adminScreen #aview" + v.charAt(0).toUpperCase() + v.slice(1))?.classList.add("active");
+  document.querySelectorAll("#adminScreen .admin-nav button[data-aview]").forEach(b =>
+    b.classList.toggle("active", b.dataset.aview === v)
+  );
+  const am = document.querySelector("#adminScreen .admin-main");
+  if (am) am.scrollTop = 0;
+  if (v === "pengaturan") { fillSettingsForm(); fillOngkirForm(); }
 }
 
 function listenAdminProducts() {
@@ -3716,8 +4565,22 @@ function listenAdminProducts() {
 
 function renderAdminProducts() {
   const el = $("#adminProductList");
-  if (!allProducts.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i>Belum ada produk</div>`; return; }
-  el.innerHTML = allProducts.map(p => {
+  const search = (adminProductSearch || "").trim().toLowerCase();
+  let list = allProducts;
+  if (search) {
+    list = allProducts.filter(p =>
+      (p.nama || "").toLowerCase().includes(search) ||
+      (p.kategori || "").toLowerCase().includes(search) ||
+      (p.umkm || "").toLowerCase().includes(search)
+    );
+  }
+  if (!list.length) {
+    el.innerHTML = search
+      ? `<div class="empty-state"><i class="fas fa-search"></i>Tidak ada produk cocok dengan "${esc(adminProductSearch)}"</div>`
+      : `<div class="empty-state"><i class="fas fa-box-open"></i>Belum ada produk</div>`;
+    return;
+  }
+  el.innerHTML = list.map(p => {
     const diskon = Number(p.diskon) || 0;
     const stok = Number(p.stok) || 0;
     const isUmkm = p.kategori === UMKM_CAT;
@@ -3725,6 +4588,7 @@ function renderAdminProducts() {
     const umkmStore = (p.umkm || "").trim();
     const images = getProductImages(p);
     const imgCount = images.length;
+    const bundleCount = Array.isArray(p.bundles) ? p.bundles.length : 0;
     const hargaFinal = hargaSetelahDiskon(p.harga, diskon);
     return `
     <div class="adm-card ${isUmkm ? "is-umkm" : ""}">
@@ -3732,7 +4596,7 @@ function renderAdminProducts() {
         <img src="${esc(images[0])}" class="adm-img" onerror="this.src='${PLACEHOLDER}'">
         <div class="adm-prod-info">
           <h4>${esc(p.nama)}${isUmkm ? `<span class="adm-umkm-tag"><i class="fas fa-store"></i>UMKM</span>` : ""}${isSubsidi ? `<span class="adm-subsidi-tag"><i class="fas fa-hand-holding-heart"></i>SUBSIDI</span>` : ""}</h4>
-          <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b>${isUmkm && umkmStore ? ` · <i class="fas fa-user-tie" style="color:var(--umkm);font-size:9px"></i> ${esc(umkmStore)}` : ""} · ${imgCount} foto</span>
+          <span class="adm-sub">${esc(p.kategori || "-")} · Stok <b style="color:${stok > 0 ? "#047857" : "#DC2626"}">${stok}</b>${isUmkm && umkmStore ? ` · <i class="fas fa-user-tie" style="color:var(--umkm);font-size:9px"></i> ${esc(umkmStore)}` : ""} · ${imgCount} foto${bundleCount > 0 ? ` · <i class="fas fa-boxes-packing" style="color:var(--promo);font-size:9px"></i> ${bundleCount} bundel` : ""}</span>
           <div class="adm-price-row">
             <span class="adm-price">${rupiah(hargaFinal)}</span>
             ${diskon > 0 ? `<span class="price-original" style="font-size:10px">${rupiah(p.harga)}</span><span class="discount-badge">-${diskon}%</span>` : ""}
@@ -3766,6 +4630,18 @@ function openProductForm(id = null) {
   if (p && !formImages.length && p.gambar) formImages = [p.gambar];
   renderFormImages();
   updateDiscountPreview();
+
+  /* Populate bundel */
+  const bundleList = document.getElementById("bundleList");
+  if (bundleList) {
+    bundleList.innerHTML = "";
+    if (Array.isArray(p?.bundles) && p.bundles.length) {
+      p.bundles.forEach(b => addBundleRow(b.qty, b.price));
+    }
+    const wrap = document.getElementById("wrapBundle");
+    if (wrap) wrap.style.display = $("#pSubsidi").checked ? "none" : "flex";
+  }
+
   $("#productOverlay").classList.add("show");
 }
 
@@ -3785,11 +4661,32 @@ async function saveProduct() {
 
   const gambarList = formImages.filter(Boolean);
   const gambar = gambarList[0] || PLACEHOLDER;
+
+  /* Baca bundle */
+  const bundles = [];
+  if (!subsidi) {
+    const hargaFinal = hargaSetelahDiskon(harga, diskon);
+    const rows = document.querySelectorAll("#bundleList .bundle-row");
+    for (const row of rows) {
+      const q = Number(row.querySelector(".bundle-qty").value);
+      const pr = Number(row.querySelector(".bundle-price").value);
+      if (!q && !pr) continue;
+      if (q < 2) return toast("Qty bundel minimal 2 pcs", "err");
+      if (pr <= 0) return toast("Harga bundel harus lebih dari 0", "err");
+      const normalTotal = hargaFinal * q;
+      if (pr >= normalTotal) {
+        return toast(`Harga bundel ${q} pcs (${rupiah(pr)}) harus lebih murah dari harga normal (${rupiah(normalTotal)})`, "err");
+      }
+      bundles.push({ qty: q, price: pr });
+    }
+  }
+
   const data = {
     nama, kategori, harga, diskon, stok, gambar, gambarList,
     deskripsi: $("#pDeskripsi").value.trim(),
     umkm: kategori === UMKM_CAT ? umkm : "",
     subsidi,
+    bundles,
     updatedAt: serverTimestamp()
   };
   const btn = $("#btnSaveProduct");
@@ -3844,11 +4741,14 @@ function renderAdminOrders() {
     const live = isCourierLive(o);
     const showCourierBtn = (o.status === "diproses" || o.status === "dikirim");
     const courierBtnClass = live ? "btn-courier active" : "btn-courier";
-    const courierBtnText = live ? "🔴 Kurir LIVE" : "Mode Kurir";
+    const courierBtnText = live ? "🔴 Kurir LIVE" : "Mode Kurir (Admin)";
     const courierBtnIcon = live ? "fa-satellite-dish" : "fa-motorcycle";
     const isCancelled = o.status === "dibatalkan";
     const cancelledNote = isCancelled && o.cancelledBy === "customer"
       ? `<div class="adm-line" style="color:#B91C1C"><i class="fas fa-circle-xmark" style="color:#DC2626"></i><span><b>Dibatalkan oleh Pelanggan</b>${o.cancelledAt ? ` · ${timeAgo(o.cancelledAt)}` : ""}</span></div>` : "";
+    const courierNote = o.courierName
+      ? `<div class="adm-line" style="color:#1D4ED8"><i class="fas fa-motorcycle"></i><span>Kurir: <b>${esc(o.courierName)}</b>${o.courierPhone ? ` · ${waPhoneHTML(o.courierPhone, o.courierName, o.id)}` : ""}${o.courierTakenAt ? ` · ${timeAgo(o.courierTakenAt)}` : ""}</span></div>`
+      : "";
     return `
     <div class="adm-card ${live ? "is-courier-active" : ""} ${isCancelled ? "is-cancelled" : ""}">
       <div class="adm-card-head">
@@ -3858,22 +4758,27 @@ function renderAdminOrders() {
           <span class="badge ${o.status}">${o.status}</span>
         </div>
       </div>
-      <div class="adm-line"><i class="fas fa-user"></i><span><b>${esc(o.nama || o.namaPembeli || "-")}</b> · ${esc(o.telepon || "-")}</span></div>
+      <div class="adm-line"><i class="fas fa-user"></i><span><b>${esc(o.nama || o.namaPembeli || "-")}</b> · ${waPhoneHTML(o.telepon, o.nama || o.namaPembeli, o.id)}</span></div>
       <div class="adm-line"><i class="fas fa-location-dot"></i><span>${esc(o.alamat || "-")}</span></div>
       ${o.catatan ? `<div class="adm-line"><i class="fas fa-note-sticky"></i><span>${esc(o.catatan)}</span></div>` : ""}
+      ${courierNote}
       ${cancelledNote}
       <div class="adm-items">
         ${(o.items || []).map(i => {
           const prod = allProducts.find(x => x.id === i.id);
           const isSub = !!prod?.subsidi;
+          const isBundle = !!i.isBundle;
           return `<div class="adm-item-row">
             <img src="${esc(i.gambar || PLACEHOLDER)}" class="adm-item-img" onerror="this.src='${PLACEHOLDER}'">
-            <span class="adm-item-name">${esc(i.nama)} × ${i.qty}${isSub ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}</span>
+            <span class="adm-item-name">${esc(i.nama)} × ${i.qty}${isSub ? ' <span class="cart-subsidi-tag">SUBSIDI</span>' : ''}${isBundle ? ` <span class="cart-bundle-tag">BUNDEL ×${i.bundleQty}</span>` : ''}</span>
           </div>`;
         }).join("")}
       </div>
       <div class="adm-card-foot">
-        <span class="adm-total">${rupiah(o.total)}</span>
+        <div>
+          <span class="adm-total">${rupiah(o.total)}</span>
+          ${(o.ongkir > 0 || o.subtotal != null) ? `<div style="font-size:9.5px;color:var(--text-soft);font-weight:600;margin-top:3px;line-height:1.4">Subtotal ${rupiah(o.subtotal != null ? o.subtotal : (o.total - (o.ongkir||0)))}${o.ongkir > 0 ? ` · Ongkir ${rupiah(o.ongkir)}` : ''}${o.ongkirFree ? ' <b style="color:#059669">· GRATIS</b>' : ''}${o.ongkirDistance ? ` (${Number(o.ongkirDistance).toFixed(1)}km)` : ''}</div>` : ''}
+        </div>
         <span class="pay-badge ${pay}"><i class="fas ${payInfo.icon}"></i> ${payInfo.label}</span>
       </div>
       <div class="adm-card-actions">
@@ -3896,7 +4801,10 @@ async function updateOrderStatus(id, status) {
     const order = allOrders.find(o => o.id === id);
     if (status === "dibatalkan" && order && order.status !== "dibatalkan") {
       for (const item of (order.items || [])) {
-        try { await updateDoc(doc(db, "products", item.id), { stok: increment(item.qty), terjual: increment(-item.qty) }); } catch (e) { console.warn("Restore stock (admin) err:", e); }
+        try {
+          const stockQty = (item.qty || 0) * (item.bundleQty || 1);
+          await updateDoc(doc(db, "products", item.id), { stok: increment(stockQty), terjual: increment(-stockQty) });
+        } catch (e) { console.warn("Restore stock (admin) err:", e); }
       }
     }
     await updateDoc(doc(db, "orders", id), {
@@ -3911,17 +4819,23 @@ function listenCustomers() {
   unsubCustomers = onSnapshot(collection(db, "users"), snap => {
     allCustomers = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(u => u.role !== "admin");
     const el = $("#adminCustomerList");
-    el.innerHTML = allCustomers.length ? allCustomers.map(u => `
+    el.innerHTML = allCustomers.length ? allCustomers.map(u => {
+      const isKurir = u.role === "kurir";
+      return `
       <div class="cust-card">
-        <div class="cust-avatar">${esc(initials(u.nama || u.email))}</div>
+        <div class="cust-avatar ${isKurir ? "kurir" : ""}">${esc(initials(u.nama || u.email))}</div>
         <div class="cust-info">
-          <h4>${esc(u.nama || "-")}</h4>
-          <p><i class="fas fa-envelope" style="color:var(--red);font-size:9px"></i> ${esc(u.email || "-")}</p>
-          <p><i class="fas fa-phone" style="color:var(--red);font-size:9px"></i> ${esc(u.telepon || "-")}</p>
-          <p><i class="fas fa-location-dot" style="color:var(--red);font-size:9px"></i> ${esc(u.alamat || "-")}</p>
+          <h4>
+            ${esc(u.nama || "-")}
+            ${isKurir ? `<span class="adm-kurir-tag"><i class="fas fa-motorcycle"></i>KURIR</span>` : ""}
+          </h4>
+          <p><i class="fas fa-envelope" style="color:${isKurir ? "#2563EB" : "var(--red)"};font-size:9px"></i> ${esc(u.email || "-")}</p>
+          <p><i class="fas fa-phone" style="color:${isKurir ? "#2563EB" : "var(--red)"};font-size:9px"></i> ${u.telepon ? waPhoneHTML(u.telepon, u.nama, null) : "-"}</p>
+          ${!isKurir ? `<p><i class="fas fa-location-dot" style="color:var(--red);font-size:9px"></i> ${esc(u.alamat || "-")}</p>` : ""}
         </div>
-      </div>`).join("")
-      : `<div class="empty-state"><i class="fas fa-users"></i>Belum ada pelanggan</div>`;
+      </div>`;
+    }).join("")
+      : `<div class="empty-state"><i class="fas fa-users"></i>Belum ada pengguna</div>`;
   }, err => console.error(err));
 }
 

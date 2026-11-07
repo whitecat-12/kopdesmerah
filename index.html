@@ -719,7 +719,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <button class="auth-tab" data-tab="register">Daftar</button>
     </div>
     <form id="loginForm" class="auth-form active">
-      <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="loginEmail" placeholder="Alamat email" required></div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="loginEmail" placeholder="Email atau Nomor WhatsApp" required autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </div>
       <div class="input-group">
         <i class="fas fa-lock"></i>
         <input type="password" id="loginPassword" placeholder="Password" required>
@@ -729,6 +732,7 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
       <button type="button" class="forgot-link" id="btnForgotPassword">
         <i class="fas fa-circle-question"></i> Lupa Password?
       </button>
+      <p class="hint"><i class="fas fa-circle-info" style="margin-right:4px"></i> Bisa masuk pakai email <b>atau</b> nomor WhatsApp yang terdaftar.</p>
     </form>
     <form id="registerForm" class="auth-form">
       <div class="input-group"><i class="fas fa-user"></i><input type="text" id="regNama" placeholder="Nama lengkap" required></div>
@@ -738,10 +742,10 @@ header.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 14px rgba(24,
         <input type="password" id="regPassword" placeholder="Password (min. 6 karakter)" required>
         <button type="button" class="pw-toggle" data-toggle-pw="regPassword" aria-label="Tampilkan password"><i class="fas fa-eye"></i></button>
       </div>
-      <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="regTelepon" placeholder="Nomor WhatsApp"></div>
+      <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="regTelepon" placeholder="Nomor WhatsApp (wajib, bisa untuk login)" required></div>
       <div class="input-group"><i class="fas fa-location-dot"></i><input type="text" id="regAlamat" placeholder="Alamat rumah (RT/RW, Dusun)"></div>
       <button type="submit" class="btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i> Daftar Sekarang</button>
-      <p class="hint">Dengan mendaftar, kamu menyetujui syarat & ketentuan koperasi.</p>
+      <p class="hint">Dengan mendaftar, kamu menyetujui syarat & ketentuan koperasi. Nomor WhatsApp juga bisa dipakai login.</p>
     </form>
     <p class="auth-msg" id="authMsg"></p>
   </div>
@@ -1126,7 +1130,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore, collection, doc, getDoc, setDoc, addDoc,
-  updateDoc, onSnapshot, query, where, serverTimestamp, increment
+  updateDoc, deleteDoc, onSnapshot, query, where, serverTimestamp, increment
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const LOGO_URL = "logo.png";
@@ -1150,6 +1154,7 @@ const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 const LIVE_THRESHOLD_MS = 30000;
 const ADMIN_WA_NUMBER = "628214584600";
 const DEFAULT_QRIS_URL = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=KOPDESKU-MERAH-PUTIH-QRIS";
+const PHONE_MAP = "phoneMappings"; // koleksi mapping nomor HP -> { email, uid }
 
 const DEFAULT_PROMO_CARDS = [
   { tag:"PROMO SPESIAL", tagIcon:"fa-fire", title:"Diskon Spesial Untuk Sembako!", desc:"Waktu terbatas. Belanja sekarang sebelum kehabisan!", buttonText:"Beli Sekarang", buttonIcon:"fa-shopping-cart", buttonTarget:"promo", imageUrl:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80", bgGradient:"linear-gradient(135deg,#EF4444 0%,#DC2626 45%,#991B1B 100%)" },
@@ -1231,6 +1236,15 @@ function waNumber(phone) {
   else if (clean.startsWith("8")) clean = "62" + clean;
   else if (!clean.startsWith("62")) clean = "62" + clean;
   return clean;
+}
+
+// Deteksi apakah input "kelihatan seperti nomor HP" (hanya digit/spasi/+/-/())
+function isPhoneLike(str) {
+  const s = String(str || "").trim();
+  if (!s) return false;
+  // kalau ada huruf atau @, jelas bukan nomor HP
+  if (/[a-zA-Z@]/.test(s)) return false;
+  return /^[\d\s+\-()]+$/.test(s);
 }
 
 let splashHidden = false;
@@ -2221,12 +2235,41 @@ $$(".auth-tab").forEach(tab => {
 });
 function authMsg(text, ok = false) { const el = $("#authMsg"); el.textContent = text; el.classList.toggle("ok", ok); }
 
+// LOGIN — bisa pakai email ATAU nomor WhatsApp
 $("#loginForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const email = $("#loginEmail").value.trim(), pass = $("#loginPassword").value, btn = $("#loginBtn");
-  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+  const identifier = $("#loginEmail").value.trim();
+  const pass = $("#loginPassword").value;
+  const btn = $("#loginBtn");
+
+  if (!identifier) return authMsg("Email atau nomor WhatsApp wajib diisi");
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
   authMsg("");
+
   try {
+    let email = identifier;
+
+    // Kalau user mengetik nomor HP → cari email dari koleksi phoneMappings
+    if (isPhoneLike(identifier)) {
+      const phoneNorm = waNumber(identifier);
+      if (!phoneNorm || phoneNorm.length < 10 || phoneNorm.length > 15) {
+        throw new Error("Nomor WhatsApp tidak valid.");
+      }
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencari akun...';
+      const phoneSnap = await getDoc(doc(db, PHONE_MAP, phoneNorm));
+      if (!phoneSnap.exists()) {
+        throw new Error("Nomor WhatsApp belum terdaftar. Daftar dulu atau gunakan email.");
+      }
+      const mapped = phoneSnap.data();
+      if (!mapped || !mapped.email) {
+        throw new Error("Data akun tidak lengkap. Hubungi admin koperasi.");
+      }
+      email = mapped.email;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    }
+
     const cred = await signInWithEmailAndPassword(auth, email, pass);
     const snap = await getDoc(doc(db, "users", cred.user.uid));
     const data = snap.exists() ? snap.data() : { role: "customer" };
@@ -2235,29 +2278,74 @@ $("#loginForm").addEventListener("submit", async e => {
       throw new Error("Akun ini bukan akun pelanggan. Silakan gunakan panel yang sesuai.");
     }
     authMsg("Berhasil masuk!", true);
-  } catch (err) { authMsg(friendlyError(err)); }
+  } catch (err) {
+    // Pesan error dari kita sendiri (new Error) langsung pakai message-nya
+    if (err?.message && !err?.code) authMsg(err.message);
+    else authMsg(friendlyError(err));
+  }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Masuk'; }
 });
 
+// REGISTER — nomor HP wajib, sekaligus simpan mapping nomor HP → email
 $("#registerForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const nama = $("#regNama").value.trim(), email = $("#regEmail").value.trim(), pass = $("#regPassword").value;
-  const telp = $("#regTelepon").value.trim(), alamat = $("#regAlamat").value.trim();
+  const nama = $("#regNama").value.trim();
+  const email = $("#regEmail").value.trim().toLowerCase();
+  const pass = $("#regPassword").value;
+  const telp = $("#regTelepon").value.trim();
+  const alamat = $("#regAlamat").value.trim();
   const btn = $("#registerBtn");
+
   if (pass.length < 6) return authMsg("Password minimal 6 karakter.");
-  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftarkan...';
+  if (!nama) return authMsg("Nama wajib diisi.");
+  if (!email) return authMsg("Email wajib diisi.");
+
+  // Nomor HP wajib (untuk login alternatif)
+  if (!telp) return authMsg("Nomor WhatsApp wajib diisi (untuk login alternatif).");
+  const phoneNorm = waNumber(telp);
+  if (!phoneNorm || phoneNorm.length < 10 || phoneNorm.length > 15) {
+    return authMsg("Nomor WhatsApp tidak valid.");
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memeriksa nomor...';
   authMsg("");
+
   try {
+    // Cek dulu apakah nomor sudah dipakai akun lain
+    const phoneSnap = await getDoc(doc(db, PHONE_MAP, phoneNorm));
+    if (phoneSnap.exists()) {
+      throw new Error("Nomor WhatsApp sudah terdaftar. Gunakan nomor lain atau login dengan nomor tersebut.");
+    }
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftarkan...';
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: nama });
+
+    // Simpan data user
     await setDoc(doc(db, "users", cred.user.uid), {
       nama, email, role: "customer",
       telepon: telp, alamat,
       savedAddresses: [],
       createdAt: serverTimestamp()
     });
+
+    // Simpan mapping nomor HP → email untuk login alternatif
+    try {
+      await setDoc(doc(db, PHONE_MAP, phoneNorm), {
+        email, uid: cred.user.uid,
+        createdAt: serverTimestamp()
+      });
+    } catch (mapErr) {
+      // Kalau gagal, user tetap bisa login pakai email
+      console.warn("phone mapping failed:", mapErr);
+    }
+
     authMsg("Pendaftaran berhasil! Mengalihkan...", true);
-  } catch (err) { authMsg(friendlyError(err)); }
+  } catch (err) {
+    if (err?.message && !err?.code) authMsg(err.message);
+    else authMsg(friendlyError(err));
+  }
   finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Daftar Sekarang'; }
 });
 
@@ -2265,7 +2353,8 @@ $("#registerForm").addEventListener("submit", async e => {
 $("#btnForgotPassword")?.addEventListener("click", () => {
   const emailInput = $("#forgotEmail");
   const loginEmail = $("#loginEmail")?.value.trim() || "";
-  if (emailInput) emailInput.value = loginEmail;
+  // Kalau yang diisi user di login bukan email (misal nomor HP), kosongkan saja
+  if (emailInput) emailInput.value = loginEmail.includes("@") ? loginEmail : "";
   const msg = $("#forgotMsg");
   if (msg) { msg.textContent = ""; msg.classList.remove("ok"); }
   const btn = $("#btnSendReset");
@@ -2328,7 +2417,7 @@ async function sendResetPassword() {
 function friendlyError(err) {
   const c = err?.code || "";
   if (c.includes("email-already-in-use")) return "Email sudah terdaftar.";
-  if (c.includes("invalid-credential") || c.includes("wrong-password")) return "Email atau password salah.";
+  if (c.includes("invalid-credential") || c.includes("wrong-password")) return "Email/nomor atau password salah.";
   if (c.includes("user-not-found")) return "Akun tidak ditemukan.";
   if (c.includes("invalid-email")) return "Format email tidak valid.";
   if (c.includes("network")) return "Koneksi internet bermasalah.";
@@ -2977,11 +3066,46 @@ async function submitOrder() {
 
 async function saveProfile() {
   const btn = $("#btnSaveProfile");
-  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+  const nama = $("#epNama").value.trim();
+  const telepon = $("#epTelepon").value.trim();
+  const alamat = $("#epAlamat").value.trim();
+
+  const oldPhoneNorm = waNumber(currentUser.telepon || "");
+  const newPhoneNorm = waNumber(telepon);
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
   try {
-    const data = { nama: $("#epNama").value.trim(), telepon: $("#epTelepon").value.trim(), alamat: $("#epAlamat").value.trim() };
+    // Kalau nomor berubah → sinkronkan mapping nomor HP
+    if (oldPhoneNorm !== newPhoneNorm) {
+      if (newPhoneNorm && (newPhoneNorm.length < 10 || newPhoneNorm.length > 15)) {
+        throw new Error("Nomor WhatsApp tidak valid");
+      }
+      if (newPhoneNorm) {
+        const phoneSnap = await getDoc(doc(db, PHONE_MAP, newPhoneNorm));
+        if (phoneSnap.exists() && phoneSnap.data().uid !== currentUser.uid) {
+          throw new Error("Nomor WhatsApp sudah digunakan akun lain");
+        }
+      }
+      // Buat mapping baru dulu (kalau ada), baru hapus yang lama
+      if (newPhoneNorm) {
+        await setDoc(doc(db, PHONE_MAP, newPhoneNorm), {
+          email: (currentUser.email || "").toLowerCase(),
+          uid: currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+      }
+      if (oldPhoneNorm) {
+        try { await deleteDoc(doc(db, PHONE_MAP, oldPhoneNorm)); }
+        catch (e) { console.warn("delete old phone map:", e); }
+      }
+    }
+
+    const data = { nama, telepon, alamat };
     await updateDoc(doc(db, "users", currentUser.uid), data);
     Object.assign(currentUser, data);
+
     $("#userName").textContent = data.nama || "Pelanggan";
     $("#profileNama").textContent = data.nama;
     $("#profileAvatar").textContent = initials(data.nama);
